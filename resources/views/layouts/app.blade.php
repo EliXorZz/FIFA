@@ -98,12 +98,14 @@
 
 <script>
 const items = document.querySelectorAll('header > nav > ul > li')
-console.log(items)
 let current
 
 items.forEach(item => {
     item.addEventListener('mouseenter', (event) => {
         target = item.querySelector('div[data-menu]')
+
+        if (target == null)
+            return
 
         if (current != null && current != target)
             delete current.dataset.state
@@ -117,6 +119,9 @@ items.forEach(item => {
 
     item.addEventListener('mouseleave', (event) => {
         target = item.querySelector('div[data-menu]')
+
+        if (target == null)
+            return
 
         if (current == target)
             delete current.dataset.state
