@@ -8,7 +8,7 @@
     <div class="hidden sm:flex flex-col gap-4 w-56 mt-10 border-r border-black">
         <p class="text-xl font-bold uppercase">Filtrer</p>
 
-        <details class="[&_svg]:open:-rotate-0">
+        <details open id="filtre_couleurs" class="[&_svg]:open:-rotate-0">
             <summary class="cursor-pointer flex gap-3 list-none items-center font-bold uppercase">
                 <p>
                     Couleur
@@ -23,7 +23,7 @@
                 <ul class="mt-2 gap-2 leading-loose">
                     @foreach ($couleurs as $couleur)
                         <li class="flex gap-2 items-center">
-                            <input type="checkbox" class="cursor-pointer w-4 h-4 border-1 border-black text-black focus:ring-0 focus:ring-offset-0" />
+                            <input type="checkbox" class="cursor-pointer w-4 h-4 border-1 border-black text-black focus:ring-0 focus:ring-offset-0" value="{{ $couleur->idcouleur }}" @checked($filtre_couleurs->contains($couleur->idcouleur)) />
                             <p class="whitespace-nowrap">{{ $couleur->nomcouleur }}</p>
                         </li>
                     @endforeach
@@ -31,7 +31,7 @@
             </div>
         </details>
 
-        <details class="[&_svg]:open:-rotate-0">
+        <details open id="filtre_tailles" class="[&_svg]:open:-rotate-0 filter">
             <summary class="cursor-pointer flex gap-3 list-none items-center font-bold uppercase">
                 <p>
                     Taille
@@ -46,7 +46,7 @@
                 <ul class="mt-2 gap-2 leading-loose">
                     @foreach ($tailles as $taille)
                         <li class="flex gap-2 items-center">
-                            <input type="checkbox" class="cursor-pointer w-4 h-4 border-1 border-black text-black focus:ring-0 focus:ring-offset-0" />
+                            <input type="checkbox" class="cursor-pointer w-4 h-4 border-1 border-black text-black focus:ring-0 focus:ring-offset-0" value="{{ $taille->idtailleproduit }}" @checked($filtre_tailles->contains($taille->idtailleproduit)) />
                             <p class="whitespace-nowrap">{{ $taille->nomtailleproduit }}</p>
                         </li>
                     @endforeach
@@ -69,7 +69,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             @foreach ($produits as $produit)
                 <div class="shadow-lg divide-y divide-black group cursor-pointer select-none">
-                    <div class="h-72 transition ease-linear duration-300 delay-75 group-hover:scale-110">
+                    <div class="h-72 transition ease-linear duration-300 delay-75 group-hover:scale-90">
                         <img src="{{ $produit->images->first()->urlimageproduit }}" class="h-full w-full object-contain"/>
                     </div>
                     <div class="px-7 pt-3 pb-4">
@@ -83,13 +83,52 @@
 </div>
 
 <script>
-    const orderSelect = document.getElementById('order')
+    // ORDER
+    const orderSelect = document.querySelector('#order')
 
     orderSelect.addEventListener('change', (event) => {
         let value = event.target.value
 
         let location = new URL(window.location.href)
         location.searchParams.set('order', value)
+
+        window.location.href = location
+    })
+
+    // FILTRE
+    const filtreCouleurs = document.querySelector('#filtre_couleurs')
+    const filtreTailles = document.querySelector('#filtre_tailles')
+
+    filtreCouleurs.addEventListener('change', (event) => {
+        let couleurs = []
+
+        for (const filtre of filtreCouleurs.querySelectorAll('input'))
+            if (filtre.checked)
+                couleurs.push(filtre.value)
+
+        let location = new URL(window.location.href)
+
+        if (couleurs.length)
+            location.searchParams.set('couleurs', couleurs.join(','))
+        else
+            location.searchParams.delete('couleurs')
+
+        window.location.href = location
+    })
+
+    filtreTailles.addEventListener('change', (event) => {
+        let tailles = []
+
+        for (const filtre of filtreTailles.querySelectorAll('input'))
+            if (filtre.checked)
+                tailles.push(filtre.value)
+
+        let location = new URL(window.location.href)
+
+        if (tailles.length > 0)
+            location.searchParams.set('tailles', tailles.join(','))
+        else
+            location.searchParams.delete('tailles')
 
         window.location.href = location
     })

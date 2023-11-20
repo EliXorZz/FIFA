@@ -12,8 +12,11 @@ class ProduitController extends Controller
     function index(ProduitsRequest $request) {
         $validated = $request->validated();
 
-        $produits = Produit::select(['produit.idproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
-            ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit');
+        $select = ['produit.idproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'];
+        $produits = Produit::select($select)
+            ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit')
+            ->join('produitcontienttaille', 'produitcontienttaille.idproduit', '=', 'produit.idproduit')
+            ->distinct();
 
         if (isset($validated['nation'])) {
             $produits = $produits->where('idnation', '=', $validated['nation']);
@@ -25,20 +28,19 @@ class ProduitController extends Controller
 
         $couleurList = (clone $produits)
             ->select(['couleur.idcouleur', 'nomcouleur'])
-            ->distinct()
             ->join('couleur', 'couleur.idcouleur', '=', 'variantecouleurproduit.idcouleur')
+            ->orderBy('couleur.idcouleur', 'asc')
             ->get();
 
         $tailleList = (clone $produits)
             ->select(['tailleproduit.idtailleproduit', 'nomtailleproduit'])
-            ->distinct()
-            ->join('produitcontienttaille', 'produitcontienttaille.idproduit', '=', 'produit.idproduit')
             ->join('tailleproduit', 'tailleproduit.idtailleproduit', '=', 'produitcontienttaille.idtailleproduit')
+            ->orderBy('tailleproduit.idtailleproduit', 'asc')
             ->get();
 
         $couleurs = collect();
         if (isset($validated['couleurs'])) {
-            $couleurs = explode(',', $validated['couleurs']);
+            $couleurs = collect(explode(',', $validated['couleurs']));
 
             $produits = $produits->where(function($query) use($couleurs) {
                 foreach ($couleurs as $couleur) {
@@ -49,7 +51,7 @@ class ProduitController extends Controller
 
         $tailles = collect();
         if (isset($validated['tailles'])) {
-            $tailles = explode(',', $validated['tailles']);
+            $tailles = collect(explode(',', $validated['tailles']));
 
             $produits = $produits->where(function($query) use($tailles) {
                 foreach ($tailles as $taille) {
