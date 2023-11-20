@@ -70,7 +70,7 @@
             @foreach ($produits as $produit)
                 <div class="shadow-lg divide-y divide-black group cursor-pointer select-none">
                     <div class="h-72 transition ease-linear duration-300 delay-75 group-hover:scale-110">
-                        <img src="{{ asset('assets/produit.png') }}" class="h-full w-full object-contain"/>
+                        <img src="{{ $produit->images->first()->urlimageproduit }}" class="h-full w-full object-contain"/>
                     </div>
                     <div class="px-7 pt-3 pb-4">
                         <p class="font-medium">{{ $produit->titreproduit }}</p>

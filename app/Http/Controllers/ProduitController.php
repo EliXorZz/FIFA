@@ -12,9 +12,8 @@ class ProduitController extends Controller
     function index(ProduitsRequest $request) {
         $validated = $request->validated();
 
-        $produits = Produit::select(['produit.idproduit', 'produitcontienttaille.idtailleproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
-            ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit')
-            ->join('produitcontienttaille', 'produitcontienttaille.idproduit', '=', 'produit.idproduit');
+        $produits = Produit::select(['produit.idproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
+            ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit');
 
         if (isset($validated['nation'])) {
             $produits = $produits->where('idnation', '=', $validated['nation']);
@@ -33,6 +32,7 @@ class ProduitController extends Controller
         $tailleList = (clone $produits)
             ->select(['tailleproduit.idtailleproduit', 'nomtailleproduit'])
             ->distinct()
+            ->join('produitcontienttaille', 'produitcontienttaille.idproduit', '=', 'produit.idproduit')
             ->join('tailleproduit', 'tailleproduit.idtailleproduit', '=', 'produitcontienttaille.idtailleproduit')
             ->get();
 
@@ -62,7 +62,9 @@ class ProduitController extends Controller
             $produits = $produits->orderBy('prix', $validated['order']);
         }
 
-        $produits = $produits->get();
+        $produits = $produits
+            ->with('images')
+            ->get();
 
         return view('produits', [
             'produits' => $produits,

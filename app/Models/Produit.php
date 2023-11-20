@@ -45,4 +45,8 @@ class Produit extends Model
     public function couleurs() {
         return $this->belongsToMany(Couleur::class, 'produitcontientcouleur', $this->primaryKey, 'idcouleur');
     }
+
+    public function images() {
+        return $this->belongsToMany(ImageProduit::class, 'produitcontientimage', $this->primaryKey, 'idimageproduit');
+    }
 }
