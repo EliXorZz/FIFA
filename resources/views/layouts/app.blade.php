@@ -71,7 +71,7 @@
                                 <ul class="columns-8 gap-4 text-slate-800 mt-3 leading-loose">
                                     @foreach (App\Models\Nation::all() as $nation)
                                         <li>
-                                            <a href="" class="hover:underline">{{ $nation->nomnation }}</a>
+                                            <a href="{{ route('produits', ['nation' => $nation->idnation]) }}" class="hover:underline">{{ $nation->nomnation }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -82,7 +82,7 @@
 
                 @foreach (App\Models\CategorieProduit::all() as $categorie)
                     <li class="h-full">
-                        <a class="flex items-center justify-center px-5 h-full hover:bg-neutral-700">
+                        <a href="{{ route('produits', ['categorie' => $categorie->idcategorieproduit]) }}" class="flex items-center justify-center px-5 h-full hover:bg-neutral-700">
                             {{ $categorie->nomcategorieproduit }}
                         </a>
                     </li>
