@@ -59,10 +59,10 @@
         <div class="flex items-center justify-between">
             <p class="text-sm font-light">{{ $produits->count() }} produit(s) trouvé(s)</p>
 
-            <select class="w-72 border-gray-300 text-gray-700 focus:border-gray-300 focus:ring-0">
-                <option selected>Trier par</option>
-                <option value="asc">Prix croissant</option>
-                <option value="desc">Prix décroissant</option>
+            <select id="order" class="w-72 border-gray-300 text-gray-700 focus:border-gray-300 focus:ring-0">
+                <option value="default" @selected(!request()->has('order'))>Trier par</option>
+                <option value="asc" @selected(request()->query('order') == 'asc')>Prix croissant</option>
+                <option value="desc" @selected(request()->query('order') == 'desc')>Prix décroissant</option>
             </select>
         </div>
 
@@ -81,5 +81,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    const orderSelect = document.getElementById('order')
+
+    orderSelect.addEventListener('change', (event) => {
+        let value = event.target.value
+
+        let location = new URL(window.location.href)
+        location.searchParams.set('order', value)
+
+        window.location.href = location
+    })
+</script>
 
 @endsection
