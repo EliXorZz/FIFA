@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\UtilisateurController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/produits', [ProduitController::class, 'index'])
+Route::get('/produits', [ ProduitController::class, 'index' ])
     ->name('produits');
+
+Route::get("/register", [ UtilisateurController::class, 'register' ])
+    ->name("register");
+Route::post("/register", [ UtilisateurController::class, 'doRegister' ])
+    ->name("register");
