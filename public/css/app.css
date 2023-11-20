@@ -744,6 +744,9 @@ select {
 .mt-10 {
   margin-top: 2.5rem;
 }
+.mr-14 {
+  margin-right: 3.5rem;
+}
 .flex {
   display: flex;
 }
@@ -837,6 +840,9 @@ select {
 .w-60 {
   width: 15rem;
 }
+.w-14 {
+  width: 3.5rem;
+}
 .min-w-fit {
   min-width: -moz-fit-content;
   min-width: fit-content;
@@ -894,6 +900,14 @@ select {
 .columns-9 {
   -moz-columns: 9;
        columns: 9;
+}
+.columns-7 {
+  -moz-columns: 7;
+       columns: 7;
+}
+.columns-8 {
+  -moz-columns: 8;
+       columns: 8;
 }
 .auto-cols-max {
   grid-auto-columns: max-content;
@@ -990,6 +1004,9 @@ select {
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.whitespace-nowrap {
   white-space: nowrap;
 }
 .rounded-full {
@@ -1113,6 +1130,18 @@ select {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 }
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+.py-7 {
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
 .pe-10 {
   padding-inline-end: 2.5rem;
 }
@@ -1145,6 +1174,9 @@ select {
 }
 .pr-7 {
   padding-right: 1.75rem;
+}
+.pr-14 {
+  padding-right: 3.5rem;
 }
 .text-left {
   text-align: left;
@@ -1188,6 +1220,12 @@ select {
 }
 .leading-tight {
   line-height: 1.25;
+}
+.leading-3 {
+  line-height: .75rem;
+}
+.leading-10 {
+  line-height: 2.5rem;
 }
 .tracking-wider {
   letter-spacing: 0.05em;
@@ -1302,6 +1340,9 @@ select {
 .hover\:text-gray-700:hover {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+.hover\:underline:hover {
+  text-decoration-line: underline;
 }
 .focus\:border-transparent:focus {
   border-color: transparent;

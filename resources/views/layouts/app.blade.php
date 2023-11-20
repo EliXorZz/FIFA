@@ -56,45 +56,37 @@
         </div>
 
         <nav class="relative bg-neutral-900 text-white h-10">
-            <ul class="flex gap-20 items-center justify-center h-full uppercase select-none">
+            <ul class="flex gap-10 items-center justify-center h-full uppercase select-none">
                 <li class="h-full" >
                     <div class="cursor-pointer flex items-center justify-center px-5 h-full hover:bg-neutral-700">
                         Nations
                     </div>
 
-                    <div data-menu class="z-10 hidden data-[state=on]:flex gap-20 items-center w-screen h-72 bg-gray-50 text-black shadow-inner absolute top-10 left-0 normal-case">
-                        <div class="flex gap-28 ml-14">
+                    <div data-menu class="z-10 hidden data-[state=on]:flex gap-20 items-center w-full min-h-72 bg-gray-50 text-black shadow-inner absolute top-10 left-0 normal-case">
+                        <div class="flex gap-28 ml-14 py-6">
                             <div class="w-full">
-                                <p>Maillot des nations</p>
+                                <p>Produit(s) des nations</p>
                                 <div class="bg-black w-full h-px mt-1"></div>
 
-                                <ul class="columns-9 gap-14 text-slate-800 mt-3 leading-loose">
-
+                                <ul class="columns-8 gap-4 text-slate-800 mt-3 leading-loose">
+                                    @foreach (App\Models\Nation::all() as $nation)
+                                        <li>
+                                            <a href="" class="hover:underline">{{ $nation->nomnation }}</a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </li>
-                <li class="h-full">
-                    <a class="cursor-pointer flex items-center justify-center px-5 h-full hover:bg-neutral-700">
-                        Maillot
-                    </a>
-                </li>
-                <li class="h-full">
-                    <a class="cursor-pointer flex items-center justify-center px-5 h-full hover:bg-neutral-700">
-                        Vêtement
-                    </a>
-                </li>
-                <li class="h-full">
-                    <a class="cursor-pointer flex items-center justify-center px-5 h-full hover:bg-neutral-700">
-                        Accessoires
-                    </a>
-                </li>
-                <li class="h-full">
-                    <div class="cursor-pointer flex items-center justify-center px-5 h-full hover:bg-neutral-700">
-                        Objets de collection
-                    </div>
-                </li>
+
+                @foreach (App\Models\CategorieProduit::all() as $categorie)
+                    <li class="h-full">
+                        <a class="flex items-center justify-center px-5 h-full hover:bg-neutral-700">
+                            {{ $categorie->nomcategorieproduit }}
+                        </a>
+                    </li>
+                @endforeach
             </ul>
         </nav>
     </header>
