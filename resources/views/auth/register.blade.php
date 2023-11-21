@@ -1,14 +1,15 @@
 @extends('layouts.base')
 
+@section('bodyClass', 'bg-gradient-to-r from-gray-800 to-gray-600')
 @section('body')
-<div class="flex items-center justify-center h-screen bg-gradient-to-r from-gray-800 to-gray-600">
+<div class="flex items-center justify-center my-14">
     <div class="p-10 bg-white">
-        <p class="mb-5 text-3xl font-bold">Inscription</p>
+        <p class="mb-5 text-3xl font-bold uppercase">Inscription</p>
 
-        <form action="{{ route('register') }}" method="post" class="grid grid-cols-6 gap-2">
+        <form action="{{ route('register') }}" method="post" class="grid grid-cols-6 gap-3">
             @csrf()
 
-            <label for="prenomutilisateur" class="flex flex-col gap-1 col-span-3">
+            <label for="prenomutilisateur" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
                 Prénom
 
                 <input
@@ -24,7 +25,7 @@
                 @enderror
             </label>
 
-            <label for="surnomutilisateur" class="flex flex-col gap-1 col-span-3">
+            <label for="surnomutilisateur" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
                 Nom d'utilisateur
 
                 <input
@@ -56,7 +57,7 @@
                 @enderror
             </label>
 
-            <label for="idlangue" class="flex flex-col gap-1 col-span-3">
+            <label for="idlangue" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
                 Langue
 
                 <select id="idlangue" name="idlangue" class="border-black col-span-6 focus:border-black focus:ring-0">
@@ -71,7 +72,7 @@
                 @enderror
             </label>
 
-            <label for="datenaissance" class="flex flex-col gap-1 col-span-3">
+            <label for="datenaissance" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
                 Date naissance
 
                 <input
@@ -87,10 +88,10 @@
                 @enderror
             </label>
 
-            <label for="idpays" class="flex flex-col gap-1 col-span-3">
+            <label for="idpays" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
                 Pays de naissance
 
-                <select id="idpays" name="idpays" class="border-black col-span-3 focus:border-black focus:ring-0">
+                <select id="idpays" name="idpays" class="border-black col-span-6 sm:col-span-3 focus:border-black focus:ring-0">
                     <option disabled selected>Choisir un pays de naissance</option>
                     @foreach ($pays as $item)
                         <option value="{{$item->idpays}}" @selected(old('idpays') == $item->idpays)>{{ $item->nompays }}</option>
@@ -102,10 +103,10 @@
                 @enderror
             </label>
 
-            <label for="idpaysfavori" class="flex flex-col gap-1 col-span-3">
+            <label for="idpaysfavori" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
                 Pays favori
 
-                <select id="idpaysfavori" name="idpaysfavori" class="border-black col-span-3 focus:border-black focus:ring-0">
+                <select id="idpaysfavori" name="idpaysfavori" class="border-black col-span-6 sm:col-span-3 focus:border-black focus:ring-0">
                     <option disabled selected>Choisir un pays favori</option>
                     @foreach ($pays as $item)
                         <option value="{{$item->idpays}}" @selected(old('idpaysfavori') == $item->idpays)>{{ $item->nompays }}</option>
@@ -117,7 +118,7 @@
                 @enderror
             </label>
 
-            <label for="motpasse" class="flex flex-col gap-1 col-span-3">
+            <label for="motpasse" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
                 Mot de passe
 
                 <input
@@ -132,7 +133,7 @@
                 @enderror
             </label>
 
-            <label for="motpasse_confirmation" class="flex flex-col gap-1 col-span-3">
+            <label for="motpasse_confirmation" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
                 Confirmation mot de passe
 
                 <input
