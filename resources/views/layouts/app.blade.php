@@ -66,7 +66,7 @@
                             <div class="bg-black w-full h-px mt-1"></div>
 
                             <ul class="columns-8 gap-4 text-slate-800 mt-3 leading-loose">
-                                @foreach (App\Models\Nation::all() as $nation)
+                                @foreach (App\Models\Nation::orderBy('idnation')->get() as $nation)
                                     <li>
                                         <a href="{{ route('produits', ['nation' => $nation->idnation]) }}" class="hover:underline">{{ $nation->nomnation }}</a>
                                     </li>
@@ -77,7 +77,7 @@
                 </div>
             </li>
 
-            @foreach (App\Models\CategorieProduit::all() as $categorie)
+            @foreach (App\Models\CategorieProduit::orderBy('idcategorieproduit')->get() as $categorie)
                 <li class="h-full">
                     <a href="{{ route('produits', ['categorie' => $categorie->idcategorieproduit]) }}" class="flex items-center justify-center px-5 h-full hover:bg-neutral-700">
                         {{ $categorie->nomcategorieproduit }}

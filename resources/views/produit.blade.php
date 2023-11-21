@@ -25,16 +25,19 @@
                 <h2 class="font-semibold">€ {{ $variantes->first()->pivot->prix }}</h2>
             </div>
 
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-4">
                 <div class="flex gap-1.5">
                     <p class="font-bold">TAILLE :</p>
                     <span class="font-light uppercase">XS</span>
                 </div>
                 <div class="flex gap-3">
                     @foreach ($tailles as $taille)
-                        <div class="transition ease-linear duration-100 delay-75 text-black border border-black px-2 py-1.5 hover:text-white hover:bg-black hover:scale-110">
-                            <button class="font-bold">{{ $taille->nomtailleproduit }}</button>
-                        </div>
+                        <label>
+                            <input type="radio" name="taille" class="peer hidden"></input>
+                            <p class="cursor-pointer transition ease-linear duration-100 delay-75 font-bold select-none text-black border border-black px-2 py-1.5 hover:text-white hover:bg-black peer-checked:text-white peer-checked:bg-black hover:scale-110">
+                                {{ $taille->nomtailleproduit }}
+                            </p>
+                        </label>
                     @endforeach
                 </div>
             </div>
@@ -46,9 +49,13 @@
                 </div>
                 <div class="flex gap-3">
                     @foreach ($variantes as $variante)
-                        <div class="w-10 h-10 p-px transition ease-linear duration-100 delay-75 flex items-center justify-center border-2 border-black hover:scale-110">
-                            <button class="border-2 border-black bg-gradient-to-r from-red-500 to-red-800 w-full h-full"></button>
-                        </div>
+                        <label>
+                            <input type="radio" name="couleur" class="peer hidden"></input>
+
+                            <div class="cursor-pointer w-10 h-10 p-px transition ease-linear duration-100 delay-75 flex items-center justify-center peer-checked:border-2 border-black hover:scale-110">
+                                <span class="select-none border-2 border-black bg-gradient-to-r from-red-500 to-red-800 w-full h-full"></span>
+                            </div>
+                        </label>
                     @endforeach
                 </div>
             </div>
