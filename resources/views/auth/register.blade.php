@@ -1,69 +1,157 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mon compte</title>
-</head>
-<body>
-    <h1>Créer mon compte</h1>
-        <form method="post" action="{{ route('register') }}">
-            @csrf
-            @foreach ($errors->all() as $error)
-                {{ $error }}<br>
-            @endforeach
+@extends('layouts.base')
 
-            <label for="prenomutilisateur">Prenom : </label><input type="text" maxlength="100" required minlength="1" name="prenomutilisateur" value="{{ old('prenomutilisateur') }}">
+@section('body')
+<div class="flex items-center justify-center h-screen bg-gradient-to-r from-gray-800 to-gray-600">
+    <div class="p-10 bg-white">
+        <p class="mb-5 text-3xl font-bold">Inscription</p>
 
-            <label for="surnomutilisateur">Pseudonyme : </label><input type="text" maxlength="100" required minlength="1" name="surnomutilisateur" value="{{ old('surnomutilisateur') }}">
+        <form action="{{ route('register') }}" method="post" class="grid grid-cols-6 gap-2">
+            @csrf()
 
-            <label for="mailutilisateur">Email : </label><input type="email" maxlength="100" name="mailutilisateur" placeholder="exemple@exemple.com" value="{{ old('mailutilisateur') }}">
+            <label for="prenomutilisateur" class="flex flex-col gap-1 col-span-3">
+                Prénom
 
-            <label for="datenaissance">Date de naissance : </label><input type="date" name="datenaissance" value="{{ old('datenaissance') }}">
+                <input
+                    type="text"
+                    id="prenomutilisateur"
+                    name="prenomutilisateur"
+                    class="peer border border-black bg-transparent focus:border-black focus:outline-none focus:ring-0"
+                    placeholder="Prénom"
+                    value="{{ old('prenomutilisateur') }}"/>
 
-            <label for="idlangue">Langue : </label>
+                @error('prenomutilisateur')
+                    <span class="text-sm text-red-400"> {{ $message }} </span>
+                @enderror
+            </label>
 
-            <select name="idlangue">
+            <label for="surnomutilisateur" class="flex flex-col gap-1 col-span-3">
+                Nom d'utilisateur
 
-                <option value=""></option>
+                <input
+                    type="text"
+                    id="surnomutilisateur"
+                    name="surnomutilisateur"
+                    class="peer border border-black bg-transparent focus:border-black focus:outline-none focus:ring-0"
+                    placeholder="Nom d'utilisateur"
+                    value="{{ old('surnomutilisateur') }}"/>
 
-                @foreach ($langues as $langue)
-                    <option value="{{$langue->idlangue}}" {{old('idlangue') == $langue->idlangue ? 'selected' : ''}}>{{ $langue->nomlangue }}</option>
-                @endforeach
+                @error('surnomutilisateur')
+                    <span class="text-sm text-red-400"> {{ $message }} </span>
+                @enderror
+            </label>
 
-            </select>
+            <label for="mailutilisateur" class="flex flex-col gap-1 col-span-6">
+                Adresse mail
 
-            <label for="idpays">Pays : </label>
+                <input
+                    type="text"
+                    id="mailutilisateur"
+                    name="mailutilisateur"
+                    class="peer border border-black bg-transparent focus:border-black focus:outline-none focus:ring-0"
+                    placeholder="Adresse mail"
+                    value="{{ old('mailutilisateur') }}"/>
 
-            <select name="idpays">
+                @error('mailutilisateur')
+                    <span class="text-sm text-red-400"> {{ $message }} </span>
+                @enderror
+            </label>
 
-                <option value=""></option>
+            <label for="idlangue" class="flex flex-col gap-1 col-span-3">
+                Langue
 
-                @foreach ($pays as $item)
-                    <option value="{{$item->idpays}}" {{old('idpays') == $item->idpays ? 'selected' : ''}}>{{ $item->nompays }}</option>
-                @endforeach
+                <select id="idlangue" name="idlangue" class="border-black col-span-6 focus:border-black focus:ring-0">
+                    <option disabled selected>Choisir une langue</option>
+                    @foreach ($langues as $item)
+                        <option value="{{$item->idlangue}}" @selected(old('idlangue') == $item->idlangue)>{{ $item->nomlangue }}</option>
+                    @endforeach
+                </select>
 
-            </select>
+                @error('idlangue')
+                    <span class="text-sm text-red-400"> {{ $message }} </span>
+                @enderror
+            </label>
 
-            <label for="idpaysfavori">Pays favori : </label>
+            <label for="datenaissance" class="flex flex-col gap-1 col-span-3">
+                Date naissance
 
-            <select name="idpaysfavori">
+                <input
+                    type="date"
+                    id="datenaissance"
+                    name="datenaissance"
+                    class="peer border border-black bg-transparent focus:border-black focus:outline-none focus:ring-0"
+                    placeholder="Date de naissance"
+                    value="{{ old('datenaissance') }}"/>
 
-                <option value=""></option>
+                @error('datenaissance')
+                    <span class="text-sm text-red-400"> {{ $message }} </span>
+                @enderror
+            </label>
 
-                @foreach ($pays as $item)
-                    <option value="{{$item->idpays}}" {{old('idpaysfavori') == $item->idpays ? 'selected' : ''}}>{{ $item->nompays }}</option>
-                @endforeach
+            <label for="idpays" class="flex flex-col gap-1 col-span-3">
+                Pays de naissance
 
-            </select>
+                <select id="idpays" name="idpays" class="border-black col-span-3 focus:border-black focus:ring-0">
+                    <option disabled selected>Choisir un pays de naissance</option>
+                    @foreach ($pays as $item)
+                        <option value="{{$item->idpays}}" @selected(old('idpays') == $item->idpays)>{{ $item->nompays }}</option>
+                    @endforeach
+                </select>
 
-            <label for="motpasse">Mot de passe : </label><input type="password" maxlength="200" name="motpasse">
+                @error('idpays')
+                    <span class="text-sm text-red-400"> {{ $message }} </span>
+                @enderror
+            </label>
 
-            <label for="motpasse_confirmation">Confirmer le mot de passe : </label><input type="password" maxlength="200" name="motpasse_confirmation">
+            <label for="idpaysfavori" class="flex flex-col gap-1 col-span-3">
+                Pays favori
 
-            <input type="submit" value="Créer">
+                <select id="idpaysfavori" name="idpaysfavori" class="border-black col-span-3 focus:border-black focus:ring-0">
+                    <option disabled selected>Choisir un pays favori</option>
+                    @foreach ($pays as $item)
+                        <option value="{{$item->idpays}}" @selected(old('idpaysfavori') == $item->idpays)>{{ $item->nompays }}</option>
+                    @endforeach
+                </select>
 
+                @error('idpaysfavori')
+                    <span class="text-sm text-red-400"> {{ $message }} </span>
+                @enderror
+            </label>
+
+            <label for="motpasse" class="flex flex-col gap-1 col-span-3">
+                Mot de passe
+
+                <input
+                    type="password"
+                    id="motpasse"
+                    name="motpasse"
+                    class="peer border border-black bg-transparent focus:border-black focus:outline-none focus:ring-0"
+                    placeholder="Mot de passe"/>
+
+                @error('motpasse')
+                    <span class="text-sm text-red-400"> {{ $message }} </span>
+                @enderror
+            </label>
+
+            <label for="motpasse_confirmation" class="flex flex-col gap-1 col-span-3">
+                Confirmation mot de passe
+
+                <input
+                    type="password"
+                    id="motpasse_confirmation"
+                    name="motpasse_confirmation"
+                    class="peer border border-black bg-transparent focus:border-black focus:outline-none focus:ring-0"
+                    placeholder="Confirmation mot de passe"/>
+
+                @error('motpasse_confirmation')
+                    <span class="text-sm text-red-400"> {{ $message }} </span>
+                @enderror
+            </label>
+
+            <button type="submit" class="mt-6 bg-black text-white font-bold px-10 py-2 col-span-6 uppercase">
+                Valider
+            </button>
         </form>
-</body>
-</html>
+    </div>
+</div>
+
+@endsection

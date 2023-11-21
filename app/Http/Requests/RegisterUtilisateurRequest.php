@@ -28,11 +28,32 @@ class RegisterUtilisateurRequest extends FormRequest
             'idpaysfavori' => 'required',
 
             'prenomutilisateur' => 'required|max:100',
-            'surnomutilisateur' => 'required|max:100',
-            'mailutilisateur' => 'required|max:100|email:rfc,dns',
+            'surnomutilisateur' => 'required|unique:utilisateur|max:100',
+            'mailutilisateur' => 'required|unique:utilisateur|max:100|email:rfc,dns',
             'datenaissance' => 'required|before:today',
 
             'motpasse' => ['required', 'confirmed', Password::defaults()],
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'idlangue' => 'Langue',
+            'idpays' => 'Pays',
+            'idpaysfavori' => 'Pays favori',
+
+            'prenomutilisateur' => 'Prénom',
+            'surnomutilisateur' => 'Nom d\'utilisateur',
+            'mailutilisateur' => 'Adresse mail',
+            'datenaissance' => 'Date de naissance',
+
+            'motpasse' => 'Mot de passe'
         ];
     }
 }
