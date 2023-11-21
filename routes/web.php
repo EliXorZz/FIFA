@@ -24,7 +24,9 @@ Route::get('/produits', [ ProduitController::class, 'index' ])
     ->name('produits');
 
 Route::get("/register", [ UtilisateurController::class, 'register' ])
+    ->middleware('guest')
     ->name("register");
 
 Route::post("/register", [ UtilisateurController::class, 'doRegister' ])
+    ->middleware('guest')
     ->name("register");
