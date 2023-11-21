@@ -60,7 +60,7 @@
             <p class="text-sm font-light">{{ $produits->count() }} produit(s) trouvé(s)</p>
 
             <select id="order" class="w-72 border-gray-300 text-gray-700 focus:border-gray-300 focus:ring-0">
-                <option value="default" @selected(!request()->has('order'))>Trier par</option>
+                <option value="default" @selected(!request()->has('order'))>Tri par défaut</option>
                 <option value="asc" @selected(request()->query('order') == 'asc')>Prix croissant</option>
                 <option value="desc" @selected(request()->query('order') == 'desc')>Prix décroissant</option>
             </select>
@@ -90,7 +90,11 @@
         let value = event.target.value
 
         let location = new URL(window.location.href)
-        location.searchParams.set('order', value)
+
+        if (value == 'default')
+            location.searchParams.delete('order')
+        else
+            location.searchParams.set('order', value)
 
         window.location.href = location
     })
