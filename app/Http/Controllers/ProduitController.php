@@ -3,17 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProduitsRequest;
-use App\Models\CategorieProduit;
-use App\Models\Nation;
 use App\Models\Produit;
+use Illuminate\Http\Request;
 
 class ProduitController extends Controller
 {
     function index(ProduitsRequest $request) {
         $validated = $request->validated();
 
-        $select = ['produit.idproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'];
-        $produits = Produit::select($select)
+        $produits = Produit::select(['produit.idproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
             ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit')
             ->join('produitcontienttaille', 'produitcontienttaille.idproduit', '=', 'produit.idproduit')
             ->distinct();
@@ -76,6 +74,28 @@ class ProduitController extends Controller
 
             'filtre_couleurs' => $couleurs,
             'filtre_tailles' => $tailles
+        ]);
+    }
+
+    function show(Produit $produit) {
+        $tailles = $produit->tailles()->get();
+        $variantes = $produit->variantes()->get();
+        $images = $produit->images()->get();
+
+        $produitsSimilaires = $produit->produitsSimilaires()
+            ->select(['produit.idproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
+            ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit')
+            ->with('images')
+            ->get();
+
+        return view('produit', [
+            'produit' => $produit,
+
+            'tailles' => $tailles,
+            'variantes' => $variantes,
+            'images' => $images,
+
+            'produitsSimilaires' => $produitsSimilaires
         ]);
     }
 }

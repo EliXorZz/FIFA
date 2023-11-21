@@ -68,7 +68,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             @foreach ($produits as $produit)
-                <div class="shadow-lg divide-y divide-black group cursor-pointer select-none">
+                <a href="{{ route('produit', ['produit' => $produit]) }}" class="shadow-lg divide-y divide-black group cursor-pointer select-none">
                     <div class="h-72 transition ease-linear duration-300 delay-75 group-hover:scale-90">
                         <img src="{{ $produit->images->first()->urlimageproduit }}" class="h-full w-full object-contain"/>
                     </div>
@@ -76,7 +76,7 @@
                         <p class="font-medium">{{ $produit->titreproduit }}</p>
                         <p class="font-bold">€{{ $produit->prix }}</p>
                     </div>
-                </div>
+                </a>
             @endforeach
         </div>
     </div>

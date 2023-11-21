@@ -6,7 +6,7 @@
     <div class="p-10 bg-white">
         <p class="mb-5 text-3xl font-bold uppercase">Inscription</p>
 
-        <form action="{{ route('register') }}" method="post" class="grid grid-cols-6 gap-3">
+        <form action="{{ route('doRegister') }}" method="post" class="grid grid-cols-6 gap-3">
             @csrf()
 
             <label for="prenomutilisateur" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
