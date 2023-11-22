@@ -4,7 +4,7 @@
 
 <header>
     <div class="bg-neutral-950 text-white w-full h-16 flex items-center justify-around">
-        <a>
+        <a href="{{ route('welcome') }}">
             <img src="{{ asset('assets/logo.svg') }}" />
         </a>
 
