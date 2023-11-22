@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProduitRequest;
 use App\Http\Requests\ProduitsRequest;
 use App\Models\Produit;
 use Illuminate\Http\Request;
@@ -39,23 +40,13 @@ class ProduitController extends Controller
         $couleurs = collect();
         if (isset($validated['couleurs'])) {
             $couleurs = collect(explode(',', $validated['couleurs']));
-
-            $produits = $produits->where(function($query) use($couleurs) {
-                foreach ($couleurs as $couleur) {
-                    $query->orWhere('variantecouleurproduit.idcouleur', '=', $couleur);
-                }
-            });
+            $produits = $produits->whereIn('variantecouleurproduit.idcouleur', $couleurs);
         }
 
         $tailles = collect();
         if (isset($validated['tailles'])) {
             $tailles = collect(explode(',', $validated['tailles']));
-
-            $produits = $produits->where(function($query) use($tailles) {
-                foreach ($tailles as $taille) {
-                    $query->orWhere('produitcontienttaille.idtailleproduit', '=', $taille);
-                }
-            });
+            $produits = $produits->whereIn('produitcontienttaille.idtailleproduit', $tailles);
         }
 
         $keywords = collect();
@@ -86,10 +77,21 @@ class ProduitController extends Controller
         ]);
     }
 
-    function show(Produit $produit) {
+    function show(ProduitRequest $request, Produit $produit) {
+        $validated = $request->validated();
+
+        $images = $produit->images()->get();
+
         $tailles = $produit->tailles()->orderBy('idtailleproduit')->get();
         $variantes = $produit->variantes()->get();
-        $images = $produit->images()->get();
+
+        $selectTaille = isset($validated['selectTaille'])
+            ? $tailles->where('idtailleproduit', $validated['selectTaille'])->first()
+            : $tailles->first();
+
+        $selectCouleur = isset($validated['selectCouleur'])
+            ? $variantes->where('idcouleur', $validated['selectCouleur'])->first()
+            : $variantes->first();
 
         $produitsSimilaires = $produit->produitsSimilaires()
             ->select(['produit.idproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
@@ -100,9 +102,12 @@ class ProduitController extends Controller
         return view('produit', [
             'produit' => $produit,
 
+            'images' => $images,
             'tailles' => $tailles,
             'variantes' => $variantes,
-            'images' => $images,
+
+            'selectTaille' => $selectTaille,
+            'selectCouleur' => $selectCouleur,
 
             'produitsSimilaires' => $produitsSimilaires
         ]);
