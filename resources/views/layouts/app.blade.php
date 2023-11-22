@@ -128,7 +128,7 @@
     search.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             const value = event.target.value
-            const location = new URL(window.location.href)
+            const location = new URL(@json(route('produits')))
 
             location.searchParams.set('search', value.split(' ').join(','))
 

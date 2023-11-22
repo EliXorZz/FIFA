@@ -25,6 +25,17 @@ class ProduitController extends Controller
             $produits = $produits->where('idcategorieproduit', '=', $validated['categorie']);
         }
 
+        $keywords = collect();
+        if (isset($validated['search'])) {
+            $keywords = collect(explode(',', $validated['search']));
+
+            $produits = $produits->where(function($query) use($keywords) {
+                foreach ($keywords as $keyword) {
+                    $query->orWhere('produit.titreproduit', 'ILIKE', "%$keyword%");
+                }
+            });
+        }
+
         $couleurList = (clone $produits)
             ->select(['couleur.idcouleur', 'nomcouleur'])
             ->join('couleur', 'couleur.idcouleur', '=', 'variantecouleurproduit.idcouleur')
@@ -47,15 +58,6 @@ class ProduitController extends Controller
         if (isset($validated['tailles'])) {
             $tailles = collect(explode(',', $validated['tailles']));
             $produits = $produits->whereIn('produitcontienttaille.idtailleproduit', $tailles);
-        }
-
-        $keywords = collect();
-        if (isset($validated['search'])) {
-            $keywords = collect(explode(',', $validated['search']));
-
-            foreach ($keywords as $keyword) {
-                $produits = $produits->orWhere('produit.titreproduit', 'ILIKE', "%$keyword%");
-            }
         }
 
         if (isset($validated['order'])) {
