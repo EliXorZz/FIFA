@@ -26,7 +26,8 @@ class ProduitsRequest extends FormRequest
             'categorie' => 'nullable',
             'nation' => 'nullable',
             'couleurs' => 'nullable',
-            'tailles' => 'nullable'
+            'tailles' => 'nullable',
+            'search' => 'nullable'
         ];
     }
 }

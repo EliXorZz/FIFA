@@ -58,6 +58,15 @@ class ProduitController extends Controller
             });
         }
 
+        $keywords = collect();
+        if (isset($validated['search'])) {
+            $keywords = collect(explode(',', $validated['search']));
+
+            foreach ($keywords as $keyword) {
+                $produits = $produits->orWhere('produit.titreproduit', 'ILIKE', "%$keyword%");
+            }
+        }
+
         if (isset($validated['order'])) {
             $produits = $produits->orderBy('prix', $validated['order']);
         }
@@ -78,7 +87,7 @@ class ProduitController extends Controller
     }
 
     function show(Produit $produit) {
-        $tailles = $produit->tailles()->get();
+        $tailles = $produit->tailles()->orderBy('idtailleproduit')->get();
         $variantes = $produit->variantes()->get();
         $images = $produit->images()->get();
 

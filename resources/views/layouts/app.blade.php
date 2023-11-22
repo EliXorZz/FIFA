@@ -9,7 +9,7 @@
         </a>
 
         <div class="relative hidden sm:block">
-            <input type="text" placeholder="Rechercher des produits" class="border-white text-black w-96 md:w-94 h-10 py-2.5 pe-10 shadow-sm text-sm border-transparent focus:border-transparent focus:ring-0" />
+            <input id="search" type="text" placeholder="Rechercher des produits" class="border-white text-black w-96 md:w-94 h-10 py-2.5 pe-10 shadow-sm text-sm border-transparent focus:border-transparent focus:ring-0" />
 
             <span class="absolute inset-y-0 end-0 grid w-10 place-content-center">
                 <button type="button" class="text-gray-600 hover:text-gray-700">
@@ -122,6 +122,18 @@
             if (current == target)
                 delete current.dataset.state
         })
+    })
+
+    const search = document.querySelector('#search')
+    search.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            const value = event.target.value
+            const location = new URL(window.location.href)
+
+            location.searchParams.set('search', value.split(' ').join(','))
+
+            window.location.href = location
+        }
     })
 </script>
 @endsection
