@@ -25,13 +25,12 @@ class ProduitController extends Controller
             $produits = $produits->where('idcategorieproduit', '=', $validated['categorie']);
         }
 
-        $keywords = collect();
         if (isset($validated['search'])) {
-            $keywords = collect(explode(',', $validated['search']));
+            $keywords = explode(',', $validated['search']);
 
             $produits = $produits->where(function($query) use($keywords) {
                 foreach ($keywords as $keyword) {
-                    $query->orWhere('produit.titreproduit', 'ILIKE', "%$keyword%");
+                    $query->where('produit.titreproduit', 'ILIKE', "%$keyword%");
                 }
             });
         }
@@ -75,7 +74,7 @@ class ProduitController extends Controller
             'tailles' => $tailleList,
 
             'filtre_couleurs' => $couleurs,
-            'filtre_tailles' => $tailles
+            'filtre_tailles' => $tailles,
         ]);
     }
 
