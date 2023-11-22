@@ -7,7 +7,7 @@
 <div class="flex flex-col gap-10 p-10">
     <div class="flex flex-col gap-10 md:flex-row md:gap-6 justify-around">
         <div class="flex gap-5 w-full md:w-1/2">
-            <div class="flex flex-col gap-6">
+            <div id="images" class="flex flex-col gap-6">
                 @foreach ($images as $image)
                     <div class="cursor-pointer transition ease-linear duration-100 delay-75 w-24 h-24 border border-black hover:scale-105">
                         <img src="{{ $image->urlimageproduit }}" class="object-contain"/>
@@ -15,7 +15,7 @@
                 @endforeach
             </div>
             <div class="flex items-center border border-black">
-                <img src="{{ asset($images->first()->urlimageproduit) }}" class="object-contain object-center"/>
+                <img id="image" class="object-contain object-center"/>
             </div>
         </div>
 
@@ -94,5 +94,22 @@
         @endif
     </div>
 </div>
+
+<script>
+    const currentImage = document.querySelector('#image')
+    const images = document.querySelectorAll('#images img')
+
+    images.forEach(item => {
+        item.addEventListener('click', (event) => {
+            updateImage(event.target)
+        })
+    })
+
+    function updateImage(newImage) {
+        currentImage.src = newImage.src
+    }
+
+    updateImage(images[0])
+</script>
 
 @endsection
