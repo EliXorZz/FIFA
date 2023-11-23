@@ -57,7 +57,7 @@ class UtilisateurController extends Controller
 
         return back()->withErrors([
             'identifiant' => 'Mauvais identifiant ou mot de passe.',
-        ]);
+        ])->withInput();
     }
 
     public function update()
@@ -84,6 +84,12 @@ class UtilisateurController extends Controller
         $user->update($validated);
 
         return redirect()->route('accountUpdate');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('welcome');
     }
 }
 

@@ -49,3 +49,7 @@ Route::post("/login", [ UtilisateurController::class, 'doLogin' ])
 Route::post("/account", [ UtilisateurController::class, 'doUpdate' ])
     ->middleware('auth')
     ->name("doAccountUpdate");
+
+Route::get("/logout", [ UtilisateurController::class, 'logout' ])
+    ->middleware('auth')
+    ->name('logout');

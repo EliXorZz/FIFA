@@ -22,8 +22,10 @@
             <div class="hidden md:flex items-center gap-3">
                 <div class="flex flex-col text-left leading-tight tracking-wider">
                     @auth
-                        <p class="font-medium text-sm">BIENVENUE</p>
-                        <p class="font-light text-xs"> {{ auth()->user()->prenomutilisateur }} </p>
+                        <a href="{{ route('logout') }}">
+                            <p class="font-medium text-sm">BIENVENUE</p>
+                            <p class="font-light text-xs"> {{ auth()->user()->prenomutilisateur }} </p>
+                        </a>
                     @endauth
 
                     @guest
