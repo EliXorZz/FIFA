@@ -29,7 +29,7 @@
                     @endauth
 
                     @guest
-                        <a class="font-medium text-sm">CONNEXION</a>
+                        <a href="{{ route('login') }}" class="font-medium text-sm">CONNEXION</a>
                         <a href="{{ route('register') }}" class="font-light text-xs">INSCRIPTION</a>
                     @endguest
                 </div>
@@ -41,13 +41,17 @@
             <div class="flex items-center gap-3">
                 <div class="text-left leading-tight tracking-wider">
                     <p class="font-medium text-sm">MON PANIER</p>
-                    <p class="font-light text-xs">0 article(s) 0.00€</p>
+                    <p class="font-light text-xs">
+                        <a href="{{ route('panier') }}">Voir mon panier</a>
+                    </p>
                 </div>
                 <div class="relative">
-                    <img src="{{ asset('assets/order.svg') }}" class="object-contain" />
+                    <a href="{{ route('panier') }}">
+                        <img src="{{ asset('assets/order.svg') }}" class="object-contain" />
+                    </a>
                     <div
                         class="bg-red-500 rounded-full absolute -top-2 -right-2 w-4 h-4 flex items-center justify-center">
-                        <span class="text-xs">5</span>
+                        <span class="text-xs">{{ $panier->getTotal() }}</span>
                     </div>
                 </div>
             </div>

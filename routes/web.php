@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PanierController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\UtilisateurController;
 
@@ -26,6 +27,18 @@ Route::get('/produits', [ ProduitController::class, 'index' ])
 Route::get('/produits/{produit}', [ ProduitController::class, 'show' ])
     ->name('produit');
 
+Route::get("/panier", [ PanierController::class, 'index' ])
+    ->name('panier');
+
+Route::post("/panier/add", [ PanierController::class, 'add' ])
+    ->name('doPanierAdd');
+
+Route::post("/panier/remove", [ PanierController::class, 'remove' ])
+    ->name('doPanierRemove');
+
+Route::post("/panier/delete", [ PanierController::class, 'delete' ])
+    ->name('doPanierDelete');
+
 Route::get("/register", [ UtilisateurController::class, 'register' ])
     ->middleware('guest')
     ->name("register");
@@ -42,13 +55,17 @@ Route::post("/login", [ UtilisateurController::class, 'doLogin' ])
     ->middleware('guest')
     ->name("doLogin");
 
-    Route::get("/account", [ UtilisateurController::class, 'update' ])
+Route::get("/account", [ UtilisateurController::class, 'update' ])
     ->middleware('auth')
     ->name("accountUpdate");
 
 Route::post("/account", [ UtilisateurController::class, 'doUpdate' ])
     ->middleware('auth')
     ->name("doAccountUpdate");
+
+Route::get("/logout", [ UtilisateurController::class, 'logout' ])
+    ->middleware('auth')
+    ->name('logout');
 
 Route::get("/logout", [ UtilisateurController::class, 'logout' ])
     ->middleware('auth')

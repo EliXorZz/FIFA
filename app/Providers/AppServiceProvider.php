@@ -18,8 +18,8 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(Panier $panier): void
     {
-        //
+        view()->share('panier', $panier);
     }
 }
