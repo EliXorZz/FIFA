@@ -33,3 +33,11 @@ Route::get("/register", [ UtilisateurController::class, 'register' ])
 Route::post("/register", [ UtilisateurController::class, 'doRegister' ])
     ->middleware('guest')
     ->name("doRegister");
+
+Route::get("/login", [ UtilisateurController::class, 'login' ])
+    ->middleware('guest')
+    ->name("login");
+
+Route::post("/login", [ UtilisateurController::class, 'doLogin' ])
+    ->middleware('guest')
+    ->name("doLogin");
