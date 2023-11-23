@@ -41,3 +41,11 @@ Route::get("/login", [ UtilisateurController::class, 'login' ])
 Route::post("/login", [ UtilisateurController::class, 'doLogin' ])
     ->middleware('guest')
     ->name("doLogin");
+
+    Route::get("/account", [ UtilisateurController::class, 'update' ])
+    ->middleware('auth')
+    ->name("accountUpdate");
+
+Route::post("/account", [ UtilisateurController::class, 'doUpdate' ])
+    ->middleware('auth')
+    ->name("doAccountUpdate");
