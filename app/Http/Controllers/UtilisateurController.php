@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterUtilisateurRequest;
 use App\Http\Requests\UpdateUtilisateurRequest;
 
+use Illuminate\Auth\Events\Registered;
+use PhpParser\Node\Expr\FuncCall;
+use Symfony\Component\Console\Command\DumpCompletionCommand;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
+
+
 class UtilisateurController extends Controller
 {
     public function register()
@@ -23,10 +30,12 @@ class UtilisateurController extends Controller
     public function doRegister(RegisterUtilisateurRequest $request)
     {
         $validated = $request->validated();
-        Utilisateur::create($validated);
+        $user = Utilisateur::create($validated);
 
         $validated["password"] = $validated["motpasse"];
         unset($validated["motpasse"]);
+
+        event(new Registered($user));
 
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
@@ -91,6 +100,24 @@ class UtilisateurController extends Controller
         Auth::logout();
         return redirect()->route('welcome');
     }
+
+    public function verify() {
+
+        return view('auth.verify-email');
+
+    }
+
+    public function doVerify(EmailVerificationRequest $request)
+    {
+        $request->fulfill();
+
+        return redirect(RouteServiceProvider::HOME);
+    }
+
+    public function resendVerify(Request $request)
+    {
+            $request->user()->sendEmailVerificationNotification();
+
+            return back()->with('message', 'Email de vérification renvoyer !');
+    }
 }
-
-

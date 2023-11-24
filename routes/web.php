@@ -5,6 +5,8 @@ use App\Http\Controllers\UtilisateurController;
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,13 +45,26 @@ Route::post("/login", [ UtilisateurController::class, 'doLogin' ])
     ->name("doLogin");
 
     Route::get("/account", [ UtilisateurController::class, 'update' ])
-    ->middleware('auth')
+    ->middleware(['auth','verified'])
     ->name("accountUpdate");
 
 Route::post("/account", [ UtilisateurController::class, 'doUpdate' ])
-    ->middleware('auth')
+    ->middleware(['auth','verified'])
     ->name("doAccountUpdate");
 
 Route::get("/logout", [ UtilisateurController::class, 'logout' ])
     ->middleware('auth')
     ->name('logout');
+
+Route::get('/account/verify-email', [ UtilisateurController::class, 'verify' ])
+    ->middleware('auth')
+    ->name('verification.notice');
+
+Route::get('/account/verify-email/{id}/{hash}', [ UtilisateurController::class, 'doVerify' ])
+    ->middleware(['auth', 'signed'])
+    ->name('verification.verify');
+
+Route::post('/account/verify-email-resend/', [ UtilisateurController::class, 'resendVerify' ])
+    ->middleware(['auth','throttle:6,1'])
+    ->name('verification.send');
+

@@ -4,9 +4,9 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <h1>Code de vérification</h1>
-    <ul>
-      <li><strong>Code</strong> : {{ $code }}</li>
-    </ul>
+    <h1>Vérifier mon adresse email</h1>
+    <div>
+        <a href="$url" class="border-0 rounded border-black border-dashed bg-black text-white p-4">Cliquer ici !</a>
+    </div>
   </body>
 </html>
