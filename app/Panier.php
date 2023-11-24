@@ -7,18 +7,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
 class Panier {
-    function addProduit(Produit $produit, int $idTailleProduit, int $idCouleur) {
+    function addProduit(int $idproduit, int $idTailleProduit, int $idCouleur) {
         $cookie = Cookie::get('panier');
         $cookie = $cookie ? unserialize($cookie) : [];
 
-        $id = $produit->idproduit. '_' .$idTailleProduit. '_' .$idCouleur;
+        $id = $idproduit. '_' .$idTailleProduit. '_' .$idCouleur;
 
         if (isset($cookie[$id])) {
             $quantite = $cookie[$id]['quantite'];
             $cookie[$id]['quantite'] = $quantite + 1;
         }else {
             $cookie[$id] = [
-                "idproduit" => $produit->idproduit,
+                "idproduit" => $idproduit,
                 "idtailleproduit" => $idTailleProduit,
                 "idcouleur" => $idCouleur,
                 "quantite" => 1
@@ -28,30 +28,19 @@ class Panier {
         Cookie::queue('panier', serialize($cookie));
     }
 
-    function removeProduit(Produit $produit, int $idTailleProduit, int $idCouleur) {
-        $cookie = Cookie::get('shopping-cart', []);
+    function removeProduit(int $idproduit, int $idTailleProduit, int $idCouleur) {
+        $cookie = Cookie::get('panier');
         $cookie = $cookie ? unserialize($cookie) : [];
 
-        $id = $produit->idproduit. '_' .$idTailleProduit. '_' .$idCouleur;
+        $id = $idproduit. '_' .$idTailleProduit. '_' .$idCouleur;
+
 
         if (isset($cookie[$id])) {
-            $quantite = $cookie[$id]['quantite'];
-
-            if ($quantite - 1 <= 0) {
-                unset($cookie[$id]);
-            }else {
-                $cookie[$id]['quantite'] = $quantite - 1;
-            }
-        }else {
-            $cookie[$id] = [
-                "idproduit" => $produit->idproduit,
-                "idtailleproduit" => $idTailleProduit,
-                "idcouleur" => $idCouleur,
-                "quantite" => 1
-            ];
+            unset($cookie[$id]);
         }
 
         Cookie::queue('panier', serialize($cookie));
+
     }
 
     function getProduits() {
@@ -60,4 +49,54 @@ class Panier {
 
         return $cookie;
     }
+
+
+    function getPrixProduit(int $idproduit, int $idCouleur, $idTailleProduit) {
+        $cookie = Cookie::get('panier');
+        $cookie = $cookie ? unserialize($cookie) : [];
+
+        $id = $idproduit. '_' .$idTailleProduit. '_' .$idCouleur;
+
+        $quantite = $cookie[$id]['quantite'];
+
+        $produit = Produit::where('produit.idproduit', $idproduit)
+                    ->where('idcouleur', $idCouleur)
+                    ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit')
+
+                ->get()->first();
+    
+        if ($produit) {
+            return $quantite * $produit->prix;
+        } else {
+            return $produit->prix=0; 
+        }
+    }
+
+    function getPhotoProduit(int $idproduit, int $idCouleur) {
+        $produit = Produit::where('produit.idproduit', $idproduit)
+                    ->join('produitcontientimage', 'produitcontientimage.idproduit', '=', 'produit.idproduit')
+                    ->join('imageproduit', 'imageproduit.idimageproduit', '=', 'produitcontientimage.idimageproduit')
+                ->get()->first();
+
+        return $produit->urlimageproduit;
+
+    }
+
+    function getQuantiteTotale() {
+        $produits = $this->getProduits();
+        $quantiteTotale = 0;
+
+        foreach ($produits as $produit) {
+            $quantiteTotale += $produit['quantite'];
+        }
+
+        return $quantiteTotale;
+    }
+
+
+
+    
+
 }
+
+

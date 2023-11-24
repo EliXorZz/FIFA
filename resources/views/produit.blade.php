@@ -5,7 +5,10 @@
 @section('content')
 
 <div class="flex flex-col gap-10 p-10">
-    <form action="" method="post">
+    <form action="{{route('PanierAdd')}}" method="post">
+        @csrf
+        <input type="text" name="selectProduit" value="{{ $produit->idproduit }}" hidden/>
+
         <div class="flex flex-col gap-10 md:flex-row md:gap-6 justify-around">
             <div class="flex gap-5 w-full md:w-1/2">
                 <div id="images" class="flex flex-col gap-6">
@@ -62,7 +65,8 @@
                     </div>
                 </div>
 
-                <button class="transition ease-linear duration-300 delay-75 my-5 font-bold text-white bg-black border-4 border-black py-4 hover:bg-transparent hover:text-black uppercase">Ajouter au panier</button>
+                <button id="btnAjouterAuPanier" class="transition ease-linear duration-300 delay-75 my-5 font-bold text-white bg-black border-4 border-black py-4 hover:bg-transparent hover:text-black uppercase">Ajouter au panier</button>
+                <div id="messageAjoutPanier" class="hidden bg-green-500 text-white p-2 fixed top-0 right-0">Ce produit a bien été ajouté au panier.</div>
 
                 <div>
                     <h3 class="text-lg font-bold">Description</h3>

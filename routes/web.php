@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\PanierController;
 use App\Http\Controllers\UtilisateurController;
 
 use Illuminate\Support\Facades\Route;
@@ -41,3 +42,17 @@ Route::get("/login", [ UtilisateurController::class, 'login' ])
 Route::post("/login", [ UtilisateurController::class, 'doLogin' ])
     ->middleware('guest')
     ->name("doLogin");
+
+
+Route::get("/panier", [ PanierController::class, 'show' ])
+    ->name("Panier");
+
+Route::post("/panier/add", [PanierController::class, 'addPanier'])
+    ->name("PanierAdd");
+
+Route::post("/panier/remove", [PanierController::class, 'removePanier'])
+    ->name("PanierRemove");
+
+
+
+

@@ -35,18 +35,34 @@
                     <img src="{{ asset('assets/user.svg') }}" class="object-contain" />
                 </div>
             </div>
+                @php
+                $totalprix = 0.0
+                @endphp
+                @foreach($panier->getProduits() as $produitPanier)
+                    @php
+                        $produit = \App\Models\Produit::find($produitPanier['idproduit']);
+                        $couleur = \App\Models\Couleur::find($produitPanier['idcouleur']);  
+                        $taille = \App\Models\TailleProduit::find($produitPanier['idtailleproduit']);  
+                        $prix = $panier->getPrixProduit($produit->idproduit, $couleur->idcouleur, $taille->idtailleproduit);
+                        $totalprix += $prix
+                    @endphp
 
+            @endforeach
             <div class="flex items-center gap-3">
                 <div class="text-left leading-tight tracking-wider">
-                    <p class="font-medium text-sm">MON PANIER</p>
-                    <p class="font-light text-xs">0 article(s) 0.00€</p>
+                    <p class="font-light text-xs">panier article(s) {{$totalprix}}.00€</p>
+                    <a href="{{ route('Panier') }}" class="font-medium text-sm">MON PANIER</a>
+
                 </div>
+
                 <div class="relative">
-                    <img src="{{ asset('assets/order.svg') }}" class="object-contain" />
-                    <div
-                        class="bg-red-500 rounded-full absolute -top-2 -right-2 w-4 h-4 flex items-center justify-center">
-                        <span class="text-xs">5</span>
-                    </div>
+                    <a href="{{ route('Panier') }}">
+                        <img src="{{ asset('assets/order.svg') }}" class="object-contain" />
+                        <div
+                            class="bg-red-500 rounded-full absolute -top-2 -right-2 w-4 h-4 flex items-center justify-center">
+                            <span class="text-xs">{{$panier->getQuantiteTotale()}}</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
