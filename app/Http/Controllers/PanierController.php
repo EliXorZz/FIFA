@@ -15,7 +15,7 @@ class PanierController extends Controller
         $couleur = $request->input("selectCouleur");
         $taille = $request->input("selectTaille");
         $produit = $request->input("selectProduit");
-        
+
         $panier->addProduit($produit, $taille, $couleur);
 
         return redirect()->back()->with('notification', [
@@ -28,15 +28,13 @@ class PanierController extends Controller
         $couleur = $request->input("couleur");
         $taille = $request->input("taille");
         $produit = $request->input("produit");
-        
+
         $panier->add1Produit($produit, $taille, $couleur);
 
         return redirect()->route('Panier');
 
 
     }
-
-
 
     public function removePanier(Request $request, Panier $panier){
         $couleur = $request->input("couleur");
@@ -58,19 +56,18 @@ class PanierController extends Controller
 
         return redirect()->route('Panier');
     }
-    
-    public function updateQuantity(Request $request, Panier $panier)
+
+    public function updateQuantite(Request $request, Panier $panier)
     {
         $produit = $request->input("produit");
-        $quantite = $request->input("quantite");
 
         $couleur = $request->input("couleur");
         $taille = $request->input("taille");
 
+        $quantite = $request->input("quantite");
+
         $panier->updateQuantite($produit, $taille, $couleur, $quantite);
 
-        return response()->json(['success' => true]);
+        return redirect()->route('Panier');
     }
-
-
 }
