@@ -18,7 +18,7 @@ class VerificationEmail extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public Int $code,
+        public string $url,
     )
     {}
 
@@ -28,7 +28,7 @@ class VerificationEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verification Email',
+            subject: 'Email de vérification',
         );
     }
 
@@ -40,7 +40,7 @@ class VerificationEmail extends Mailable
         return new Content(
             view: 'emails.verificationemail',
             with: [
-                'code' => $this->code,
+                'url' => $this->url,
             ]
         );
     }
