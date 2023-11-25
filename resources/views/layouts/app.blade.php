@@ -68,7 +68,7 @@
                             <div class="bg-black w-full h-px mt-1"></div>
 
                             <ul class="columns-8 gap-4 text-slate-800 mt-3 leading-loose">
-                                @foreach (App\Models\Nation::orderBy('idnation')->get() as $nation)
+                                @foreach ($nation->get() as $nation)
                                     <li>
                                         <a href="{{ route('produits', ['nation' => $nation->idnation]) }}" class="hover:underline">{{ $nation->nomnation }}</a>
                                     </li>
@@ -79,12 +79,35 @@
                 </div>
             </li>
 
-            @foreach (App\Models\CategorieProduit::orderBy('idcategorieproduit')->get() as $categorie)
-                <li class="h-full">
-                    <a href="{{ route('produits', ['categorie' => $categorie->idcategorieproduit]) }}" class="flex items-center justify-center px-5 h-full hover:bg-neutral-700">
-                        {{ $categorie->nomcategorieproduit }}
-                    </a>
-                </li>
+            @foreach ($categories->get() as $categorie)
+                @if($categorie->parentcategorieproduit)
+                    <li class="h-full">
+                        <a href="{{ route('produits', ['categorie' => $categorie->idcategorieproduit]) }}" class="flex items-center justify-center px-5 h-full hover:bg-neutral-700">
+                            {{ $categorie->nomcategorieproduit }}
+                        </a>
+
+                        @if($categorie->souscategories->isNotEmpty())
+                            <div data-menu class="z-10 hidden data-[state=on]:flex gap-20 items-center w-full min-h-72 bg-gray-50 text-black shadow-inner absolute top-10 left-0 normal-case">
+                                <div class="flex gap-28 ml-14 py-6">
+                                    <div class="w-full">
+                                        <p>{{ $categorie->nomcategorieproduit }} sous catégorie(s)</p>
+                                        <div class="bg-black w-full h-px mt-1"></div>
+
+                                        <ul class="columns-2 gap-4 text-slate-800 mt-3 leading-loose">
+                                            @foreach ($categorie->souscategories as $souscategorie)
+                                                <li>
+                                                    <a href="{{ route('produits', ['categorie' => $souscategorie->idcategorieproduit]) }}" class="hover:underline">
+                                                        {{ $souscategorie->nomcategorieproduit }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </li>
+                @endif
             @endforeach
         </ul>
     </nav>

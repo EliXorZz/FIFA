@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\CategorieProduit;
+use App\Models\Nation;
 use App\Panier;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +23,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::share(
+            'nations',
+            Nation::orderBy('idnation')
+        );
+
+        View::share(
+            'categories',
+            CategorieProduit::with('sousCategories')
+                ->orderBy('idcategorieproduit')
+        );
     }
 }

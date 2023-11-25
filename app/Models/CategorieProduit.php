@@ -29,4 +29,8 @@ class CategorieProduit extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    function sousCategories() {
+        return $this->belongsToMany(CategorieProduit::class, 'souscategorieproduit', $this->primaryKey, 'idautrecategorieproduit');
+    }
 }

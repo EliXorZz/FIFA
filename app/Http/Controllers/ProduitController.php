@@ -13,6 +13,7 @@ class ProduitController extends Controller
         $validated = $request->validated();
 
         $produits = Produit::select(['produit.idproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
+            ->join('categoriecontientproduit', 'categoriecontientproduit.idproduit', '=', 'produit.idproduit')
             ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit')
             ->join('produitcontienttaille', 'produitcontienttaille.idproduit', '=', 'produit.idproduit')
             ->distinct();
