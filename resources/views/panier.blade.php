@@ -31,8 +31,11 @@
             
             <label class="mr-2">Quantité:</label>
             <button type="submit" value="remove1" class="border border-black px-2 py-1 mr-2">-</button>
-            <input type="number" value="{{ $produitPanier['quantite'] }}">
-
+            <input
+            type="number"
+            value="{{ $produitPanier['quantite'] }}"
+            id=quantiteinput
+            onchange="updateQuantity(this)">
             
         </form>
 
@@ -44,7 +47,7 @@
 
             <button type="submit" value="add1" class="border border-black px-2 py-1">+</button>
         </form>
-    </div>
+    </div>  
 
         <form action="{{ route('PanierRemove') }}" method="post">
             @csrf
@@ -84,4 +87,17 @@
         <button class="transition ease-linear duration-300 delay-75 my-5 font-bold text-white bg-black border-4 border-black py-4 hover:bg-transparent hover:text-black uppercase">Payer</button>
 </div>
 
+<script>
+    function updateQuantite(productId) {
+        var quantiteInput = document.getElementById('quantiteinput' + productId).value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/updateQuantite', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    }
+</script>
+
+
 @endsection
+

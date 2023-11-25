@@ -27,7 +27,7 @@ class Panier {
 
         Cookie::queue('panier', serialize($cookie));
     }
-    
+
     function add1Produit(int $idproduit, int $idTailleProduit, int $idCouleur) {
         $cookie = Cookie::get('panier');
         $cookie = $cookie ? unserialize($cookie) : [];
@@ -132,6 +132,19 @@ class Panier {
         return $quantiteTotale;
     }
 
+    public function updateQuantite(int $idproduit, int $idTailleProduit, int $idCouleur, int $quantite)
+    {
+        $cookie = Cookie::get('panier');
+        $cookie = $cookie ? unserialize($cookie) : [];
+
+        $id = $idproduit . '_' . $idTailleProduit . '_' . $idCouleur;
+
+        if (isset($cookie[$id])) {
+            $cookie[$id]['quantite'] = $quantite;
+        }
+
+        Cookie::queue('panier', serialize($cookie));
+    }
 
 
     

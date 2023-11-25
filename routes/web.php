@@ -59,4 +59,8 @@ Route::post("/panier/remove1", [PanierController::class, 'remove1Panier'])
 Route::post("/panier/add1", [PanierController::class, 'add1Panier'])
     ->name("Panier1Add");
 
+Route::post('/updateQuantite', [PanierController::class, 'updateQuantite'])
+    ->name('updateQuantite');
+
+
 

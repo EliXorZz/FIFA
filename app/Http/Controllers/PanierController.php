@@ -59,7 +59,18 @@ class PanierController extends Controller
         return redirect()->route('Panier');
     }
     
- 
+    public function updateQuantity(Request $request, Panier $panier)
+    {
+        $produit = $request->input("produit");
+        $quantite = $request->input("quantite");
+
+        $couleur = $request->input("couleur");
+        $taille = $request->input("taille");
+
+        $panier->updateQuantite($produit, $taille, $couleur, $quantite);
+
+        return response()->json(['success' => true]);
+    }
 
 
 }
