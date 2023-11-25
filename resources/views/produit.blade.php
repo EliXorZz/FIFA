@@ -51,11 +51,22 @@
                     </div>
                     <div class="flex gap-3">
                         @foreach ($variantes as $variante)
+                            <style>
+                                #variante_{{ $variante->idcouleur }} {
+                                    background: linear-gradient(
+                                        -45deg,
+                                        #{{ $variante->hexacouleur }} 0%,
+                                        #{{ $variante->hexacouleur }}99 50%,
+                                        #{{ $variante->hexacouleur }} 100%
+                                    );
+                                }
+                            </style>
+
                             <label id="couleurSelector">
                                 <input type="radio" name="selectCouleur" class="peer hidden" value="{{ $variante->idcouleur }}" @checked($selectCouleur->idcouleur == $variante->idcouleur)/>
 
                                 <div class="cursor-pointer w-10 h-10 p-px transition ease-linear duration-100 delay-75 flex items-center justify-center peer-checked:border-2 border-black hover:scale-110">
-                                    <span class="select-none border-2 border-black bg-gradient-to-r from-red-500 to-red-800 w-full h-full"></span>
+                                    <span id="variante_{{ $variante->idcouleur }}" class="select-none border-2 border-black w-full h-full"></span>
                                 </div>
                             </label>
                         @endforeach
