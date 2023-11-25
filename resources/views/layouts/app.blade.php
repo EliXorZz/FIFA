@@ -68,7 +68,7 @@
                             <div class="bg-black w-full h-px mt-1"></div>
 
                             <ul class="columns-8 gap-4 text-slate-800 mt-3 leading-loose">
-                                @foreach ($nation->get() as $nation)
+                                @foreach ($nations->get() as $nation)
                                     <li>
                                         <a href="{{ route('produits', ['nation' => $nation->idnation]) }}" class="hover:underline">{{ $nation->nomnation }}</a>
                                     </li>
