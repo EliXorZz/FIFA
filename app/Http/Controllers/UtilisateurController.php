@@ -103,7 +103,7 @@ class UtilisateurController extends Controller
 
     public function verify() {
 
-        return view('auth.verify-email');
+        return view('auth.verify');
 
     }
 
@@ -116,8 +116,8 @@ class UtilisateurController extends Controller
 
     public function resendVerify(Request $request)
     {
-            $request->user()->sendEmailVerificationNotification();
+        $request->user()->sendEmailVerificationNotification();
 
-            return back()->with('message', 'Email de vérification renvoyer !');
+        return back()->with('message', 'Email de vérification renvoyer !');
     }
 }

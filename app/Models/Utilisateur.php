@@ -66,18 +66,41 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'emailverified' => 'datetime',
         'motpasse' => 'hashed',
     ];
 
     /**
-     * Get the e-mail address where password reset links are sent.
+     * Route notifications for the mail channel.
      *
-     * @return string
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return array|string
      */
-    public function getEmailForPasswordReset()
+    public function routeNotificationForMail($notification)
     {
         return $this->mailutilisateur;
+    }
+
+    /**
+     * Determine if the user has verified their email address.
+     *
+     * @return bool
+     */
+    public function hasVerifiedEmail()
+    {
+        return !is_null($this->emailverified);
+    }
+
+    /**
+     * Mark the given user's email as verified.
+     *
+     * @return bool
+     */
+    public function markEmailAsVerified()
+    {
+        return $this->forceFill([
+            'emailverified' => $this->freshTimestamp(),
+        ])->save();
     }
 
     /**
@@ -86,6 +109,16 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
      * @return string
      */
     public function getEmailForVerification()
+    {
+        return $this->mailutilisateur;
+    }
+
+    /**
+     * Get the e-mail address where password reset links are sent.
+     *
+     * @return string
+     */
+    public function getEmailForPasswordReset()
     {
         return $this->mailutilisateur;
     }

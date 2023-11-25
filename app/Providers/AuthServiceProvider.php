@@ -24,13 +24,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-        // EDIT MAIL
-        VerifyEmail::toMailUsing(
-            function (object $notifiable, string $url)
-            {
-                return new VerificationEmail($url);
-            }
-        );
+        //
     }
 }

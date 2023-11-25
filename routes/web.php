@@ -56,15 +56,14 @@ Route::get("/logout", [ UtilisateurController::class, 'logout' ])
     ->middleware('auth')
     ->name('logout');
 
-Route::get('/account/verify-email', [ UtilisateurController::class, 'verify' ])
+Route::get('/account/verify', [ UtilisateurController::class, 'verify' ])
     ->middleware('auth')
     ->name('verification.notice');
 
-Route::get('/account/verify-email/{id}/{hash}', [ UtilisateurController::class, 'doVerify' ])
+Route::get('/account/verify/{id}/{hash}', [ UtilisateurController::class, 'doVerify' ])
     ->middleware(['auth', 'signed'])
     ->name('verification.verify');
 
-Route::post('/account/verify-email-resend/', [ UtilisateurController::class, 'resendVerify' ])
+    Route::post('/account/verify-resend', [ UtilisateurController::class, 'resendVerify' ])
     ->middleware(['auth','throttle:6,1'])
-    ->name('verification.send');
-
+    ->name('doResendVerifyAccount');

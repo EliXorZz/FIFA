@@ -1209,9 +1209,6 @@ select {
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
-.hover\:underline-offset-2:hover {
-  text-underline-offset: 2px;
-}
 .focus\:border-black:focus {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
