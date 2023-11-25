@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\PanierController;
 use App\Http\Controllers\UtilisateurController;
 
 use Illuminate\Support\Facades\Route;
@@ -71,3 +72,25 @@ Route::get('/account/verify/{id}/{hash}', [ AuthController::class, 'doVerify' ])
 Route::post('/account/verify-resend', [ AuthController::class, 'resendVerify' ])
     ->middleware(['auth','throttle:6,1'])
     ->name('doResendVerifyAccount');
+
+// ROUTES PANIER
+Route::get("/panier", [ PanierController::class, 'show' ])
+    ->name("Panier");
+
+Route::post("/panier/add", [PanierController::class, 'addPanier'])
+    ->name("PanierAdd");
+
+Route::post("/panier/remove", [PanierController::class, 'removePanier'])
+    ->name("PanierRemove");
+
+Route::post("/panier/remove1", [PanierController::class, 'remove1Panier'])
+    ->name("Panier1Remove");
+
+Route::post("/panier/add1", [PanierController::class, 'add1Panier'])
+    ->name("Panier1Add");
+
+Route::post('/updateQuantite', [PanierController::class, 'updateQuantite'])
+    ->name('updateQuantite');
+
+
+
