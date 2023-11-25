@@ -86,7 +86,7 @@
                             {{ $categorie->nomcategorieproduit }}
                         </a>
 
-                        @if($categorie->souscategories->isNotEmpty())
+                        @if($categorie->sousCategories->isNotEmpty())
                             <div data-menu class="z-10 hidden data-[state=on]:flex gap-20 items-center w-full min-h-72 bg-gray-50 text-black shadow-inner absolute top-10 left-0 normal-case">
                                 <div class="flex gap-28 ml-14 py-6">
                                     <div class="w-full">
@@ -94,10 +94,10 @@
                                         <div class="bg-black w-full h-px mt-1"></div>
 
                                         <ul class="columns-2 gap-4 text-slate-800 mt-3 leading-loose">
-                                            @foreach ($categorie->souscategories as $souscategorie)
+                                            @foreach ($categorie->sousCategories as $sousCategorie)
                                                 <li>
-                                                    <a href="{{ route('produits', ['categorie' => $souscategorie->idcategorieproduit]) }}" class="hover:underline">
-                                                        {{ $souscategorie->nomcategorieproduit }}
+                                                    <a href="{{ route('produits', ['categorie' => $sousCategorie->idcategorieproduit]) }}" class="hover:underline">
+                                                        {{ $sousCategorie->nomcategorieproduit }}
                                                     </a>
                                                 </li>
                                             @endforeach
