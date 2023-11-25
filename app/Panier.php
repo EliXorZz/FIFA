@@ -27,6 +27,26 @@ class Panier {
 
         Cookie::queue('panier', serialize($cookie));
     }
+    
+    function add1Produit(int $idproduit, int $idTailleProduit, int $idCouleur) {
+        $cookie = Cookie::get('panier');
+        $cookie = $cookie ? unserialize($cookie) : [];
+    
+        $id = $idproduit . '_' . $idTailleProduit . '_' . $idCouleur;
+    
+        if (isset($cookie[$id])) {
+            $cookie[$id]['quantite'] += 1;
+        } else {
+            $cookie[$id] = [
+                "idproduit" => $idproduit,
+                "idtailleproduit" => $idTailleProduit,
+                "idcouleur" => $idCouleur,
+                "quantite" => 1
+            ];
+        }
+    
+        Cookie::queue('panier', serialize($cookie));
+    }
 
     function removeProduit(int $idproduit, int $idTailleProduit, int $idCouleur) {
         $cookie = Cookie::get('panier');
@@ -41,6 +61,25 @@ class Panier {
 
         Cookie::queue('panier', serialize($cookie));
 
+    }
+
+    function remove1Produit(int $idproduit, int $idTailleProduit, int $idCouleur) {
+        $cookie = Cookie::get('panier');
+        $cookie = $cookie ? unserialize($cookie) : [];
+    
+        $id = $idproduit . '_' . $idTailleProduit . '_' . $idCouleur;
+    
+        if (isset($cookie[$id])) {
+            // S'il y a plus d'un produit, décrémentez simplement la quantité
+            if ($cookie[$id]['quantite'] > 1) {
+                $cookie[$id]['quantite']--;
+            } else {
+                // S'il n'y a qu'un seul produit, supprimez complètement l'entrée
+                unset($cookie[$id]);
+            }
+        }
+    
+        Cookie::queue('panier', serialize($cookie));
     }
 
     function getProduits() {
