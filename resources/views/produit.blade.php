@@ -5,8 +5,9 @@
 @section('content')
 
 <div class="flex flex-col gap-10 p-10">
-    <form action="{{route('PanierAdd')}}" method="post">
+    <form action="{{ route('doPanierAdd') }}" method="post">
         @csrf
+
         <input type="text" name="selectProduit" value="{{ $produit->idproduit }}" hidden/>
 
         <div class="flex flex-col gap-10 md:flex-row md:gap-6 justify-around">

@@ -7,18 +7,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
 class Panier {
-    function addProduit(int $idproduit, int $idTailleProduit, int $idCouleur) {
+    function addProduit(int $idProduit, int $idTailleProduit, int $idCouleur) {
         $cookie = Cookie::get('panier');
         $cookie = $cookie ? unserialize($cookie) : [];
 
-        $id = $idproduit. '_' .$idTailleProduit. '_' .$idCouleur;
+        $id = $idProduit. '_' .$idTailleProduit. '_' .$idCouleur;
 
         if (isset($cookie[$id])) {
             $quantite = $cookie[$id]['quantite'];
             $cookie[$id]['quantite'] = $quantite + 1;
         }else {
             $cookie[$id] = [
-                "idproduit" => $idproduit,
+                "idproduit" => $idProduit,
                 "idtailleproduit" => $idTailleProduit,
                 "idcouleur" => $idCouleur,
                 "quantite" => 1
@@ -28,55 +28,46 @@ class Panier {
         Cookie::queue('panier', serialize($cookie));
     }
 
-    function add1Produit(int $idproduit, int $idTailleProduit, int $idCouleur) {
+    function removeProduit(int $idProduit, int $idTailleProduit, int $idCouleur) {
         $cookie = Cookie::get('panier');
         $cookie = $cookie ? unserialize($cookie) : [];
 
-        $id = $idproduit . '_' . $idTailleProduit . '_' . $idCouleur;
+        $id = $idProduit. '_' .$idTailleProduit. '_' .$idCouleur;
 
         if (isset($cookie[$id])) {
-            $cookie[$id]['quantite'] += 1;
-        } else {
-            $cookie[$id] = [
-                "idproduit" => $idproduit,
-                "idtailleproduit" => $idTailleProduit,
-                "idcouleur" => $idCouleur,
-                "quantite" => 1
-            ];
-        }
+            $quantite = $cookie[$id]['quantite'];
 
-        Cookie::queue('panier', serialize($cookie));
+            if ($quantite - 1 <= 0) {
+                unset($cookie[$id]);
+            }else {
+                $cookie[$id]['quantite'] = $quantite - 1;
+            }
+
+            Cookie::queue('panier', serialize($cookie));
+        }
     }
 
-    function removeProduit(int $idproduit, int $idTailleProduit, int $idCouleur) {
+    function deleteProduit(int $idProduit, int $idTailleProduit, int $idCouleur) {
         $cookie = Cookie::get('panier');
         $cookie = $cookie ? unserialize($cookie) : [];
 
-        $id = $idproduit. '_' .$idTailleProduit. '_' .$idCouleur;
-
+        $id = $idProduit. '_' .$idTailleProduit. '_' .$idCouleur;
 
         if (isset($cookie[$id])) {
             unset($cookie[$id]);
+            Cookie::queue('panier', serialize($cookie));
         }
-
-        Cookie::queue('panier', serialize($cookie));
-
     }
 
-    function remove1Produit(int $idproduit, int $idTailleProduit, int $idCouleur) {
+    public function updateQuantity(int $idProduit, int $idTailleProduit, int $idCouleur, int $quantite)
+    {
         $cookie = Cookie::get('panier');
         $cookie = $cookie ? unserialize($cookie) : [];
 
-        $id = $idproduit . '_' . $idTailleProduit . '_' . $idCouleur;
+        $id = $idProduit . '_' . $idTailleProduit . '_' . $idCouleur;
 
         if (isset($cookie[$id])) {
-            // S'il y a plus d'un produit, décrémentez simplement la quantité
-            if ($cookie[$id]['quantite'] > 1) {
-                $cookie[$id]['quantite']--;
-            } else {
-                // S'il n'y a qu'un seul produit, supprimez complètement l'entrée
-                unset($cookie[$id]);
-            }
+            $cookie[$id]['quantite'] = $quantite;
         }
 
         Cookie::queue('panier', serialize($cookie));
@@ -86,63 +77,61 @@ class Panier {
         $cookie = Cookie::get('panier');
         $cookie = $cookie ? unserialize($cookie) : [];
 
-        return $cookie;
+        $query = Produit::select([
+            'produit.idproduit', 'tailleproduit.idtailleproduit', 'couleur.idcouleur',
+            'titreproduit', 'tailleproduit.nomtailleproduit', 'couleur.nomcouleur',
+            'prix'
+        ])
+        ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit')
+        ->join('couleur', 'couleur.idcouleur', '=', 'variantecouleurproduit.idcouleur')
+        ->join('produitcontienttaille', 'produitcontienttaille.idproduit', '=', 'produit.idproduit')
+        ->join('tailleproduit', 'tailleproduit.idtailleproduit', '=', 'produitcontienttaille.idtailleproduit');
+
+        foreach ($cookie as $value) {
+            $query = $query->orWhere(function($query) use($value) {
+                $query
+                    ->where('produit.idproduit', '=', $value['idproduit'])
+                    ->where('variantecouleurproduit.idcouleur', '=', $value['idcouleur'])
+                    ->where('produitcontienttaille.idtailleproduit', '=', $value['idtailleproduit']);
+            });
+        }
+
+        return $query;
     }
 
-    function getPrixProduit(int $idproduit, int $idCouleur, $idTailleProduit) {
+    function getQuantity(int $idProduit, int $idTailleProduit, int $idCouleur) {
         $cookie = Cookie::get('panier');
         $cookie = $cookie ? unserialize($cookie) : [];
 
-        $id = $idproduit. '_' .$idTailleProduit. '_' .$idCouleur;
-
-        $quantite = $cookie[$id]['quantite'];
-
-        $produit = Produit::where('produit.idproduit', $idproduit)
-                    ->where('idcouleur', $idCouleur)
-                    ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit')
-
-                ->get()->first();
-
-        if ($produit) {
-            return $quantite * $produit->prix;
-        } else {
-            return $produit->prix=0;
-        }
-    }
-
-    function getPhotoProduit(int $idproduit, int $idCouleur) {
-        $produit = Produit::where('produit.idproduit', $idproduit)
-                    ->join('produitcontientimage', 'produitcontientimage.idproduit', '=', 'produit.idproduit')
-                    ->join('imageproduit', 'imageproduit.idimageproduit', '=', 'produitcontientimage.idimageproduit')
-                ->get()->first();
-
-        return $produit->urlimageproduit;
-
-    }
-
-    function getQuantiteTotale() {
-        $produits = $this->getProduits();
-        $quantiteTotale = 0;
-
-        foreach ($produits as $produit) {
-            $quantiteTotale += $produit['quantite'];
-        }
-
-        return $quantiteTotale;
-    }
-
-    public function updateQuantite(int $idproduit, int $idTailleProduit, int $idCouleur, int $quantite)
-    {
-        $cookie = Cookie::get('panier');
-        $cookie = $cookie ? unserialize($cookie) : [];
-
-        $id = $idproduit . '_' . $idTailleProduit . '_' . $idCouleur;
+        $id = $idProduit. '_' .$idTailleProduit. '_' .$idCouleur;
 
         if (isset($cookie[$id])) {
-            $cookie[$id]['quantite'] = $quantite;
+            return $cookie[$id]['quantite'];
         }
 
-        Cookie::queue('panier', serialize($cookie));
+        return 0;
+    }
+
+    function getTotalQuantity() {
+        $cookie = Cookie::get('panier');
+        $cookie = $cookie ? unserialize($cookie) : [];
+
+        $result = 0;
+
+        foreach ($cookie as $value) {
+            $result += $value['quantite'];
+        }
+
+        return $result;
+    }
+
+    function hasProduit(int $idProduit, int $idTailleProduit, int $idCouleur) {
+        $cookie = Cookie::get('panier');
+        $cookie = $cookie ? unserialize($cookie) : [];
+
+        $id = $idProduit. '_' .$idTailleProduit. '_' .$idCouleur;
+
+        return isset($cookie[$id]);
     }
 }
 

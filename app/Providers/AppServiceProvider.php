@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(Panier $panier): void
     {
         View::share(
             'nations',
@@ -34,6 +34,6 @@ class AppServiceProvider extends ServiceProvider
                 ->orderBy('idcategorieproduit')
         );
 
-        View::share('panier', new Panier());
+        View::share('panier', $panier);
     }
 }

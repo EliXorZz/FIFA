@@ -683,9 +683,6 @@ select {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
-.fixed {
-  position: fixed;
-}
 .absolute {
   position: absolute;
 }
@@ -714,12 +711,6 @@ select {
 .top-0 {
   top: 0px;
 }
-.right-0 {
-  right: 0px;
-}
-.top-0 {
-  top: 0px;
-}
 .top-10 {
   top: 2.5rem;
 }
@@ -736,6 +727,10 @@ select {
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
 }
 .mb-3 {
   margin-bottom: 0.75rem;
@@ -773,11 +768,23 @@ select {
 .mt-7 {
   margin-top: 1.75rem;
 }
+.mt-0 {
+  margin-top: 0px;
+}
+.mt-0\.5 {
+  margin-top: 0.125rem;
+}
+.mt-8 {
+  margin-top: 2rem;
+}
 .block {
   display: block;
 }
 .inline-block {
   display: inline-block;
+}
+.inline {
+  display: inline;
 }
 .flex {
   display: flex;
@@ -839,8 +846,23 @@ select {
 .w-full {
   width: 100%;
 }
+.w-16 {
+  width: 4rem;
+}
+.w-screen {
+  width: 100vw;
+}
 .max-w-2xl {
   max-width: 42rem;
+}
+.max-w-3xl {
+  max-width: 48rem;
+}
+.max-w-lg {
+  max-width: 32rem;
+}
+.max-w-screen-xl {
+  max-width: 1280px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -889,6 +911,9 @@ select {
 .items-center {
   align-items: center;
 }
+.justify-end {
+  justify-content: flex-end;
+}
 .justify-center {
   justify-content: center;
 }
@@ -928,6 +953,26 @@ select {
 .gap-6 {
   gap: 1.5rem;
 }
+.space-y-0 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0px * var(--tw-space-y-reverse));
+}
+.space-y-0\.5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.125rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.125rem * var(--tw-space-y-reverse));
+}
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+.space-y-px > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1px * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1px * var(--tw-space-y-reverse));
+}
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
@@ -946,6 +991,9 @@ select {
 .rounded-xl {
   border-radius: 0.75rem;
 }
+.rounded {
+  border-radius: 0.25rem;
+}
 .border {
   border-width: 1px;
 }
@@ -960,6 +1008,9 @@ select {
 }
 .border-r {
   border-right-width: 1px;
+}
+.border-t {
+  border-top-width: 1px;
 }
 .border-black {
   --tw-border-opacity: 1;
@@ -1026,6 +1077,10 @@ select {
   -o-object-fit: contain;
      object-fit: contain;
 }
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 .object-center {
   -o-object-position: center;
      object-position: center;
@@ -1090,6 +1145,14 @@ select {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
 .pb-4 {
   padding-bottom: 1rem;
 }
@@ -1098,6 +1161,9 @@ select {
 }
 .pt-3 {
   padding-top: 0.75rem;
+}
+.pt-8 {
+  padding-top: 2rem;
 }
 .text-left {
   text-align: left;
@@ -1128,6 +1194,13 @@ select {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+.\!text-base {
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+}
+.text-\[10px\] {
+  font-size: 10px;
 }
 .font-bold {
   font-weight: 700;
@@ -1233,6 +1306,9 @@ select {
 .ease-linear {
   transition-timing-function: linear;
 }
+.\[-moz-appearance\:_textfield\] {
+  -moz-appearance: textfield;
+}
 .hover\:scale-105:hover {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
@@ -1266,8 +1342,15 @@ select {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+.hover\:text-red-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
 .hover\:underline:hover {
   text-decoration-line: underline;
+}
+.hover\:opacity-75:hover {
+  opacity: 0.75;
 }
 .focus\:border-black:focus {
   --tw-border-opacity: 1;
@@ -1328,6 +1411,26 @@ select {
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .sm\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .sm\:py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .sm\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .sm\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
 }
 @media (min-width: 768px) {
 
@@ -1356,6 +1459,25 @@ select {
   .lg\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+
+  .lg\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+.\[\&\:\:-webkit-inner-spin-button\]\:m-0::-webkit-inner-spin-button {
+  margin: 0px;
+}
+.\[\&\:\:-webkit-inner-spin-button\]\:appearance-none::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+          appearance: none;
+}
+.\[\&\:\:-webkit-outer-spin-button\]\:m-0::-webkit-outer-spin-button {
+  margin: 0px;
+}
+.\[\&\:\:-webkit-outer-spin-button\]\:appearance-none::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+          appearance: none;
 }
 .\[\&_svg\]\:open\:-rotate-0[open] svg {
   --tw-rotate: -0deg;

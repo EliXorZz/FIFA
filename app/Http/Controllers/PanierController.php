@@ -2,72 +2,71 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateProduitPanierRequest;
+use App\Http\Requests\UpdateProduitQuantityPanierRequest;
 use App\Panier;
+use Illuminate\Http\Request;
 
 class PanierController extends Controller
 {
-    public function show(){
-        return view("panier");
-    }
+    function index(Panier $panier) {
+        $produits = $panier->getProduits();
 
-    public function addPanier(Request $request, Panier $panier){
-        $couleur = $request->input("selectCouleur");
-        $taille = $request->input("selectTaille");
-        $produit = $request->input("selectProduit");
+        $produits = $produits
+            ->with('images')
+            ->get();
 
-        $panier->addProduit($produit, $taille, $couleur);
-
-        return redirect()->back()->with('notification', [
-            'title' => "Panier",
-            'description' => "Le Produit à bien était ajouté au panier"
+        return view('panier', [
+            'produits' => $produits,
         ]);
     }
 
-    public function add1Panier(Request $request, Panier $panier){
-        $couleur = $request->input("couleur");
-        $taille = $request->input("taille");
-        $produit = $request->input("produit");
+    function add(UpdateProduitPanierRequest $request, Panier $panier) {
+        $validated = $request->validated();
 
-        $panier->add1Produit($produit, $taille, $couleur);
+        $panier->addProduit(
+            $validated['selectProduit'],
+            $validated['selectTaille'],
+            $validated['selectCouleur']
+        );
 
-        return redirect()->route('Panier');
-
-
+        return back();
     }
 
-    public function removePanier(Request $request, Panier $panier){
-        $couleur = $request->input("couleur");
-        $taille = $request->input("taille");
-        $produit = $request->input("produit");
+    function remove(UpdateProduitPanierRequest $request, Panier $panier) {
+        $validated = $request->validated();
 
-        $panier->removeProduit($produit, $taille, $couleur);
+        $panier->removeProduit(
+            $validated['selectProduit'],
+            $validated['selectTaille'],
+            $validated['selectCouleur']
+        );
 
-        return redirect()->route('Panier');
+        return back();
     }
 
+    function delete(UpdateProduitPanierRequest $request, Panier $panier) {
+        $validated = $request->validated();
 
-    public function remove1Panier(Request $request, Panier $panier){
-        $couleur = $request->input("couleur");
-        $taille = $request->input("taille");
-        $produit = $request->input("produit");
+        $panier->deleteProduit(
+            $validated['selectProduit'],
+            $validated['selectTaille'],
+            $validated['selectCouleur']
+        );
 
-        $panier->remove1Produit($produit, $taille, $couleur);
-
-        return redirect()->route('Panier');
+        return back();
     }
 
-    public function updateQuantite(Request $request, Panier $panier)
-    {
-        $produit = $request->input("produit");
+    function update(UpdateProduitQuantityPanierRequest $request, Panier $panier) {
+        $validated = $request->validated();
 
-        $couleur = $request->input("couleur");
-        $taille = $request->input("taille");
+        $panier->updateQuantity(
+            $validated['idproduit'],
+            $validated['idtailleproduit'],
+            $validated['idcouleur'],
+            $validated['quantity']
+        );
 
-        $quantite = $request->input("quantite");
-
-        $panier->updateQuantite($produit, $taille, $couleur, $quantite);
-
-        return redirect()->route('Panier');
+        return back();
     }
 }

@@ -23,7 +23,6 @@ class UtilisateurController extends Controller
             'idlangue' => old('idlangue', Auth::user()->idlangue),
             'idpays' => old('idpays', Auth::user()->idpays),
             'idpaysfavori' => old('idpaysfavori', Auth::user()->idpaysfavori),
-
         ]);
     }
 

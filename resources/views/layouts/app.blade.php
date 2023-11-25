@@ -1,7 +1,6 @@
 @extends('layouts.base')
 
 @section('body')
-
 <header>
     <div class="bg-neutral-950 text-white w-full h-16 flex items-center justify-around">
         <a href="{{ route('welcome') }}">
@@ -26,43 +25,28 @@
                             <p class="font-medium text-sm">BIENVENUE</p>
                             <p class="font-light text-xs"> {{ auth()->user()->prenomutilisateur }} </p>
                         </a>
-                    @endauth
-
-                    @guest
-                        <a class="font-medium text-sm">CONNEXION</a>
+                    @else
+                        <a href="{{ route('login') }}" class="font-medium text-sm">CONNEXION</a>
                         <a href="{{ route('register') }}" class="font-light text-xs">INSCRIPTION</a>
-                    @endguest
+                    @endauth
                 </div>
                 <div>
                     <img src="{{ asset('assets/user.svg') }}" class="object-contain" />
                 </div>
             </div>
-                @php
-                $totalprix = 0.0
-                @endphp
-                @foreach($panier->getProduits() as $produitPanier)
-                    @php
-                        $produit = \App\Models\Produit::find($produitPanier['idproduit']);
-                        $couleur = \App\Models\Couleur::find($produitPanier['idcouleur']);  
-                        $taille = \App\Models\TailleProduit::find($produitPanier['idtailleproduit']);  
-                        $prix = $panier->getPrixProduit($produit->idproduit, $couleur->idcouleur, $taille->idtailleproduit);
-                        $totalprix += $prix
-                    @endphp
-
-            @endforeach
             <div class="flex items-center gap-3">
                 <div class="text-left leading-tight tracking-wider">
-                    <p class="font-light text-xs">panier article(s) {{$totalprix}}.00€</p>
-                    <a href="{{ route('Panier') }}" class="font-medium text-sm">MON PANIER</a>
-
+                    <p class="font-medium text-sm">MON PANIER</p>
+                    <p class="font-light text-xs">
+                        <a href="{{ route('panier') }}">Voir mon panier</a>
+                    </p>
                 </div>
-
                 <div class="relative">
-                    <a href="{{ route('Panier') }}">
+                    <a href="{{ route('panier') }}">
                         <img src="{{ asset('assets/order.svg') }}" class="object-contain" />
                         <div
                             class="bg-red-500 rounded-full absolute -top-2 -right-2 w-4 h-4 flex items-center justify-center">
-                            <span class="text-xs">{{$panier->getQuantiteTotale()}}</span>
+                            <span class="text-xs">{{ $panier->getTotalQuantity() }}</span>
                         </div>
                     </a>
                 </div>

@@ -29,17 +29,8 @@ Route::get('/produits', [ ProduitController::class, 'index' ])
 Route::get('/produits/{produit}', [ ProduitController::class, 'show' ])
     ->name('produit');
 
-// ROUTES COMPTES
-Route::get("/account", [ UtilisateurController::class, 'update' ])
-    ->middleware(['auth','verified'])
-    ->name("accountUpdate");
-
-Route::post("/account", [ UtilisateurController::class, 'doUpdate' ])
-    ->middleware(['auth','verified'])
-    ->name("doAccountUpdate");
-
 // ROUTES REGISTER
-Route::get("/register", [ AuthController::class, 'register' ])
+Route::get("/register", [ UtilisateurController::class, 'register' ])
     ->middleware('guest')
     ->name("register");
 
@@ -74,23 +65,20 @@ Route::post('/account/verify-resend', [ AuthController::class, 'resendVerify' ])
     ->name('doResendVerifyAccount');
 
 // ROUTES PANIER
-Route::get("/panier", [ PanierController::class, 'show' ])
-    ->name("Panier");
+Route::get("/panier", [ PanierController::class, 'index' ])
+    ->name('panier');
 
-Route::post("/panier/add", [PanierController::class, 'addPanier'])
-    ->name("PanierAdd");
+Route::post("/panier/add", [ PanierController::class, 'add' ])
+    ->name('doPanierAdd');
 
-Route::post("/panier/remove", [PanierController::class, 'removePanier'])
-    ->name("PanierRemove");
+Route::post("/panier/remove", [ PanierController::class, 'remove' ])
+    ->name('doPanierRemove');
 
-Route::post("/panier/remove1", [PanierController::class, 'remove1Panier'])
-    ->name("Panier1Remove");
+Route::post("/panier/delete", [ PanierController::class, 'delete' ])
+    ->name('doPanierDelete');
 
-Route::post("/panier/add1", [PanierController::class, 'add1Panier'])
-    ->name("Panier1Add");
-
-Route::post('/updateQuantite', [PanierController::class, 'updateQuantite'])
-    ->name('updateQuantite');
+Route::post("/panier/update", [ PanierController::class, 'update' ])
+    ->name('doPanierUpdate');
 
 
 
