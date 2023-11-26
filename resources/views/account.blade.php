@@ -5,9 +5,8 @@
     <div class="p-10 bg-white">
         <div class="flex items-center justify-between mb-5">
             <p class="text-3xl font-bold uppercase">Mes informations</p>
-            <a href="{{ route('accountUpdate') }}" class="top-0 right-0">Réinitialiser mes informations</a>
+            <a href="{{ url()->full() }}" class="top-0 right-0">Réinitialiser mes informations</a>
         </div>
-
 
         <form action="{{ route('doAccountUpdate') }}" method="post" class="grid grid-cols-6 gap-3">
             @csrf()

@@ -11,9 +11,9 @@ use App\Http\Requests\UpdateUtilisateurRequest;
 
 class UtilisateurController extends Controller
 {
-    public function update()
+    public function index()
     {
-        return view('account.update', [
+        return view('account', [
             'langues' => Langue::all(),
             'pays' => Pays::all(),
             'prenomutilisateur' => old('prenomutilisateur', Auth::user()->prenomutilisateur),
@@ -33,6 +33,6 @@ class UtilisateurController extends Controller
         $user = Auth::user();
         $user->update($validated);
 
-        return redirect()->route('accountUpdate');
+        return back();
     }
 }

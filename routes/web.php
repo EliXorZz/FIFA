@@ -29,6 +29,15 @@ Route::get('/produits', [ ProduitController::class, 'index' ])
 Route::get('/produits/{produit}', [ ProduitController::class, 'show' ])
     ->name('produit');
 
+// ROUTES ACCOUNT UPDATE
+Route::get('/account', [ UtilisateurController::class, 'index' ])
+    ->middleware('auth')
+    ->name('account');
+
+Route::post('/account', [ UtilisateurController::class, 'doUpdate' ])
+    ->middleware('auth')
+    ->name('doAccountUpdate');
+
 // ROUTES REGISTER
 Route::get("/register", [ AuthController::class, 'register' ])
     ->middleware('guest')
