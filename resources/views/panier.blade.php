@@ -42,7 +42,9 @@
 
                                 <div>
                                     <dt class="inline">Prix:</dt>
-                                    <dd class="inline">€ {{ $quantite * $produit->prix }}</dd>
+                                    <dd class="inline">
+                                        {{ Illuminate\Support\Number::currency($quantite * $produit->prix, 'EUR') }}
+                                    </dd>
                                 </div>
                             </dl>
                         </div>
@@ -114,17 +116,23 @@
                     <div class="space-y-0.5 text-sm text-gray-700">
                         <div class="flex justify-between">
                             <dt>Sous total</dt>
-                            <dd>€ {{ $subtotal }}</dd>
+                            <dd>
+                                {{ Illuminate\Support\Number::currency($subtotal, 'EUR') }}
+                            </dd>
                         </div>
 
                         <div class="flex justify-between">
                             <dt>TVA</dt>
-                            <dd>€ {{ $tva }}</dd>
+                            <dd>
+                                {{ Illuminate\Support\Number::currency($tva, 'EUR') }}
+                            </dd>
                         </div>
 
                         <div class="flex justify-between !text-base font-medium">
                             <dt>Total</dt>
-                            <dd>€ {{ $total }}</dd>
+                            <dd>
+                                {{ Illuminate\Support\Number::currency($total, 'EUR') }}
+                            </dd>
                         </div>
                     </div>
 
