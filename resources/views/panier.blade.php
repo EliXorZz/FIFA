@@ -128,7 +128,7 @@
                             </dd>
                         </div>
 
-                        <div class="flex justify-between text-lg font-bold">
+                        <div class="flex justify-between text-xl font-bold">
                             <dt>Total</dt>
                             <dd>
                                 {{ Illuminate\Support\Number::currency($total, 'EUR') }}
