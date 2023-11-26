@@ -111,38 +111,49 @@
                 $total = $subtotal + $tva;
             @endphp
 
-            <div class="mt-8 flex justify-end border-t border-gray-100 pt-8">
-                <div class="w-screen max-w-lg space-y-4">
-                    <div class="space-y-0.5 text-sm text-gray-700">
-                        <div class="flex justify-between">
-                            <dt>Sous total</dt>
-                            <dd>
-                                {{ Illuminate\Support\Number::currency($subtotal, 'EUR') }}
-                            </dd>
-                        </div>
+            @empty($produits)
+                <div class="flex flex-col items-center justify-center gap-6">
+                    <img width="100" src="{{ asset('assets/order_black.svg') }}"/>
 
-                        <div class="flex justify-between">
-                            <dt>TVA</dt>
-                            <dd>
-                                {{ Illuminate\Support\Number::currency($tva, 'EUR') }}
-                            </dd>
-                        </div>
-
-                        <div class="flex justify-between text-xl font-bold">
-                            <dt>Total</dt>
-                            <dd>
-                                {{ Illuminate\Support\Number::currency($total, 'EUR') }}
-                            </dd>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end">
-                        <a href="#" class="bg-black text-white font-bold px-10 py-2 uppercase">
-                            Passer commande
-                        </a>
+                    <div class="text-center">
+                        <p class="text-sm text-slate-900">Vous n'avez aucun article dans votre panier</p>
+                        <a href="{{ route('welcome') }}" class="text-sm text-slate-900 underline">Continuez vos achats</a>
                     </div>
                 </div>
-            </div>
+            @else
+                <div class="mt-8 flex justify-end border-t border-gray-100 pt-8">
+                    <div class="w-screen max-w-lg space-y-4">
+                        <div class="space-y-0.5 text-sm text-gray-700">
+                            <div class="flex justify-between">
+                                <dt>Sous total</dt>
+                                <dd>
+                                    {{ Illuminate\Support\Number::currency($subtotal, 'EUR') }}
+                                </dd>
+                            </div>
+
+                            <div class="flex justify-between">
+                                <dt>TVA</dt>
+                                <dd>
+                                    {{ Illuminate\Support\Number::currency($tva, 'EUR') }}
+                                </dd>
+                            </div>
+
+                            <div class="flex justify-between text-xl font-bold">
+                                <dt>Total</dt>
+                                <dd>
+                                    {{ Illuminate\Support\Number::currency($total, 'EUR') }}
+                                </dd>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <a href="#" class="bg-black text-white font-bold px-10 py-2 uppercase">
+                                Passer commande
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endempty
         </div>
     </div>
 </div>

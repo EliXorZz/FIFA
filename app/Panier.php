@@ -96,6 +96,9 @@ class Panier {
             });
         }
 
+        if (empty($cookie))
+            return [];
+
         return $query;
     }
 

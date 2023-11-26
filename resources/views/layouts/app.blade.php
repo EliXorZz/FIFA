@@ -21,7 +21,9 @@
             <div class="hidden md:flex items-center gap-3">
                 <div class="flex flex-col text-right leading-tight tracking-wider">
                     @auth
-                        <p class="font-medium text-sm">{{ auth()->user()->prenomutilisateur }}</p>
+                        <a href="{{ route('account') }}" class="font-medium text-sm">
+                            {{ auth()->user()->prenomutilisateur }}
+                        </a>
                         <a href="{{ route('logout') }}" class="font-light text-xs">
                             Se déconnecter
                         </a>
@@ -31,7 +33,9 @@
                     @endauth
                 </div>
                 <div>
-                    <img src="{{ asset('assets/user.svg') }}" class="object-contain" />
+                    <a href="{{ route('account') }}" class="font-medium text-sm">
+                        <img src="{{ asset('assets/user.svg') }}" class="object-contain" />
+                    </a>
                 </div>
             </div>
             <div class="flex items-center gap-3">

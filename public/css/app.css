@@ -1078,6 +1078,12 @@ select {
 .to-red-800 {
   --tw-gradient-to: #991b1b var(--tw-gradient-to-position);
 }
+.fill-black {
+  fill: #000;
+}
+.fill-white {
+  fill: #fff;
+}
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -1284,6 +1290,10 @@ select {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.text-slate-900 {
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity));
 }
 .underline {
   text-decoration-line: underline;

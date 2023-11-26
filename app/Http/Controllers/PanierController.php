@@ -12,9 +12,10 @@ class PanierController extends Controller
     function index(Panier $panier) {
         $produits = $panier->getProduits();
 
-        $produits = $produits
-            ->with('images')
-            ->get();
+        if (!empty($produits))
+            $produits = $produits
+                ->with('images')
+                ->get();
 
         return view('panier', [
             'produits' => $produits,
