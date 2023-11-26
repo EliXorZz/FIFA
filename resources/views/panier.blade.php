@@ -41,8 +41,8 @@
                                 </div>
 
                                 <div>
-                                    <dt class="inline">Prix:</dt>
-                                    <dd class="inline">
+                                    <dt class="inline text-sm font-medium">Prix:</dt>
+                                    <dd class="inline text-sm font-medium">
                                         {{ Illuminate\Support\Number::currency($quantite * $produit->prix, 'EUR') }}
                                     </dd>
                                 </div>
@@ -128,7 +128,7 @@
                             </dd>
                         </div>
 
-                        <div class="flex justify-between !text-base font-medium">
+                        <div class="flex justify-between text-lg font-bold">
                             <dt>Total</dt>
                             <dd>
                                 {{ Illuminate\Support\Number::currency($total, 'EUR') }}
