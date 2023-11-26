@@ -1178,6 +1178,9 @@ select {
 .text-center {
   text-align: center;
 }
+.text-right {
+  text-align: right;
+}
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;

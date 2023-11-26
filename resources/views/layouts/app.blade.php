@@ -19,7 +19,7 @@
 
         <div class="flex gap-10">
             <div class="hidden md:flex items-center gap-3">
-                <div class="flex flex-col text-left leading-tight tracking-wider">
+                <div class="flex flex-col text-right leading-tight tracking-wider">
                     @auth
                         <p class="font-medium text-sm">{{ auth()->user()->prenomutilisateur }}</p>
                         <a href="{{ route('logout') }}" class="font-light text-xs">
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <div class="text-left leading-tight tracking-wider">
+                <div class="text-right leading-tight tracking-wider">
                     <p class="font-medium text-sm">MON PANIER</p>
                     <p class="font-light text-xs">
                         <a href="{{ route('panier') }}">Voir mon panier</a>
