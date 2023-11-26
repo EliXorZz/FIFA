@@ -21,9 +21,9 @@
             <div class="hidden md:flex items-center gap-3">
                 <div class="flex flex-col text-left leading-tight tracking-wider">
                     @auth
-                        <a href="{{ route('logout') }}">
-                            <p class="font-medium text-sm">BIENVENUE</p>
-                            <p class="font-light text-xs"> {{ auth()->user()->prenomutilisateur }} </p>
+                        <p class="font-medium text-sm">{{ auth()->user()->prenomutilisateur }}</p>
+                        <a href="{{ route('logout') }}" class="font-light text-xs">
+                            Se déconnecter
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="font-medium text-sm">CONNEXION</a>

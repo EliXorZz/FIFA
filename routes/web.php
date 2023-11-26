@@ -30,7 +30,7 @@ Route::get('/produits/{produit}', [ ProduitController::class, 'show' ])
     ->name('produit');
 
 // ROUTES REGISTER
-Route::get("/register", [ UtilisateurController::class, 'register' ])
+Route::get("/register", [ AuthController::class, 'register' ])
     ->middleware('guest')
     ->name("register");
 
