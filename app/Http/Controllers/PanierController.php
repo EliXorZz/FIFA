@@ -22,6 +22,14 @@ class PanierController extends Controller
         ]);
     }
 
+    function addNotify(UpdateProduitPanierRequest $request, Panier $panier) {
+        return $this->add($request, $panier)
+            ->with('notification', [
+                'title' => 'Mise à jour panier',
+                'description' => 'Vous avez ajouté cette article au panier.'
+            ]);
+    }
+
     function add(UpdateProduitPanierRequest $request, Panier $panier) {
         $validated = $request->validated();
 

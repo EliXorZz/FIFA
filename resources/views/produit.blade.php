@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="flex flex-col gap-10 p-10">
-    <form action="{{ route('doPanierAdd') }}" method="post">
+    <form action="{{ route('doPanierAddNotify') }}" method="post">
         @csrf
 
         <input type="text" name="selectProduit" value="{{ $produit->idproduit }}" hidden/>

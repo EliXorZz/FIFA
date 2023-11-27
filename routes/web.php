@@ -77,6 +77,9 @@ Route::post('/account/verify-resend', [ AuthController::class, 'resendVerify' ])
 Route::get("/panier", [ PanierController::class, 'index' ])
     ->name('panier');
 
+Route::post("/panier/addNotify", [ PanierController::class, 'addNotify' ])
+    ->name('doPanierAddNotify');
+
 Route::post("/panier/add", [ PanierController::class, 'add' ])
     ->name('doPanierAdd');
 
