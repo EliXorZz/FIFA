@@ -12,7 +12,7 @@
     <form action="{{ route('doResendVerifyAccount') }}" method="post">
         @csrf
 
-        <button type="submit" class="mt-7 bg-black text-white font-bold px-10 py-2 col-span-6 uppercase">Envoyer une confirmation</button>
+        <button type="submit" class="mt-7 bg-black text-white font-bold px-10 py-2 col-span-6 uppercase">Renvoyer une confirmation</button>
     </form>
 
     @if(session('send'))
