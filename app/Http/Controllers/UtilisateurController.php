@@ -23,6 +23,7 @@ class UtilisateurController extends Controller
             'idlangue' => old('idlangue', Auth::user()->idlangue),
             'idpays' => old('idpays', Auth::user()->idpays),
             'idpaysfavori' => old('idpaysfavori', Auth::user()->idpaysfavori),
+            'verified' => Auth::user()->hasVerifiedEmail()
         ]);
     }
 
@@ -31,6 +32,12 @@ class UtilisateurController extends Controller
         $validated = $request->validated();
 
         $user = Auth::user();
+
+        if ($user->mailutilisateur != $validated['mailutilisateur'])
+        {
+            $user->forceFill(['emailverified' => null]);
+        }
+
         $user->update($validated);
 
         return back();

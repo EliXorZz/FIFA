@@ -44,7 +44,16 @@
             </label>
 
             <label for="mailutilisateur" class="flex flex-col gap-1 col-span-6">
-                Adresse mail
+                <div class="flex items-center gap-2">
+                    <p>Adresse mail</p>
+
+                    @if($verified)
+                        <img src="assets/yescheckmark.svg" width="18"  title="Verifier" />
+                    @else
+                        <img src="assets/nocheckmark.svg" width="18"  title="Non Verifier" />
+                    @endif
+
+                </div>
 
                 <input
                     type="text"
