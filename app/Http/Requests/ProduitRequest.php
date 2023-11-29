@@ -22,7 +22,7 @@ class ProduitRequest extends FormRequest
      */
     public function rules(): array
     {
-        $produit = $this->route('produit');
+        $produit = $this->produit;
 
         return [
             'selectTaille' => [

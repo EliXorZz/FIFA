@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Models\Produit;
+use App\Models\VarianteCouleurProduit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
@@ -77,12 +77,13 @@ class Panier {
         $cookie = Cookie::get('panier');
         $cookie = $cookie ? unserialize($cookie) : [];
 
-        $query = Produit::select([
-            'produit.idproduit', 'tailleproduit.idtailleproduit', 'couleur.idcouleur',
+        $query = VarianteCouleurProduit::select([
+            'variantecouleurproduit.idvariantecouleurproduit', 'produit.idproduit',
+            'tailleproduit.idtailleproduit', 'couleur.idcouleur',
             'titreproduit', 'tailleproduit.nomtailleproduit', 'couleur.nomcouleur',
             'prix'
         ])
-        ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit')
+        ->join('produit', 'produit.idproduit', '=', 'variantecouleurproduit.idproduit')
         ->join('couleur', 'couleur.idcouleur', '=', 'variantecouleurproduit.idcouleur')
         ->join('produitcontienttaille', 'produitcontienttaille.idproduit', '=', 'produit.idproduit')
         ->join('tailleproduit', 'tailleproduit.idtailleproduit', '=', 'produitcontienttaille.idtailleproduit');
