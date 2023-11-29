@@ -34,9 +34,9 @@
                     type="text"
                     id="surnomutilisateur"
                     name="surnomutilisateur"
-                    class="peer border border-black bg-transparent focus:border-black focus:outline-none focus:ring-0"
+                    class="peer border border-black bg-transparent focus:border-black focus:outline-none focus:ring-0 disabled:bg-gray-300"
                     placeholder="Nom d'utilisateur"
-                    value="{{ $surnomutilisateur }}"/>
+                    value="{{ $surnomutilisateur }}" disabled/>
 
                 @error('surnomutilisateur')
                     <span class="text-sm text-red-400"> {{ $message }} </span>
@@ -50,7 +50,9 @@
                     @if($verified)
                         <img src="assets/yescheckmark.svg" width="18"  title="Verifier" />
                     @else
-                        <img src="assets/nocheckmark.svg" width="18"  title="Non Verifier" />
+                        <a href=" {{ route('verification.notice') }} ">
+                            <img src="assets/nocheckmark.svg" width="18" title="Non Verifier" />
+                        </a>
                     @endif
 
                 </div>

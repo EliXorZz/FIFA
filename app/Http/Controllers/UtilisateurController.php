@@ -17,7 +17,7 @@ class UtilisateurController extends Controller
             'langues' => Langue::all(),
             'pays' => Pays::all(),
             'prenomutilisateur' => old('prenomutilisateur', Auth::user()->prenomutilisateur),
-            'surnomutilisateur' => old('surnomutilisateur', Auth::user()->surnomutilisateur),
+            'surnomutilisateur' => Auth::user()->surnomutilisateur,
             'mailutilisateur' => old('mailutilisateur', Auth::user()->mailutilisateur),
             'datenaissance' => old('datenaissance', Auth::user()->datenaissance),
             'idlangue' => old('idlangue', Auth::user()->idlangue),
@@ -33,13 +33,21 @@ class UtilisateurController extends Controller
 
         $user = Auth::user();
 
-        if ($user->mailutilisateur != $validated['mailutilisateur'])
+        $isdifferent = $user->mailutilisateur != $validated['mailutilisateur'];
+
+        if ($isdifferent)
         {
             $user->forceFill(['emailverified' => null]);
         }
 
         $user->update($validated);
 
+        if ($isdifferent)
+        {
+            $user->sendEmailVerificationNotification();
+
+            return redirect()->route('verification.notice');
+        }
         return back();
     }
 }

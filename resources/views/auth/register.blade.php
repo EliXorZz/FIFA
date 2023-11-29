@@ -10,7 +10,7 @@
             @csrf()
 
             <label for="prenomutilisateur" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
-                Prénom
+                Prénom *
 
                 <input
                     type="text"
@@ -26,7 +26,7 @@
             </label>
 
             <label for="surnomutilisateur" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
-                Nom d'utilisateur
+                Nom d'utilisateur *
 
                 <input
                     type="text"
@@ -42,7 +42,7 @@
             </label>
 
             <label for="mailutilisateur" class="flex flex-col gap-1 col-span-6">
-                Adresse mail
+                Adresse mail *
 
                 <input
                     type="text"
@@ -58,7 +58,7 @@
             </label>
 
             <label for="idlangue" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
-                Langue
+                Langue *
 
                 <select id="idlangue" name="idlangue" class="border-black col-span-6 focus:border-black focus:ring-0">
                     <option disabled selected>Choisir une langue</option>
@@ -73,7 +73,7 @@
             </label>
 
             <label for="datenaissance" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
-                Date naissance
+                Date naissance *
 
                 <input
                     type="date"
@@ -89,7 +89,7 @@
             </label>
 
             <label for="idpays" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
-                Pays de naissance
+                Pays de naissance *
 
                 <select id="idpays" name="idpays" class="border-black col-span-6 sm:col-span-3 focus:border-black focus:ring-0">
                     <option disabled selected>Choisir un pays de naissance</option>
@@ -104,7 +104,7 @@
             </label>
 
             <label for="idpaysfavori" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
-                Pays favori
+                Pays favori *
 
                 <select id="idpaysfavori" name="idpaysfavori" class="border-black col-span-6 sm:col-span-3 focus:border-black focus:ring-0">
                     <option disabled selected>Choisir un pays favori</option>
@@ -119,7 +119,7 @@
             </label>
 
             <label for="motpasse" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
-                Mot de passe
+                Mot de passe *
 
                 <input
                     type="password"
@@ -134,7 +134,7 @@
             </label>
 
             <label for="motpasse_confirmation" class="flex flex-col gap-1 col-span-6 sm:col-span-3">
-                Confirmation mot de passe
+                Confirmation mot de passe *
 
                 <input
                     type="password"
@@ -147,7 +147,7 @@
                     <span class="text-sm text-red-400"> {{ $message }} </span>
                 @enderror
             </label>
-
+            <p class="mb-5 col-span-0">* Information obligatoire</p>
             <button type="submit" class="mt-6 bg-black text-white font-bold px-10 py-2 col-span-6 uppercase">
                 Valider
             </button>

@@ -29,11 +29,6 @@ class UpdateUtilisateurRequest extends FormRequest
             'idpaysfavori' => 'required',
 
             'prenomutilisateur' => 'required|max:100',
-            'surnomutilisateur' => [
-                'required',
-                'max:100',
-                Rule::unique('utilisateur')->ignore(Auth::user()->idutilisateur, 'idutilisateur')
-            ],
 
             'mailutilisateur' => [
                 'required',
