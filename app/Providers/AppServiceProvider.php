@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\CategorieProduit;
 use App\Models\Nation;
+use App\Models\TypeLivraison;
 use App\Panier;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -35,5 +36,12 @@ class AppServiceProvider extends ServiceProvider
         );
 
         View::share('panier', $panier);
+
+        //-----------------------------------//
+
+        View::share(
+            'typeslivraison',
+            TypeLivraison::orderBy('idtypelivraison')
+        );
     }
 }

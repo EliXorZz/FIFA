@@ -3,8 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
+use App\Http\Controllers\ServiceExpeditionController;
 use App\Http\Controllers\UtilisateurController;
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -92,5 +92,20 @@ Route::post("/panier/delete", [ PanierController::class, 'delete' ])
 Route::post("/panier/update", [ PanierController::class, 'update' ])
     ->name('doPanierUpdate');
 
+// ROUTES SERVICES EXPEDITION
+Route::get('/service-expedition/{typelivraison}', [ ServiceExpeditionController::class, 'index' ])
+    ->middleware('auth:service_expedition')
+    ->name('service-expedition');
 
+Route::get('/service-expedition/commande/{commande}', [ ServiceExpeditionController::class, 'commande' ])
+    ->middleware('auth:service_expedition')
+    ->name('service-expeditionCommande');
+
+Route::post('/service-expedition/commande/{commande}', [ ServiceExpeditionController::class, 'doCommande' ])
+    ->middleware('auth:service_expedition')
+    ->name('service-expeditionDoCommande');
+
+Route::post('/service-expedition/commande/{commande}/sms', [ ServiceExpeditionController::class, 'doCommandeSMS' ])
+    ->middleware('auth:service_expedition')
+    ->name('service-expeditionDoCommandeSMS');
 
