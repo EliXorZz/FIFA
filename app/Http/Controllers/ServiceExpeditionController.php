@@ -12,6 +12,12 @@ use Twilio\Rest\Client;
 
 class ServiceExpeditionController extends Controller
 {
+    function default() {
+        return redirect()->route('service-expedition', [
+            'typelivraison' => TypeLivraison::first()
+        ]);
+    }
+
     function index(ServiceExpeditionRequest $request, TypeLivraison $typelivraison) {
         $validated = $request->validated();
 

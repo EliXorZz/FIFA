@@ -93,7 +93,11 @@ Route::post("/panier/update", [ PanierController::class, 'update' ])
     ->name('doPanierUpdate');
 
 // ROUTES SERVICES EXPEDITION
-Route::get('/service-expedition/{typelivraison}', [ ServiceExpeditionController::class, 'index' ])
+Route::get('/service-expedition/', [ ServiceExpeditionController::class, 'default' ])
+    ->middleware('auth:service_expedition')
+    ->name('service-expeditionDefault');
+
+Route::get('/service-expedition/{typelivraison?}', [ ServiceExpeditionController::class, 'index' ])
     ->middleware('auth:service_expedition')
     ->name('service-expedition');
 
