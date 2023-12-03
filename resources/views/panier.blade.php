@@ -147,9 +147,13 @@
                         </div>
 
                         <div class="flex justify-end">
-                            <a href="#" class="bg-black text-white font-bold px-10 py-2 uppercase">
-                                Passer commande
-                            </a>
+                            <form action="{{ route('doCommande') }}" method="post">
+                                @csrf
+
+                                <button type="submit" class="bg-black text-white font-bold px-10 py-2 uppercase">
+                                    Passer commande
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

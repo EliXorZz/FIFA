@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\UtilisateurController;
@@ -92,5 +93,11 @@ Route::post("/panier/delete", [ PanierController::class, 'delete' ])
 Route::post("/panier/update", [ PanierController::class, 'update' ])
     ->name('doPanierUpdate');
 
+Route::post("/commande/event", [ CommandeController::class, 'event' ]);
 
+Route::post("/commander", [ CommandeController::class, 'doCommande' ])
+    ->middleware(['auth', 'verified'])
+    ->name('doCommande');
 
+Route::get("/commander/success", [ CommandeController::class, 'success' ])
+    ->name('commandeSuccess');

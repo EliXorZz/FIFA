@@ -7,6 +7,7 @@ use App\Models\Nation;
 use App\Panier;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Stripe\Stripe;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $stripeSecret = env('STRIPE_SECRET');
+
+        Stripe::setApiKey($stripeSecret);
+        Stripe::setApiVersion('2023-10-16');
+
         $this->app->singleton(Panier::class, fn () => new Panier());
     }
 

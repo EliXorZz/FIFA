@@ -59,7 +59,7 @@ class Panier {
         }
     }
 
-    public function updateQuantity(int $idProduit, int $idTailleProduit, int $idCouleur, int $quantite)
+    function updateQuantity(int $idProduit, int $idTailleProduit, int $idCouleur, int $quantite)
     {
         $cookie = Cookie::get('panier');
         $cookie = $cookie ? unserialize($cookie) : [];
@@ -136,6 +136,19 @@ class Panier {
         $id = $idProduit. '_' .$idTailleProduit. '_' .$idCouleur;
 
         return isset($cookie[$id]);
+    }
+
+    function isEmpty() {
+        $cookie = Cookie::get('panier');
+        $cookie = $cookie ? unserialize($cookie) : [];
+
+        return empty($cookie);
+    }
+
+    function clear() {
+        Cookie::queue(
+            Cookie::forget('panier')
+        );
     }
 }
 
