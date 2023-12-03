@@ -57,6 +57,13 @@ class CommandeController extends Controller
                 'shipping_rate_data' => [
                     'display_name' => $typelivraison->nomlivraison,
 
+                    'delivery_estimate' => [
+                        'maximum' => [
+                            'unit' => 'business_day',
+                            'value' => $typelivraison->maxbusinessdays
+                        ]
+                    ],
+
                     'fixed_amount' => [
                         'amount' => $typelivraison->prixlivraison * 100,
                         'currency' => 'EUR'
