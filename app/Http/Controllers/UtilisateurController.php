@@ -8,6 +8,7 @@ use App\Models\Pays;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\UpdateUtilisateurRequest;
+use Stripe\Customer;
 
 class UtilisateurController extends Controller
 {
@@ -32,13 +33,28 @@ class UtilisateurController extends Controller
         $validated = $request->validated();
 
         $user = Auth::user();
+        $newMail = $validated['mailutilisateur'];
 
-        if ($user->mailutilisateur != $validated['mailutilisateur'])
+        $changed = ($user->mailutilisateur != $newMail);
+
+        if ($changed)
         {
             $user->forceFill(['emailverified' => null]);
         }
 
         $user->update($validated);
+
+        if ($changed) {
+            $stripeid = $user->stripeid;
+
+            if ($stripeid != null) {
+                Customer::update($stripeid, [
+                    'email' => $newMail
+                ]);
+            }
+
+            $user->sendEmailVerificationNotification();
+        }
 
         return back();
     }

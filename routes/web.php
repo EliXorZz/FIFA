@@ -99,5 +99,9 @@ Route::post("/commander", [ CommandeController::class, 'doCommande' ])
     ->middleware(['auth', 'verified'])
     ->name('doCommande');
 
+Route::get("/commander/clear", [ CommandeController::class, 'clear' ])
+    ->name('commandeClear');
+
 Route::get("/commander/success", [ CommandeController::class, 'success' ])
     ->name('commandeSuccess');
+

@@ -113,9 +113,15 @@ class CommandeController extends Controller
         return redirect($url);
     }
 
-    function success(StripeRequest $request, Panier $panier) {
+    function clear(StripeRequest $request, Panier $panier) {
+        $validated = $request->validated();
+
         $panier->clear();
 
+        return redirect()->route('commandeSuccess', $validated);
+    }
+
+    function success(StripeRequest $request, Panier $panier) {
         return view('stripe.success');
     }
 
