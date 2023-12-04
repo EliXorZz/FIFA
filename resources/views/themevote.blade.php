@@ -6,7 +6,13 @@
 
 <div class="p-8">
     <p class="text-3xl font-bold uppercase">Theme de Vote</p>
+
+    @if(session('msg'))
+        <p class="text-red-500">{{ session('msg') }}</p>
+    @endif
 </div>
+
+
 
 <ul class="mx-20">
     @foreach($themevotes as $themevote)

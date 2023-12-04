@@ -7,6 +7,7 @@ use App\Models\Joueur;
 use App\Models\ThemeVote;
 use App\Models\UtilisateurVote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Psy\Output\Theme;
 
 class VoteController extends Controller
@@ -47,6 +48,6 @@ class VoteController extends Controller
             $vote->save();
         }
 
-        return to_route('welcome');
+        return to_route('themevotepage')->with('msg', "Merci d'avoir voter !");
     }
 }

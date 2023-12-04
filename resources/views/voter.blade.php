@@ -53,7 +53,7 @@ input[type="checkbox"] {
                 <table class="border-2 text-center table-fixed">
                     <tr class="justify-center" >
                         <td colspan="2" class="pb-2 p-5">
-                            <img src=" {{ $joueur->photojoueur }} " />
+                            <img src=" {{ $joueur->photojoueur }} "/>
                         </td>
                     </tr>
                     <tr>
