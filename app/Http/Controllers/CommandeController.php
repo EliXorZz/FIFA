@@ -8,7 +8,6 @@ use App\Models\Utilisateur;
 use App\Panier;
 use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
-use Stripe\TaxRate;
 use Stripe\Webhook;
 
 class CommandeController extends Controller
