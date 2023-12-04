@@ -159,7 +159,7 @@ class CommandeController extends Controller
     function sessionCompletedEvent($data) {
         $session = Session::retrieve([
             'id' => $data['id'],
-            'expand' => ['shipping_cost.shipping_rate', 'line_items.data.price.product']
+            'expand' => ['shipping_cost.shipping_rate', 'line_items.data.price.product', 'invoice']
         ]);
 
         $stripeid = $session['customer'];
@@ -169,6 +169,8 @@ class CommandeController extends Controller
         $utilisateur->stripeid = $stripeid;
 
         $utilisateur->save();
+
+        $facture = $session['invoice']['invoice_pdf'];
 
         $prixlivraison = $session['shipping_cost'];
         $idtypelivraison = $prixlivraison['shipping_rate']['metadata']['idtypelivraison'];
@@ -195,6 +197,8 @@ class CommandeController extends Controller
 
         $commande->tvacmd = 0.2;
         $commande->expeditioncmd = false;
+
+        $commande->facturecmd = $facture;
 
         $commande->save();
 
