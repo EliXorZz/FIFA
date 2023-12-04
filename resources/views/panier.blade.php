@@ -147,7 +147,12 @@
                         </div>
 
                         <div class="flex justify-end">
-                            <a href="#" class="bg-black text-white font-bold px-10 py-2 uppercase">
+                        <div id="productList" class="hidden">
+                            @foreach ($produits as $produit)
+                                <li>{{ $produit->titreproduit }}</li>
+                            @endforeach
+                        </div>
+                            <a href="#" id="passerCommandeBtn" class="bg-black text-white font-bold px-10 py-2 uppercase">
                                 Passer commande
                             </a>
                         </div>
@@ -163,6 +168,44 @@
         const form = event.parentNode
         form.submit()
     }
+
+    function openModal() {
+
+        const productList = document.getElementById('productList').innerHTML;
+
+        const modal = `
+            <div>
+                <div>
+                <button onclick="fermerModal()" class="bg-black text-white font-bold px-2 py-2 uppercase"> X </button>
+                    <p>Voulez-vous vraiment passer commande?</p>
+                    <p>Liste des produits :</p>
+                    <ul>${productList}</ul>
+                    <div>
+                        <button onclick="confirmerCommande()" class="bg-black text-white font-bold px-10 py-2 uppercase">Confirmer</button>
+                        <button onclick="continuerAchats()" class="bg-black text-white font-bold px-10 py-2 uppercase" >Continuer mes achats</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', modal);
+    }
+
+    function continuerAchats() {
+        window.location.href = "{{ route('welcome') }}";
+    }
+
+    function fermerModal() {
+        window.location.href = "{{ route('panier') }}";
+    }
+    
+    function confirmerCommande() {
+  
+        window.location.href = "{{ route('stripe.session') }}";
+    }
+
+    document.getElementById('passerCommandeBtn').addEventListener('click', openModal);
+
 </script>
 
 @endsection

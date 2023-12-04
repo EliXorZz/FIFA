@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\UtilisateurController;
+use App\Http\Controllers\StripeController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -94,3 +96,9 @@ Route::post("/panier/update", [ PanierController::class, 'update' ])
 
 
 
+Route::get('/checkout', [ StripeController::class, 'checkout' ])->name('checkout');
+Route::post('/checkout', [ StripeController::class, 'checkout' ]);
+Route::get('/stripe/session', [ StripeController::class, 'session' ])->name('stripe.session');
+Route::get('/success', [ StripeController::class, 'success' ])->name('success');
+
+    
