@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProduitRequest;
 use App\Http\Requests\ProduitsRequest;
 use App\Models\Produit;
+use App\Models\VarianteCouleurProduit;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
@@ -12,9 +13,9 @@ class ProduitController extends Controller
     function index(ProduitsRequest $request) {
         $validated = $request->validated();
 
-        $produits = Produit::select(['produit.idproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
+        $produits = VarianteCouleurProduit::select(['produit.idproduit', 'variantecouleurproduit.idvariantecouleurproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
+            ->join('produit', 'produit.idproduit', '=', 'variantecouleurproduit.idproduit')
             ->join('categoriecontientproduit', 'categoriecontientproduit.idproduit', '=', 'produit.idproduit')
-            ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit')
             ->join('produitcontienttaille', 'produitcontienttaille.idproduit', '=', 'produit.idproduit')
             ->distinct();
 
@@ -82,9 +83,9 @@ class ProduitController extends Controller
     function show(ProduitRequest $request, Produit $produit) {
         $validated = $request->validated();
 
-        $images = $produit->images()->get();
-
         $tailles = $produit->tailles()->orderBy('idtailleproduit')->get();
+
+        // COULEURS
         $variantes = $produit->variantes()->get();
 
         $selectTaille = isset($validated['selectTaille'])
@@ -95,9 +96,14 @@ class ProduitController extends Controller
             ? $variantes->where('idcouleur', $validated['selectCouleur'])->first()
             : $variantes->first();
 
-        $produitsSimilaires = $produit->produitsSimilaires()
-            ->select(['produit.idproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
-            ->join('variantecouleurproduit', 'variantecouleurproduit.idproduit', '=', 'produit.idproduit')
+        $variante = VarianteCouleurProduit::where('idproduit', '=', $produit->idproduit)
+            ->where('idcouleur', '=', $selectCouleur->idcouleur)
+            ->with('images')
+            ->first();
+
+        $images = $variante->images;
+
+        $produitsSimilaires = $variante->produitsSimilaires()
             ->with('images')
             ->get();
 

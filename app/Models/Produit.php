@@ -30,10 +30,6 @@ class Produit extends Model
      */
     public $timestamps = false;
 
-    public function produitsSimilaires() {
-        return $this->belongsToMany(Produit::class, 'associationproduit', $this->primaryKey, 'idautreproduit');
-    }
-
     public function tailles() {
         return $this->belongsToMany(TailleProduit::class, 'produitcontienttaille', $this->primaryKey, 'idtailleproduit');
     }
@@ -44,6 +40,6 @@ class Produit extends Model
     }
 
     public function images() {
-        return $this->belongsToMany(ImageProduit::class, 'produitcontientimage', $this->primaryKey, 'idimageproduit');
+        return $this->belongsToMany(ImageProduit::class, 'produitcontientimage', 'idvariantecouleurproduit', 'idimageproduit');
     }
 }

@@ -23,7 +23,7 @@
                     @endphp
 
                     <li class="flex items-center gap-4">
-                        <img src="{{ $produit->images->first()->urlimageproduit }}" class="h-16 w-16 rounded object-cover" />
+                        <img src="{{ asset($produit->images->first()->urlimageproduit) }}" class="h-16 w-16 rounded object-cover" />
 
                         <div>
                             <a href="{{ route('produit', ['produit' => $produit->idproduit, 'selectTaille' => $produit->idtailleproduit, 'selectCouleur' => $produit->idcouleur]) }}"
