@@ -53,7 +53,7 @@ class ServiceExpeditionController extends Controller
 
         $this->sendSMS($acheteur->getSMSPhoneNumber(), "Votre commande n°$commande->idcommande a été expédié");
 
-        return back();
+        return back()->with('notification', "La commande n°$commande->idcommande vient d'être expédiée !");
     }
 
     function commande(Commande $commande) {

@@ -39,12 +39,11 @@
                         <label for="message" class="flex flex-col gap-1">
                             Message
 
-                            <textarea
+                            <input
                                 type="text"
                                 name="message"
                                 class="peer border border-black bg-transparent focus:border-black focus:outline-none focus:ring-0"
-                                placeholder="Message texte">
-                            </textarea>
+                                placeholder="Message texte" />
                         </label>
 
                         <div class="flex flex-col gap-3 mt-8">

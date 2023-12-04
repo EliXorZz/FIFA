@@ -46,6 +46,14 @@
     </div>
 
     <div class="w-full">
+        @if(session()->has('notification'))
+            <div class="bg-green-600 px-4 py-3 text-white">
+                <p class="text-center text-sm font-medium">
+                    {{ session()->get('notification') }}
+                </p>
+            </div>
+        @endif
+
         @error('message')
             <div class="bg-red-600 px-4 py-3 text-white">
                 <p class="text-center text-sm font-medium">
