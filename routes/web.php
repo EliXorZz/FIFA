@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\UtilisateurController;
-
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -92,5 +92,13 @@ Route::post("/panier/delete", [ PanierController::class, 'delete' ])
 Route::post("/panier/update", [ PanierController::class, 'update' ])
     ->name('doPanierUpdate');
 
+Route::get("/themevote", [ VoteController::class , 'themevote'])
+    ->name('themevotepage');
 
+Route::get("/themevote/{id}", [ VoteController::class , 'selectedtheme' ])
+    ->middleware('auth')
+    ->name('selectedtheme');
 
+Route::post('/themevote/vote', [ VoteController::class , 'doVote'])
+    ->middleware('auth')
+    ->name('doVote');
