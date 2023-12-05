@@ -32,10 +32,37 @@
                         <a href="{{ route('register') }}" class="font-light text-xs">INSCRIPTION</a>
                     @endauth
                 </div>
-                <div>
-                    <a href="{{ route('account') }}" class="font-medium text-sm">
-                        <img src="{{ asset('assets/user.svg') }}" class="object-contain" />
-                    </a>
+                <div class="relative">
+                    <details>
+                        @auth
+                            <summary class="list-none cursor-pointer">
+                                <img src="{{ asset('assets/user.svg') }}" class="object-contain" />
+                            </summary>
+
+                            <div class="absolute end-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg">
+                                <div class="p-2">
+
+                                    <a href="{{ route('account') }}" class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+                                        Mon compte
+                                    </a>
+
+                                    <a href="#" class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+                                        Mes commandes
+                                    </a>
+
+                                    @if (auth()->user()->roleutilisateur)
+                                        <a href="#" class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 capitalize">
+                                            {{ auth()->user()->roleutilisateur }}
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        @else
+                            <summary class="list-none">
+                                <img src="{{ asset('assets/user.svg') }}" class="object-contain" />
+                            </summary>
+                        @endauth
+                    </details>
                 </div>
             </div>
             <div class="flex items-center gap-3">

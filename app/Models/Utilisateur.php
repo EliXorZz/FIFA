@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
+use Stripe\Customer;
 
 class Utilisateur extends Authenticatable implements MustVerifyEmail
 {
@@ -131,5 +132,15 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
     public function getAuthPassword()
     {
         return $this->motpasse;
+    }
+
+    public function getStripeCustomer() {
+        $id = $this->stripeid;
+
+        return $id ? Customer::retrieve($id) : null;
+    }
+
+    public function getSMSPhone() {
+        return $this->getStripeCustomer()->phone;
     }
 }

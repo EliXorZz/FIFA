@@ -31,6 +31,6 @@ class Commande extends Model
     public $timestamps = false;
 
     public function acheteur() {
-        return $this->hasOne(Acheteur::class, 'idutilisateur', 'idutilisateur');
+        return $this->hasOne(Utilisateur::class, 'idutilisateur', 'idutilisateur');
     }
 }
