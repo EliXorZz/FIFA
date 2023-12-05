@@ -163,10 +163,14 @@ class CommandeController extends Controller
         ]);
 
         $stripeid = $session['customer'];
+
         $idutilisateur = $session['client_reference_id'];
+        $phone = $session['customer_details']['phone'];
 
         $utilisateur = Utilisateur::find($idutilisateur);
+
         $utilisateur->stripeid = $stripeid;
+        $utilisateur->phoneutilisateur = $phone;
 
         $utilisateur->save();
 

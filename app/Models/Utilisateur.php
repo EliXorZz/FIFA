@@ -134,13 +134,13 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
         return $this->motpasse;
     }
 
+    public function getSMSPhone() {
+        return $this->phoneutilisateur;
+    }
+
     public function getStripeCustomer() {
         $id = $this->stripeid;
 
         return $id ? Customer::retrieve($id) : null;
-    }
-
-    public function getSMSPhone() {
-        return $this->getStripeCustomer()->phone;
     }
 }
