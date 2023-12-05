@@ -10,13 +10,17 @@
             </header>
             <div class="mt-8">
                 @foreach ($commandes as $commande)
-                    <div class="mb-4">
-                        <div class="border p-4 flex items-center">
+                    <div class="mb-8">
+                        <div class="border-2 border-black rounded p-6 flex items-center">
                             <div class="w-1/2">  
+                                <p>
+                                    <span class="font-bold">Numéro de commande :</span> 
+                                    {{ $commande->idcommande }}
+                                </p>
                                 <p>
                                     <span class="font-bold">Type Livraison:</span> 
                                     {{ $commande->typeLivraison()->first()->nomlivraison }}
-                                </p>
+                                </p><br>
 
                                 @if ($commande->expeditioncmd)
                                 <span class="whitespace-nowrap rounded-full bg-green-100 px-2.5 py-0.5 text-sm text-green-700">

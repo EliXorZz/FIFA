@@ -175,15 +175,22 @@
         const modal = `
             <div class="fixed inset-0 overflow-y-auto bg-gray-200 bg-opacity-75">
                 <div class="flex items-center justify-center h-screen">
-                    <div class="p-4 border-4 border-black p-6  w-96 space-y-4">
-                        <button onclick="fermerModal()" class="top-2 left-2 text-black"> X </button>
-                        <p class="text-xl font-semibold mb-4">Voulez-vous vraiment passer commande?</p>
-                        <p class="mb-2">Liste des produits :</p>
-                        <ul class="mb-4 space-y-2">${productList}</ul>
-                        <div class="flex justify-end space-x-4">
-                            <button onclick="confirmerCommande()" class="bg-black text-white font-bold px-4 py-2 uppercase">Confirmer</button>
-                            <button onclick="continuerAchats()" class="bg-gray-300 text-black font-bold px-4 py-2 uppercase">Continuer mes achats</button>
+                    <div class="flex justify-around p-4 border-4 border-black bg-white p-6  w-96 space-y-4">
+
+                        <div>
+                            <p class="text-xl font-semibold mb-4">Voulez-vous vraiment passer commande?</p>
+                            <p class="mb-2">Liste des produits :</p>
+                            <ul class="mb-4 space-y-2">${productList}</ul>
+                            <div class="flex justify-end space-x-4">
+                                <button onclick="continuerAchats()" class="bg-gray-300 text-black font-bold px-4 py-2 uppercase">Continuer mes achats</button>
+                                <button onclick="confirmerCommande()" class="bg-black text-white font-bold px-4 py-2 uppercase">Confirmer</button>
+                            </div>
                         </div>
+
+                        <div>
+                            <button onclick="fermerModal()" class="bg-black rounded text-white font-bold text-xl px-3.5 py-3"> X </button>
+                        </div>
+                       
                     </div>
                 </div>
             </div>
