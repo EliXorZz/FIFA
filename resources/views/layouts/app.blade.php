@@ -61,6 +61,11 @@
     <nav class="relative bg-neutral-900 text-white h-10">
         <ul class="flex gap-10 items-center justify-center h-full uppercase select-none">
             <li class="h-full" >
+                <a href="{{ route('themevotepage') }}" class="cursor-pointer flex items-center justify-center px-5 h-full hover:bg-neutral-700">
+                    Votes
+                </a>
+            </li>
+            <li class="h-full" >
                 <div class="cursor-pointer flex items-center justify-center px-5 h-full hover:bg-neutral-700">
                     Nations
                 </div>

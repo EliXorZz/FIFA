@@ -92,6 +92,8 @@ Route::post("/panier/delete", [ PanierController::class, 'delete' ])
 Route::post("/panier/update", [ PanierController::class, 'update' ])
     ->name('doPanierUpdate');
 
+// ROUTES THEMES
+
 Route::get("/themevote", [ VoteController::class , 'themevote'])
     ->name('themevotepage');
 
