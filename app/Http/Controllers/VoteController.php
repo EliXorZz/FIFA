@@ -55,11 +55,16 @@ class VoteController extends Controller
 
     public function checkifalreadyvote(int $idvote)
     {
-        $user = Auth::user();
-        $mesVotes = UtilisateurVote::select(['utilisateurvote.idutilisateur','utilisateurvote.idthemevote','utilisateurvote.idjoueur','rankvote'])
-            ->where('utilisateurvote.idutilisateur','=', $user->idutilisateur)
-            ->where('utilisateurvote.idthemevote','=', $idvote)
-            ->get();
+        $mesVotes = collect();
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            $mesVotes = UtilisateurVote::select(['utilisateurvote.idutilisateur','utilisateurvote.idthemevote','utilisateurvote.idjoueur','rankvote'])
+                ->where('utilisateurvote.idutilisateur','=', $user->idutilisateur)
+                ->where('utilisateurvote.idthemevote','=', $idvote)
+                ->get();
+        }
+
         return $mesVotes;
     }
 
