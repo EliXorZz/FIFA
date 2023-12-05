@@ -97,15 +97,15 @@ Route::post("/panier/update", [ PanierController::class, 'update' ])
 
 // ROUTES SERVICES EXPEDITION
 Route::get('/service-expedition/', [ ServiceExpeditionController::class, 'default' ])
-    ->middleware('auth:service_expedition')
+    ->middleware(['auth', 'role:service_expedition'])
     ->name('service-expeditionDefault');
 
 Route::get('/service-expedition/{typelivraison?}', [ ServiceExpeditionController::class, 'index' ])
-    ->middleware('auth:service_expedition')
+    ->middleware(['auth', 'role:service_expedition'])
     ->name('service_expedition');
 
 Route::get('/service-expedition/commande/{commande}', [ ServiceExpeditionController::class, 'commande' ])
-    ->middleware('auth:service_expedition')
+    ->middleware(['auth', 'role:service_expedition'])
     ->name('service-expeditionCommande');
 
 Route::post('/service-expedition/commande/{commande}', [ ServiceExpeditionController::class, 'doCommande' ])
@@ -113,7 +113,7 @@ Route::post('/service-expedition/commande/{commande}', [ ServiceExpeditionContro
     ->name('service-expeditionDoCommande');
 
 Route::post('/service-expedition/commande/{commande}/sms', [ ServiceExpeditionController::class, 'doCommandeSMS' ])
-    ->middleware('auth:service_expedition')
+    ->middleware(['auth', 'role:service_expedition'])
     ->name('service-expeditionDoCommandeSMS');
 Route::post("/commande/event", [ CommandeController::class, 'event' ]);
 
