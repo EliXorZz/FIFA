@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\ServiceExpeditionController;
@@ -112,4 +113,16 @@ Route::post('/service-expedition/commande/{commande}', [ ServiceExpeditionContro
 Route::post('/service-expedition/commande/{commande}/sms', [ ServiceExpeditionController::class, 'doCommandeSMS' ])
     ->middleware('auth:service_expedition')
     ->name('service-expeditionDoCommandeSMS');
+Route::post("/commande/event", [ CommandeController::class, 'event' ]);
+
+// ROUTES STRIPE
+Route::post("/commander", [ CommandeController::class, 'doCommande' ])
+    ->middleware(['auth', 'verified'])
+    ->name('doCommande');
+
+Route::get("/commander/clear", [ CommandeController::class, 'clear' ])
+    ->name('commandeClear');
+
+Route::get("/commander/success", [ CommandeController::class, 'success' ])
+    ->name('commandeSuccess');
 

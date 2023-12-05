@@ -50,7 +50,9 @@
                     @if($verified)
                         <img src="assets/yescheckmark.svg" width="18"  title="Verifier" />
                     @else
-                        <img src="assets/nocheckmark.svg" width="18"  title="Non Verifier" />
+                        <a href="{{ route('verification.notice') }}">
+                            <img src="assets/nocheckmark.svg" width="18"  title="Non Verifier" />
+                        </a>
                     @endif
 
                 </div>
