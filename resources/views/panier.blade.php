@@ -170,7 +170,6 @@
     }
 
     function openModal() {
-
         const productList = document.getElementById('productList').innerHTML;
         const modal = `
             <div class="fixed inset-0 overflow-y-auto bg-gray-200 bg-opacity-75">
@@ -190,25 +189,13 @@
                         <div>
                             <button onclick="fermerModal()" class="bg-black rounded text-white font-bold text-xl px-3.5 py-3"> X </button>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
         `;
 
-
-
-
-
-
-
-
-
-
-
-
-document.body.insertAdjacentHTML('beforeend', modal);
-
+        document.body.insertAdjacentHTML('beforeend', modal);
     }
 
     function continuerAchats() {
@@ -218,14 +205,12 @@ document.body.insertAdjacentHTML('beforeend', modal);
     function fermerModal() {
         window.location.href = "{{ route('panier') }}";
     }
-    
+
     function confirmerCommande() {
-  
         window.location.href = "{{ route('stripe.session') }}";
     }
 
     document.getElementById('passerCommandeBtn').addEventListener('click', openModal);
-
 </script>
 
 @endsection
