@@ -33,4 +33,8 @@ class Commande extends Model
     public function acheteur() {
         return $this->hasOne(Utilisateur::class, 'idutilisateur', 'idutilisateur');
     }
+
+    public function typeLivraison() {
+        return $this->hasOne(TypeLivraison::class, 'idtypelivraison', 'idtypelivraison');
+    }
 }

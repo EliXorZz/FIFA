@@ -683,6 +683,9 @@ select {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+.fixed {
+  position: fixed;
+}
 .absolute {
   position: absolute;
 }
@@ -692,6 +695,12 @@ select {
 .sticky {
   position: sticky;
 }
+<<<<<<< HEAD
+=======
+.inset-0 {
+  inset: 0px;
+}
+>>>>>>> feature-commande
 .inset-x-0 {
   left: 0px;
   right: 0px;
@@ -796,6 +805,15 @@ select {
 .mt-9 {
   margin-top: 2.25rem;
 }
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-8 {
+  margin-bottom: 2rem;
+}
 .block {
   display: block;
 }
@@ -880,6 +898,12 @@ select {
 .w-screen {
   width: 100vw;
 }
+<<<<<<< HEAD
+=======
+.w-1\/2 {
+  width: 50%;
+}
+>>>>>>> feature-commande
 .min-w-full {
   min-width: 100%;
 }
@@ -1023,6 +1047,16 @@ select {
   margin-top: calc(1px * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1px * var(--tw-space-y-reverse));
 }
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
@@ -1041,6 +1075,12 @@ select {
   --tw-divide-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-divide-opacity));
 }
+<<<<<<< HEAD
+=======
+.overflow-y-auto {
+  overflow-y: auto;
+}
+>>>>>>> feature-commande
 .whitespace-nowrap {
   white-space: nowrap;
 }
@@ -1166,6 +1206,12 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
+<<<<<<< HEAD
+=======
+.bg-opacity-75 {
+  --tw-bg-opacity: 0.75;
+}
+>>>>>>> feature-commande
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -1204,6 +1250,12 @@ select {
 .p-2 {
   padding: 0.5rem;
 }
+<<<<<<< HEAD
+=======
+.p-6 {
+  padding: 1.5rem;
+}
+>>>>>>> feature-commande
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -1275,6 +1327,14 @@ select {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.px-3\.5 {
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
 }
 .pb-4 {
   padding-bottom: 1rem;

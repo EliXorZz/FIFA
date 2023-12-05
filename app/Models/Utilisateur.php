@@ -134,6 +134,11 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
         return $this->motpasse;
     }
 
+    public function commandes()
+    {
+        return $this->hasMany(Commande::class, $this->primaryKey, $this->primaryKey);
+    }
+
     public function getSMSPhone() {
         return $this->phoneutilisateur;
     }

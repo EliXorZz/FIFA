@@ -147,13 +147,15 @@
                         </div>
 
                         <div class="flex justify-end">
-                            <form action="{{ route('doCommande') }}" method="post">
-                                @csrf
+                            <div id="productList" class="hidden">
+                                @foreach ($produits as $produit)
+                                    <li>{{ $produit->titreproduit }}</li>
+                                @endforeach
+                            </div>
 
-                                <button type="submit" class="bg-black text-white font-bold px-10 py-2 uppercase">
-                                    Passer commande
-                                </button>
-                            </form>
+                            <a href="#" id="passerCommandeBtn" class="bg-black text-white font-bold px-10 py-2 uppercase">
+                                Passer commande
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -167,6 +169,49 @@
         const form = event.parentNode
         form.submit()
     }
+
+    function openModal() {
+        const productList = document.getElementById('productList').innerHTML;
+        const modal = `
+            <div class="fixed inset-0 overflow-y-auto bg-gray-200 bg-opacity-75">
+                <div class="flex items-center justify-center h-screen">
+                    <div class="flex justify-around p-4 border-4 border-black bg-white p-6  w-96 space-y-4">
+
+                        <div>
+                            <p class="text-xl font-semibold mb-4">Voulez-vous vraiment passer commande?</p>
+                            <p class="mb-2">Liste des produits :</p>
+                            <ul class="mb-4 space-y-2">${productList}</ul>
+                            <div class="flex justify-end space-x-4">
+                                <button onclick="continuerAchats()" class="bg-gray-300 text-black font-bold px-4 py-2 uppercase">Continuer mes achats</button>
+                                <button onclick="confirmerCommande()" class="bg-black text-white font-bold px-4 py-2 uppercase">Confirmer</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button onclick="fermerModal()" class="bg-black rounded text-white font-bold text-xl px-3.5 py-3"> X </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', modal);
+    }
+
+    function continuerAchats() {
+        window.location.href = "{{ route('welcome') }}";
+    }
+
+    function fermerModal() {
+        window.location.href = "{{ route('panier') }}";
+    }
+
+    function confirmerCommande() {
+        window.location.href = "{{ route('stripe.session') }}";
+    }
+
+    document.getElementById('passerCommandeBtn').addEventListener('click', openModal);
 </script>
 
 @endsection

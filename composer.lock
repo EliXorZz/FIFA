@@ -3259,6 +3259,7 @@
         },
         {
             "name": "stripe/stripe-php",
+<<<<<<< HEAD
             "version": "v13.5.0",
             "source": {
                 "type": "git",
@@ -3269,6 +3270,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/stripe/stripe-php/zipball/a688c0ee7c0a2d162dee5c80b85d017cdd8d5e37",
                 "reference": "a688c0ee7c0a2d162dee5c80b85d017cdd8d5e37",
+=======
+            "version": "v7.128.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "c704949c49b72985c76cc61063aa26fefbd2724e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/c704949c49b72985c76cc61063aa26fefbd2724e",
+                "reference": "c704949c49b72985c76cc61063aa26fefbd2724e",
+>>>>>>> feature-commande
                 "shasum": ""
             },
             "require": {
@@ -3280,7 +3293,12 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "3.5.0",
                 "phpstan/phpstan": "^1.2",
+<<<<<<< HEAD
                 "phpunit/phpunit": "^5.7 || ^9.0"
+=======
+                "phpunit/phpunit": "^5.7 || ^9.0",
+                "squizlabs/php_codesniffer": "^3.3"
+>>>>>>> feature-commande
             },
             "type": "library",
             "extra": {
@@ -3312,9 +3330,15 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/stripe/stripe-php/tree/v13.5.0"
             },
             "time": "2023-11-30T18:11:45+00:00"
+=======
+                "source": "https://github.com/stripe/stripe-php/tree/v7.128.0"
+            },
+            "time": "2022-05-05T17:18:02+00:00"
+>>>>>>> feature-commande
         },
         {
             "name": "symfony/console",
