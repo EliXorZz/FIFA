@@ -17,7 +17,19 @@ class VoteController extends Controller
      */
     public function themevote()
     {
-        return view('themevote', ['themevotes' => ThemeVote::all()]);
+        $mesThemes = ThemeVote::all();
+        $mesVoteDejaVoter = [];
+        foreach ($mesThemes as $value) {
+            if(count($this->checkifalreadyvote($value->idthemevote)))
+            {
+                array_push($mesVoteDejaVoter,[$value->idthemevote,true]);
+            }
+            else
+            {
+                array_push($mesVoteDejaVoter,[$value->idthemevote,false]);
+            }
+        }
+        return view('themevote', ['themevotes' => $mesThemes, 'alreayvote' => $mesVoteDejaVoter]);
     }
 
     public function selectedtheme(int $id)
@@ -28,11 +40,38 @@ class VoteController extends Controller
             ->where('themevote.idthemevote', '=', $id)
             ->get();
 
-        return view('voter', ['joueurs' => $joueurs, 'titre' => ThemeVote::find($id)]);
+        $mesVotes = $this->checkifalreadyvote($id);
+
+
+        $selected = [];
+        if(count($mesVotes))
+        {
+            foreach ($mesVotes as $value) {
+                array_push($selected,[$value->idjoueur, $value->rankvote]);
+            }
+        }
+        return view('voter', ['joueurs' => $joueurs, 'titre' => ThemeVote::find($id), 'voter' => $selected]);
+    }
+
+    public function checkifalreadyvote(int $idvote)
+    {
+        $user = Auth::user();
+        $mesVotes = UtilisateurVote::select(['utilisateurvote.idutilisateur','utilisateurvote.idthemevote','utilisateurvote.idjoueur','rankvote'])
+            ->where('utilisateurvote.idutilisateur','=', $user->idutilisateur)
+            ->where('utilisateurvote.idthemevote','=', $idvote)
+            ->get();
+        return $mesVotes;
     }
 
     public function doVote(VoteRequest $request)
     {
+        $mesVotes = $this->checkifalreadyvote($request->input('idthemevote'));
+
+        if(count($mesVotes))
+        {
+            return to_route('themevotepage')->with('msg', "Vous avez déjà voter sur ce theme");
+        }
+
         $validated = $request->validated();
 
         $user = $request->user();

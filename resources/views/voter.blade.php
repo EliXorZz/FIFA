@@ -31,6 +31,11 @@ input[type="checkbox"] {
       background-color: white;
       color: black;
     }
+
+    input[type="checkbox"]:disabled:checked + label.checkbox-label
+    {
+        opacity: 1;
+    }
 </style>
 
 <div class="p-8">
@@ -38,11 +43,12 @@ input[type="checkbox"] {
     <form action=" {{ route('doVote') }} " method="post">
     @csrf
 
-        <input type="number" name="idthemevote" value="{{$titre->idthemevote}}" hidden>
+        <input type="hidden" name="idthemevote" value="{{$titre->idthemevote}}">
 
         <p class="text-3xl font-bold uppercase">{{ $titre->titrethemevote }}</p>
-
-
+        @if(count($voter) != 0)
+            <span class="text-red-500 text-left">Déjà voté</span>
+        @endif
         @foreach ($errors->all() as $error)
             <p class="text-sm text-red-400">{{$error}}</p>
         @endforeach
@@ -65,22 +71,25 @@ input[type="checkbox"] {
                     </tr>
                     <tr>
                         <td colspan="3" class="pb-5">
-                            <input type="checkbox" class="" name="check_1" value="{{$joueur->idjoueur}}" id="ck1_{{$joueur->idjoueur}}">
+
+                            <input type="checkbox" class="" name="check_1" value="{{$joueur->idjoueur}}" id="ck1_{{$joueur->idjoueur}}" @foreach($voter as $vote) @if($vote[0] == $joueur->idjoueur && $vote[1] == 1) checked @endif @disabled(true) @endforeach>
                             <label class="checkbox-label" for="ck1_{{$joueur->idjoueur}}">1</label>
 
-                            <input type="checkbox" class="" name="check_2" value="{{$joueur->idjoueur}}" id="ck2_{{$joueur->idjoueur}}">
+                            <input type="checkbox" class="" name="check_2" value="{{$joueur->idjoueur}}" id="ck2_{{$joueur->idjoueur}}" @foreach($voter as $vote) @if($vote[0] == $joueur->idjoueur && $vote[1] == 2) checked @endif @disabled(true) @endforeach>
                             <label class="checkbox-label" for="ck2_{{$joueur->idjoueur}}">2</label>
 
-                            <input type="checkbox" class="" name="check_3" value="{{$joueur->idjoueur}}" id="ck3_{{$joueur->idjoueur}}">
+                            <input type="checkbox" class="" name="check_3" value="{{$joueur->idjoueur}}" id="ck3_{{$joueur->idjoueur}}" @foreach($voter as $vote) @if($vote[0] == $joueur->idjoueur && $vote[1] == 3) checked @endif @disabled(true) @endforeach>
                             <label class="checkbox-label" for="ck3_{{$joueur->idjoueur}}">3</label>
+
                         </td>
                     </tr>
                 </table>
             @endforeach
         </div>
 
-
+        @if(count($voter) == 0)
         <input type="submit" class="mt-6 bg-black text-white font-bold px-10 py-2 uppercase cursor-pointer" value="Valider mes votes">
+        @endif
     </form>
 
 </div>
