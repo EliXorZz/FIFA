@@ -13,14 +13,14 @@ class Authenticate extends Middleware
      */
     public function handle($request, Closure $next, ...$guard)
     {
-        if (!empty($guard)) {
-            if (auth()->check() && auth()->user()->roleutilisateur == $guard[0]) {
-                return $next($request);
-            }
+        redirect()
+            ->setIntendedUrl(url()->current());
 
-            redirect()
-                ->setIntendedUrl(url()->current());
+        if (!auth()->check()) {
+            return redirect('login');
+        }
 
+        if (!empty($guard) && auth()->user()->roleutilisateur != $guard[0]) {
             return redirect('login');
         }
 
