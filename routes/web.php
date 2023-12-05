@@ -103,7 +103,7 @@ Route::get('/service-expedition/', [ ServiceExpeditionController::class, 'defaul
 
 Route::get('/service-expedition/{typelivraison?}', [ ServiceExpeditionController::class, 'index' ])
     ->middleware('auth:service_expedition')
-    ->name('service-expedition');
+    ->name('service_expedition');
 
 Route::get('/service-expedition/commande/{commande}', [ ServiceExpeditionController::class, 'commande' ])
     ->middleware('auth:service_expedition')
@@ -129,4 +129,5 @@ Route::get("/commander/clear", [ CommandeController::class, 'clear' ])
 Route::get("/commander/success", [ CommandeController::class, 'success' ])
     ->name('commandeSuccess');
 
-Route::get('/commandes', [CommandesController::class, 'index']);
+Route::get('/commandes', [CommandesController::class, 'index'])
+    ->name('commandes');

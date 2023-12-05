@@ -13,7 +13,7 @@ use Twilio\Rest\Client;
 class ServiceExpeditionController extends Controller
 {
     function default() {
-        return redirect()->route('service-expedition', [
+        return redirect()->route('service_expedition', [
             'typelivraison' => TypeLivraison::first()
         ]);
     }

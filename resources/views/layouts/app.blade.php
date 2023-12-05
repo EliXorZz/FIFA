@@ -46,12 +46,12 @@
                                         Mon compte
                                     </a>
 
-                                    <a href="#" class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+                                    <a href="{{ route('commandes') }}" class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700">
                                         Mes commandes
                                     </a>
 
                                     @if (auth()->user()->roleutilisateur)
-                                        <a href="#" class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 capitalize">
+                                        <a href="{{ route(auth()->user()->roleutilisateur) }}" class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 capitalize">
                                             {{ auth()->user()->roleutilisateur }}
                                         </a>
                                     @endif
