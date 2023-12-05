@@ -183,7 +183,12 @@
                             <ul class="mb-4 space-y-2">${productList}</ul>
                             <div class="flex justify-end space-x-4">
                                 <button onclick="continuerAchats()" class="bg-gray-300 text-black font-bold px-4 py-2 uppercase">Continuer mes achats</button>
-                                <button onclick="confirmerCommande()" class="bg-black text-white font-bold px-4 py-2 uppercase">Confirmer</button>
+
+                                <form action="{{ route('doCommande') }}" method="post">
+                                    @csrf
+
+                                    <button type="submit" class="bg-black text-white font-bold px-4 py-2 uppercase">Confirmer</button>
+                                </form>
                             </div>
                         </div>
 
@@ -201,10 +206,6 @@
 
     function continuerAchats() {
         window.location.href = "{{ route('welcome') }}"
-    }
-
-    function confirmerCommande() {
-        window.location.href = "{{ route('stripe.session') }}"
     }
 
     function fermerModal() {

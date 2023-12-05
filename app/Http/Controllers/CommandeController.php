@@ -31,7 +31,7 @@ class CommandeController extends Controller
         $data = [
             'mode' => 'payment',
             'success_url' => route('commandeClear').'?session={CHECKOUT_SESSION_ID}',
-            'cancel_url' => $request->url(),
+            'cancel_url' => route('panier'),
 
             'invoice_creation' => [
                 'enabled' => true

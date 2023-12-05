@@ -129,9 +129,4 @@ Route::get("/commander/clear", [ CommandeController::class, 'clear' ])
 Route::get("/commander/success", [ CommandeController::class, 'success' ])
     ->name('commandeSuccess');
 
-Route::get('/checkout', [ StripeController::class, 'checkout' ])->name('checkout');
-Route::post('/checkout', [ StripeController::class, 'checkout' ]);
-Route::get('/stripe/session', [ StripeController::class, 'session' ])->name('stripe.session');
-Route::get('/success', [ StripeController::class, 'success' ])->name('success');
-
 Route::get('/commandes', [CommandesController::class, 'index']);
