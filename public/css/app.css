@@ -745,6 +745,9 @@ select {
 .col-span-6 {
   grid-column: span 6 / span 6;
 }
+.m-8 {
+  margin: 2rem;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1233,6 +1236,12 @@ select {
 .p-px {
   padding: 1px;
 }
+.p-5 {
+  padding: 1.25rem;
+}
+.p-8 {
+  padding: 2rem;
+}
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -1563,6 +1572,10 @@ select {
 }
 .focus\:ring-offset-0:focus {
   --tw-ring-offset-width: 0px;
+}
+.disabled\:bg-gray-300:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 .group:hover .group-hover\:scale-90 {
   --tw-scale-x: .9;

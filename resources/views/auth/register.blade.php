@@ -147,7 +147,6 @@
                     <span class="text-sm text-red-400"> {{ $message }} </span>
                 @enderror
             </label>
-
             <button type="submit" class="mt-6 bg-black text-white font-bold px-10 py-2 col-span-6 uppercase">
                 Valider
             </button>

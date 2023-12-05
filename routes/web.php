@@ -7,8 +7,7 @@ use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\ServiceExpeditionController;
 use App\Http\Controllers\UtilisateurController;
-use App\Http\Controllers\StripeController;
-
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -131,3 +130,15 @@ Route::get("/commander/success", [ CommandeController::class, 'success' ])
 
 Route::get('/commandes', [CommandesController::class, 'index'])
     ->name('commandes');
+
+// ROUTES THEMES
+Route::get("/themevote", [ VoteController::class , 'themevote'])
+    ->name('themevotepage');
+
+Route::get("/themevote/{id}", [ VoteController::class , 'selectedtheme' ])
+    ->middleware('auth')
+    ->name('selectedtheme');
+
+Route::post('/themevote/vote', [ VoteController::class , 'doVote'])
+    ->middleware('auth')
+    ->name('doVote');

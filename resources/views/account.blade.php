@@ -34,9 +34,9 @@
                     type="text"
                     id="surnomutilisateur"
                     name="surnomutilisateur"
-                    class="peer border border-black bg-transparent focus:border-black focus:outline-none focus:ring-0"
+                    class="peer border border-black bg-transparent focus:border-black focus:outline-none focus:ring-0 disabled:bg-gray-300"
                     placeholder="Nom d'utilisateur"
-                    value="{{ $surnomutilisateur }}"/>
+                    value="{{ $surnomutilisateur }}" disabled/>
 
                 @error('surnomutilisateur')
                     <span class="text-sm text-red-400"> {{ $message }} </span>
