@@ -132,4 +132,11 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
     {
         return $this->motpasse;
     }
+
+    public function commandes()
+    {
+        return $this->hasMany(Commande::class, 'idutilisateur');
+    }
+
+    
 }

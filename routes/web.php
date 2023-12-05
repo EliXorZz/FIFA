@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\CommandesController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\UtilisateurController;
@@ -102,3 +102,6 @@ Route::get('/stripe/session', [ StripeController::class, 'session' ])->name('str
 Route::get('/success', [ StripeController::class, 'success' ])->name('success');
 
     
+
+
+Route::get('/commandes', [CommandesController::class, 'index']);
