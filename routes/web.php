@@ -5,7 +5,7 @@ use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CommandesController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
-use App\Http\Controllers\ServiceExpeditionController;
+use App\Http\Controllers\ServiceExpedition\ServiceExpeditionController;
 use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
@@ -96,28 +96,44 @@ Route::post("/panier/update", [ PanierController::class, 'update' ])
     ->name('doPanierUpdate');
 
 // ROUTES SERVICES EXPEDITION
-Route::get('/service-expedition/', [ ServiceExpeditionController::class, 'default' ])
-    ->middleware(['auth', 'role:service_expedition'])
+Route::get('/service-expedition', [ ServiceExpeditionController::class, 'default' ])
+    ->middleware(['auth', 'role:service-expedition'])
     ->name('service-expeditionDefault');
 
 Route::get('/service-expedition/{typelivraison?}', [ ServiceExpeditionController::class, 'index' ])
-    ->middleware(['auth', 'role:service_expedition'])
-    ->name('service_expedition');
+    ->middleware(['auth', 'role:service-expedition'])
+    ->name('service-expedition');
 
 Route::get('/service-expedition/commande/{commande}', [ ServiceExpeditionController::class, 'commande' ])
-    ->middleware(['auth', 'role:service_expedition'])
+    ->middleware(['auth', 'role:service-expedition'])
     ->name('service-expeditionCommande');
 
 Route::post('/service-expedition/commande/{commande}', [ ServiceExpeditionController::class, 'doCommande' ])
-    ->middleware('auth:service_expedition')
+    ->middleware(['auth', 'role:service-expedition'])
     ->name('service-expeditionDoCommande');
 
 Route::post('/service-expedition/commande/{commande}/sms', [ ServiceExpeditionController::class, 'doCommandeSMS' ])
-    ->middleware(['auth', 'role:service_expedition'])
+    ->middleware(['auth', 'role:service-expedition'])
     ->name('service-expeditionDoCommandeSMS');
-Route::post("/commande/event", [ CommandeController::class, 'event' ]);
+
+// ROUTE SERVICES VENTE
+Route::get('/service-vente', [ ServiceVenteController::class, 'index' ])
+    ->name('service-vente');
+
+Route::prefix('/service-vente')->name('service-vente.')->group(function () {
+    Route::resources([
+        'produits' => ServiceVenteProduitController::class,
+        'tailles' => ServiceVenteTailleProduitController::class,
+        'couleurs' => ServiceVenteCouleurProduitController::class,
+        'categories' => ServiceVenteCategorierProduitController::class
+    ]);
+});
+
+
 
 // ROUTES STRIPE
+Route::post("/commande/event", [ CommandeController::class, 'event' ]);
+
 Route::post("/commander", [ CommandeController::class, 'doCommande' ])
     ->middleware(['auth', 'verified'])
     ->name('doCommande');

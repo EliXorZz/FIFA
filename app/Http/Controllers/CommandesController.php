@@ -12,18 +12,16 @@ class CommandesController extends Controller
     public function index()
     {
         $utilisateur = Auth::user();
-        
+
         if ($utilisateur) {
             $commandes = $utilisateur->commandes;
         } else {
             return redirect()->route('login');
         }
-        
+
         return view('commandes', [
             'commandes' => $commandes
         ]);
-
-
     }
 }
 

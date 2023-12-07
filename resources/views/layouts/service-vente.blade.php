@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Service d\'expédition')
+@section('title', 'Service vente')
 
 @section('body')
 
@@ -12,18 +12,25 @@
             </div>
 
             <ul class="mt-6 space-y-1">
-                @foreach ($typeslivraison->get() as $livraison)
-                    <li>
-                        @if (isset($typelivraison) && $livraison == $typelivraison)
-                            <a href="" class="block rounded-lg px-4 py-2 text-sm font-medium bg-gray-100 text-gray-700">
-                                Livraison {{ $livraison->nomlivraison }}
-                            </a>
-                        @else
-                            <a href="{{ route('service-expedition', [ 'typelivraison' => $livraison ]) }}" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-                                Livraison {{ $livraison->nomlivraison }}
-                            </a>
-                        @endif
-                    </li>
+                @php
+                    $list = [
+                        [ 'name' => 'Liste des produits', 'route' => 'service-vente.produits.index' ],
+                        [ 'name' => 'Liste des tailles', 'route' => 'service-vente.tailles.index' ],
+                        [ 'name' => 'Liste des couleurs', 'route' => 'service-vente.couleurs.index' ],
+                        [ 'name' => 'Liste des categories', 'route' => 'service-vente.categories.index' ],
+                    ]
+                @endphp
+
+                @foreach ($list as $item)
+                    @if (Route::current()->getName() == $item['route'])
+                        <a class="block rounded-lg px-4 py-2 text-sm font-medium bg-gray-100 text-gray-700">
+                            {{ $item['name'] }}
+                        </a>
+                    @else
+                        <a href="{{ route($item['route']) }}" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+                            {{ $item['name'] }}
+                        </a>
+                    @endif
                 @endforeach
             </ul>
         </div>
@@ -71,28 +78,5 @@
         </div>
     </div>
 </div>
-
-<script>
-    const smsPopups = document.querySelectorAll('div[data-sms-popup]')
-    smsPopups.forEach(smsPopup => {
-        smsPopup.addEventListener('click', (event) => {
-            const target = event.target
-
-            if (target.dataset.cancel != null)
-                smsPopup.classList.add('hidden')
-        })
-    })
-
-    const smsButtons = document.querySelectorAll('button[data-sms]')
-    smsButtons.forEach(smsButton => {
-        smsButton.addEventListener('click', (event) => {
-            const commande = smsButton.dataset.sms
-
-            const popup = document.querySelector(`div[data-sms-popup='${commande}']`)
-
-            popup.classList.remove('hidden')
-        })
-    })
-</script>
 
 @endsection

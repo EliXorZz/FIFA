@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ServiceExpedition;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceExpeditionRequest;
 use App\Http\Requests\ServiceExpeditionSMSRequest;
 use App\Models\Commande;
@@ -13,7 +14,7 @@ use Twilio\Rest\Client;
 class ServiceExpeditionController extends Controller
 {
     function default() {
-        return redirect()->route('service_expedition', [
+        return redirect()->route('service-expedition', [
             'typelivraison' => TypeLivraison::first()
         ]);
     }

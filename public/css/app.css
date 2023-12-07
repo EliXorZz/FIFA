@@ -818,6 +818,9 @@ select {
 .mt-9 {
   margin-top: 2.25rem;
 }
+.mt-px {
+  margin-top: 1px;
+}
 .block {
   display: block;
 }
@@ -851,6 +854,9 @@ select {
 .h-4 {
   height: 1rem;
 }
+.h-5 {
+  height: 1.25rem;
+}
 .h-6 {
   height: 1.5rem;
 }
@@ -880,6 +886,9 @@ select {
 }
 .w-4 {
   width: 1rem;
+}
+.w-5 {
+  width: 1.25rem;
 }
 .w-56 {
   width: 14rem;
@@ -1031,6 +1040,9 @@ select {
 }
 .gap-8 {
   gap: 2rem;
+}
+.gap-px {
+  gap: 1px;
 }
 .space-x-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -1455,6 +1467,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
+.text-slate-500 {
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity));
+}
 .text-slate-800 {
   --tw-text-opacity: 1;
   color: rgb(30 41 59 / var(--tw-text-opacity));
@@ -1518,6 +1534,28 @@ select {
 }
 .\[-moz-appearance\:_textfield\] {
   -moz-appearance: textfield;
+}
+.file\:mr-4::file-selector-button {
+  margin-right: 1rem;
+}
+.file\:px-4::file-selector-button {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.file\:py-2::file-selector-button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.file\:text-sm::file-selector-button {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.file\:font-semibold::file-selector-button {
+  font-weight: 600;
+}
+.file\:text-black::file-selector-button {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 .hover\:scale-105:hover {
   --tw-scale-x: 1.05;
