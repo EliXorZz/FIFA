@@ -142,3 +142,7 @@ Route::get("/themevote/{id}", [ VoteController::class , 'selectedtheme' ])
 Route::post('/themevote/vote', [ VoteController::class , 'doVote'])
     ->middleware('auth')
     ->name('doVote');
+
+
+Route::get('/commande/{commande}', [ CommandesController::class, 'commande' ])
+    ->name('detailsCommande');
