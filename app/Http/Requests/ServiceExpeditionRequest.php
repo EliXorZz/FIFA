@@ -23,7 +23,7 @@ class ServiceExpeditionRequest extends FormRequest
     {
         return [
             'order' => 'nullable|in:asc,desc',
-            'search' => 'nullable'
+            'search' => 'nullable|integer'
         ];
     }
 }

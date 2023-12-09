@@ -12,6 +12,17 @@
             </div>
 
             <ul class="mt-6 space-y-1">
+                <li>
+                    @if($typelivraison != null)
+                        <a href="{{ route('service-expedition') }}" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+                            Toutes les livraisons
+                        </a>
+                    @else
+                        <a href="" class="block rounded-lg px-4 py-2 text-sm font-medium bg-gray-100 text-gray-700">
+                            Toutes les livraisons
+                        </a>
+                    @endif
+                </li>
                 @foreach ($typeslivraison->get() as $livraison)
                     <li>
                         @if (isset($typelivraison) && $livraison == $typelivraison)

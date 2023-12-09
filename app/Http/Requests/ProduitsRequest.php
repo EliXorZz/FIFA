@@ -23,10 +23,10 @@ class ProduitsRequest extends FormRequest
     {
         return [
             'order' => 'nullable|in:asc,desc',
-            'categorie' => 'nullable',
-            'nation' => 'nullable',
-            'couleurs' => 'nullable',
-            'tailles' => 'nullable',
+            'categorie' => 'nullable|integer',
+            'nation' => 'nullable|integer',
+            'couleurs' => 'nullable|integer',
+            'tailles' => 'nullable|integer',
             'search' => 'nullable'
         ];
     }

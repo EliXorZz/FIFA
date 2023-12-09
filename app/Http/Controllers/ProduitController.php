@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProduitRequest;
 use App\Http\Requests\ProduitsRequest;
-use App\Models\Produit;
+use App\Models\TailleProduit;
 use App\Models\VarianteCouleurProduit;
 use Illuminate\Http\Request;
 
@@ -13,37 +13,37 @@ class ProduitController extends Controller
     function index(ProduitsRequest $request) {
         $validated = $request->validated();
 
-        $produits = VarianteCouleurProduit::select(['produit.idproduit', 'variantecouleurproduit.idvariantecouleurproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
+        $variantes = VarianteCouleurProduit::select(['produit.idproduit', 'variantecouleurproduit.idvariantecouleurproduit', 'variantecouleurproduit.idcouleur', 'titreproduit', 'prix'])
             ->join('produit', 'produit.idproduit', '=', 'variantecouleurproduit.idproduit')
             ->join('categoriecontientproduit', 'categoriecontientproduit.idproduit', '=', 'produit.idproduit')
             ->join('produitcontienttaille', 'produitcontienttaille.idproduit', '=', 'produit.idproduit')
             ->distinct();
 
         if (isset($validated['nation'])) {
-            $produits = $produits->where('idnation', '=', $validated['nation']);
+            $variantes->where('idnation', '=', $validated['nation']);
         }
 
         if(isset($validated['categorie'])) {
-            $produits = $produits->where('idcategorieproduit', '=', $validated['categorie']);
+            $variantes->where('idcategorieproduit', '=', $validated['categorie']);
         }
 
         if (isset($validated['search'])) {
             $keywords = explode(',', $validated['search']);
 
-            $produits = $produits->where(function($query) use($keywords) {
+            $variantes->where(function($query) use($keywords) {
                 foreach ($keywords as $keyword) {
                     $query->where('produit.titreproduit', 'ILIKE', "%$keyword%");
                 }
             });
         }
 
-        $couleurList = (clone $produits)
+        $couleurList = (clone $variantes)
             ->select(['couleur.idcouleur', 'nomcouleur'])
             ->join('couleur', 'couleur.idcouleur', '=', 'variantecouleurproduit.idcouleur')
             ->orderBy('couleur.idcouleur', 'asc')
             ->get();
 
-        $tailleList = (clone $produits)
+        $tailleList = (clone $variantes)
             ->select(['tailleproduit.idtailleproduit', 'nomtailleproduit'])
             ->join('tailleproduit', 'tailleproduit.idtailleproduit', '=', 'produitcontienttaille.idtailleproduit')
             ->orderBy('tailleproduit.idtailleproduit', 'asc')
@@ -52,25 +52,25 @@ class ProduitController extends Controller
         $couleurs = collect();
         if (isset($validated['couleurs'])) {
             $couleurs = collect(explode(',', $validated['couleurs']));
-            $produits = $produits->whereIn('variantecouleurproduit.idcouleur', $couleurs);
+            $variantes->whereIn('variantecouleurproduit.idcouleur', $couleurs);
         }
 
         $tailles = collect();
         if (isset($validated['tailles'])) {
             $tailles = collect(explode(',', $validated['tailles']));
-            $produits = $produits->whereIn('produitcontienttaille.idtailleproduit', $tailles);
+            $variantes->whereIn('produitcontienttaille.idtailleproduit', $tailles);
         }
 
         if (isset($validated['order'])) {
-            $produits = $produits->orderBy('prix', $validated['order']);
+            $variantes->orderBy('prix', $validated['order']);
         }
 
-        $produits = $produits
+        $variantes = $variantes
             ->with('images')
             ->get();
 
         return view('produits', [
-            'produits' => $produits,
+            'variantes' => $variantes,
 
             'couleurs' => $couleurList,
             'tailles' => $tailleList,
@@ -80,32 +80,27 @@ class ProduitController extends Controller
         ]);
     }
 
-    function show(ProduitRequest $request, Produit $produit) {
+    function show(ProduitRequest $request, VarianteCouleurProduit $variantecouleurproduit) {
         $validated = $request->validated();
 
-        $tailles = $produit->tailles()->orderBy('idtailleproduit')->get();
+        $selectVariante = $variantecouleurproduit
+            ->load(['produit.variantes.couleur' , 'produit.tailles', 'couleur']);
 
-        // COULEURS
-        $variantes = $produit->variantes()->get();
+        $produit = $selectVariante->produit;
+
+        $images = $selectVariante->images;
+        $tailles = $produit->tailles;
+        $variantes = $produit->variantes;
 
         $selectTaille = isset($validated['selectTaille'])
-            ? $tailles->where('idtailleproduit', $validated['selectTaille'])->first()
+            ? TailleProduit::find($validated['selectTaille'])
             : $tailles->first();
 
-        $selectCouleur = isset($validated['selectCouleur'])
-            ? $variantes->where('idcouleur', $validated['selectCouleur'])->first()
-            : $variantes->first();
-
-        $variante = VarianteCouleurProduit::where('idproduit', '=', $produit->idproduit)
-            ->where('idcouleur', '=', $selectCouleur->idcouleur)
-            ->with('images')
-            ->first();
-
-        $images = $variante->images;
-
-        $produitsSimilaires = $variante->produitsSimilaires()
+        $produitsSimilaires = $produit->produitsSimilaires()
             ->with('images')
             ->get();
+
+        $produitsSimilaires = collect();
 
         return view('produit', [
             'produit' => $produit,
@@ -114,8 +109,8 @@ class ProduitController extends Controller
             'tailles' => $tailles,
             'variantes' => $variantes,
 
+            'selectVariante' => $selectVariante,
             'selectTaille' => $selectTaille,
-            'selectCouleur' => $selectCouleur,
 
             'produitsSimilaires' => $produitsSimilaires
         ]);

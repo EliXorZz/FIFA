@@ -80,30 +80,26 @@ class CommandeController extends Controller
                 ]
             ])->toArray(),
 
-            'line_items' => [
-                $produits->map(fn ($produit) => [
-                    'quantity' => $panier->getQuantity($produit->idproduit, $produit->idtailleproduit, $produit->idcouleur),
+            'line_items' => $produits->map(fn ($produit) => [
+                'quantity' => $panier->getQuantity($produit->idvariantecouleurproduit, $produit->idtailleproduit),
 
-                    'price_data' => [
-                        'currency' => 'EUR',
-                        'unit_amount' => $produit->prix * 100,
+                'price_data' => [
+                    'currency' => 'EUR',
+                    'unit_amount' => $produit->prix * 100,
 
-                        'product_data' => [
-                            'name' => $produit->titreproduit,
-                            'description' => "$produit->nomtailleproduit $produit->nomcouleur",
+                    'product_data' => [
+                        'name' => $produit->titreproduit,
+                        'description' => "$produit->nomtailleproduit $produit->nomcouleur",
 
-                            'images' => [ asset($produit->images->first()->urlimageproduit) ],
+                        'images' => [ asset($produit->images->first()->urlimageproduit) ],
 
-                            'metadata' => [
-                                'idproduit' => $produit->idproduit,
-                                'idtailleproduit' => $produit->idtailleproduit,
-                                'idcouleur' => $produit->idcouleur,
-                                'idvariantecouleurproduit' => $produit->idvariantecouleurproduit
-                            ]
+                        'metadata' => [
+                            'idvariantecouleurproduit' => $produit->idvariantecouleurproduit,
+                            'idtailleproduit' => $produit->idtailleproduit
                         ]
-                    ],
-                ])->toArray()
-            ]
+                    ]
+                ],
+            ])->toArray()
         ];
 
         if (isset($stripeid)) {

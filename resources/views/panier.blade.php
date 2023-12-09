@@ -18,7 +18,7 @@
 
                 @foreach ($produits as $produit)
                     @php
-                        $quantite = $panier->getQuantity($produit->idproduit, $produit->idtailleproduit, $produit->idcouleur);
+                        $quantite = $panier->getQuantity($produit->idvariantecouleurproduit, $produit->idtailleproduit);
                         $subtotal += $quantite * $produit->prix;
                     @endphp
 
@@ -26,7 +26,7 @@
                         <img src="{{ asset($produit->images->first()->urlimageproduit) }}" class="h-16 w-16 rounded object-cover" />
 
                         <div>
-                            <a href="{{ route('produit', ['produit' => $produit->idproduit, 'selectTaille' => $produit->idtailleproduit, 'selectCouleur' => $produit->idcouleur]) }}"
+                            <a href="{{ route('produit', ['variantecouleurproduit' => $produit->idvariantecouleurproduit, 'selectTaille' => $produit->idtailleproduit]) }}"
                                 class="text-sm text-gray-900">{{ $produit->titreproduit }}</a>
 
                             <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
@@ -54,9 +54,8 @@
                                 <form action="{{ route('doPanierRemove') }}" method="post">
                                     @csrf
 
-                                    <input type="text" name="selectProduit" value="{{ $produit->idproduit }}" hidden/>
+                                    <input type="text" name="selectVariante" value="{{ $produit->idvariantecouleurproduit }}" hidden/>
                                     <input type="text" name="selectTaille" value="{{ $produit->idtailleproduit }}" hidden/>
-                                    <input type="text" name="selectCouleur" value="{{ $produit->idcouleur }}" hidden/>
 
                                     <button type="submit" class="w-10 h-10 text-black transition hover:opacity-75 border border-black">-</button>
                                 </form>
@@ -64,9 +63,8 @@
                                 <form action="{{ route('doPanierUpdate') }}" method="post">
                                     @csrf
 
-                                    <input type="text" name="idproduit" value="{{ $produit->idproduit }}" hidden/>
+                                    <input type="text" name="idvariantecouleurproduit" value="{{ $produit->idvariantecouleurproduit }}" hidden/>
                                     <input type="text" name="idtailleproduit" value="{{ $produit->idtailleproduit }}" hidden/>
-                                    <input type="text" name="idcouleur" value="{{ $produit->idcouleur }}" hidden/>
 
                                     <input type="number" name="quantity" value="{{ $quantite }}"
                                         onchange="updateQuantity(this)"
@@ -77,9 +75,8 @@
                                 <form action="{{ route('doPanierAdd') }}" method="post">
                                     @csrf
 
-                                    <input type="text" name="selectProduit" value="{{ $produit->idproduit }}" hidden/>
+                                    <input type="text" name="selectVariante" value="{{ $produit->idvariantecouleurproduit }}" hidden/>
                                     <input type="text" name="selectTaille" value="{{ $produit->idtailleproduit }}" hidden/>
-                                    <input type="text" name="selectCouleur" value="{{ $produit->idcouleur }}" hidden/>
 
                                     <button type="submit" class="w-10 h-10 text-black transition hover:opacity-75 border border-black">+</button>
                                 </form>
@@ -88,9 +85,8 @@
                             <form action="{{ route('doPanierDelete') }}" method="post">
                                 @csrf
 
-                                <input type="text" name="selectProduit" value="{{ $produit->idproduit }}" hidden/>
+                                <input type="text" name="selectVariante" value="{{ $produit->idvariantecouleurproduit }}" hidden/>
                                 <input type="text" name="selectTaille" value="{{ $produit->idtailleproduit }}" hidden/>
-                                <input type="text" name="selectCouleur" value="{{ $produit->idcouleur }}" hidden/>
 
                                 <button class="text-gray-600 transition hover:text-red-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

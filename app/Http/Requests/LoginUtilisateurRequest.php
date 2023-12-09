@@ -22,7 +22,7 @@ class LoginUtilisateurRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'surnomutilisateur' => 'required',
+            'surnomutilisateur' => 'required|string',
             'motpasse' => 'required'
         ];
     }

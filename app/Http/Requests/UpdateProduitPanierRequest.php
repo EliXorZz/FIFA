@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\VarianteCouleurProduit;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -22,24 +23,21 @@ class UpdateProduitPanierRequest extends FormRequest
      */
     public function rules(): array
     {
-        $idproduit = $this->selectProduit;
+        $variante = VarianteCouleurProduit::find($this->selectVariante);
 
         return [
-            'selectProduit' => 'required|integer|exists:produit,idproduit',
+            'selectVariante' => [
+                'required',
+                'integer',
+                Rule::exists('variantecouleurproduit', 'idvariantecouleurproduit')
+            ],
 
             'selectTaille' => [
                 'required',
                 'integer',
                 Rule::exists('produitcontienttaille', 'idtailleproduit')
-                    ->where('idproduit', $idproduit)
-            ],
-
-            'selectCouleur' => [
-                'required',
-                'integer',
-                Rule::exists('variantecouleurproduit', 'idcouleur')
-                    ->where('idproduit', $idproduit)
-            ],
+                    ->where('idproduit', $variante->idproduit)
+            ]
         ];
     }
 }

@@ -30,16 +30,23 @@ class Produit extends Model
      */
     public $timestamps = false;
 
+    public function variantes() {
+        return $this->hasMany(VarianteCouleurProduit::class, $this->primaryKey, $this->primaryKey);
+    }
+
+    public function produitsSimilaires() {
+        return $this->belongsToMany(Produit::class, 'associationproduit', $this->primaryKey, 'idautreproduit');
+    }
+
+    public function categories() {
+        return $this->belongsToMany(Produit::class, 'categoriecontientproduit', $this->primaryKey, 'idcategorieproduit');
+    }
+
     public function tailles() {
         return $this->belongsToMany(TailleProduit::class, 'produitcontienttaille', $this->primaryKey, 'idtailleproduit');
     }
 
-    public function variantes() {
-        return $this->belongsToMany(Couleur::class, 'variantecouleurproduit', $this->primaryKey, 'idcouleur')
-            ->withPivot('prix');
-    }
-
-    public function images() {
-        return $this->belongsToMany(ImageProduit::class, 'produitcontientimage', 'idvariantecouleurproduit', 'idimageproduit');
+    public function couleurs() {
+        return $this->belongsToMany(Couleur::class, 'produitcontientcouleur', $this->primaryKey, 'idcouleur');
     }
 }

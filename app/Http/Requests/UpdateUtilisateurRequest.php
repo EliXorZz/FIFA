@@ -24,15 +24,14 @@ class UpdateUtilisateurRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'idlangue' => 'required',
-            'idpays' => 'required',
-            'idpaysfavori' => 'required',
+            'idlangue' => 'required|integer',
+            'idpays' => 'required|integer',
+            'idpaysfavori' => 'required|integer',
 
-            'prenomutilisateur' => 'required|max:100',
+            'prenomutilisateur' => 'required|string|max:100',
 
             'mailutilisateur' => [
                 'required',
-                'max:100',
                 'email:rfc,dns',
                 Rule::unique('utilisateur')->ignore(Auth::user()->idutilisateur, 'idutilisateur')
             ],

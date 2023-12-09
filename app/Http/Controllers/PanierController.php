@@ -34,9 +34,8 @@ class PanierController extends Controller
         $validated = $request->validated();
 
         $panier->addProduit(
-            $validated['selectProduit'],
-            $validated['selectTaille'],
-            $validated['selectCouleur']
+            $validated['selectVariante'],
+            $validated['selectTaille']
         );
 
         return back();
@@ -46,9 +45,8 @@ class PanierController extends Controller
         $validated = $request->validated();
 
         $panier->removeProduit(
-            $validated['selectProduit'],
-            $validated['selectTaille'],
-            $validated['selectCouleur']
+            $validated['selectVariante'],
+            $validated['selectTaille']
         );
 
         return back();
@@ -58,9 +56,8 @@ class PanierController extends Controller
         $validated = $request->validated();
 
         $panier->deleteProduit(
-            $validated['selectProduit'],
-            $validated['selectTaille'],
-            $validated['selectCouleur']
+            $validated['selectVariante'],
+            $validated['selectTaille']
         );
 
         return back();
@@ -70,9 +67,8 @@ class PanierController extends Controller
         $validated = $request->validated();
 
         $panier->updateQuantity(
-            $validated['idproduit'],
+            $validated['idvariantecouleurproduit'],
             $validated['idtailleproduit'],
-            $validated['idcouleur'],
             $validated['quantity']
         );
 

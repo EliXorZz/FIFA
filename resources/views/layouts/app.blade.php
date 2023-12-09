@@ -174,7 +174,9 @@
         <script>
             setTimeout(function(){
                 const notification = document.getElementById('notification');
-                notification.remove()
+
+                if (notification)
+                    notification.remove()
             }, 3600);
         </script>
     @endif

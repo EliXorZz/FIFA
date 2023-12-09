@@ -127,22 +127,22 @@
         </thead>
 
         <tbody class="divide-y divide-gray-200">
-            @foreach ($produits as $produit)
-                <tr data-href="{{ route('produit', ['produit' => $produit->idproduit, 'selectTaille' => $produit->idtailleproduit, 'selectCouleur' => $produit->idcouleur]) }}" class="hover:cursor-pointer hover:bg-gray-50">
+            @foreach ($lignes as $ligne)
+                <tr data-href="{{ route('produit', ['variantecouleurproduit' => $ligne->variante, 'selectTaille' => $ligne->taille->idtailleproduit]) }}" class="hover:cursor-pointer hover:bg-gray-50">
                     <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 bg-gray-50">
-                        {{ $produit->idproduit }}
+                        {{ $ligne->variante->idproduit }}
                     </td>
                     <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                        {{ $produit->titreproduit }}
+                        {{ $ligne->variante->produit->titreproduit }}
                     </td>
                     <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                        {{ $produit->nomcouleur }}
+                        {{ $ligne->variante->couleur->nomcouleur }}
                     </td>
                     <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                        {{ $produit->nomtailleproduit }}
+                        {{ $ligne->taille->nomtailleproduit }}
                     </td>
                     <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                        {{ $produit->quantitecommande }}
+                        {{ $ligne->quantitecommande }}
                     </td>
                 </tr>
             @endforeach

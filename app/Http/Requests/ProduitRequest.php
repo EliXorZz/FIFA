@@ -22,19 +22,14 @@ class ProduitRequest extends FormRequest
      */
     public function rules(): array
     {
-        $produit = $this->produit;
+        $variante = $this->variantecouleurproduit;
 
         return [
             'selectTaille' => [
                 'nullable',
                 Rule::exists('produitcontienttaille', 'idtailleproduit')
-                    ->where('idproduit', $produit->idproduit)
+                    ->where('idproduit', $variante->idproduit)
             ],
-            'selectCouleur' => [
-                'nullable',
-                Rule::exists('variantecouleurproduit', 'idcouleur')
-                    ->where('idproduit', $produit->idproduit)
-            ]
         ];
     }
 }

@@ -29,7 +29,7 @@ Route::get('/', function () {
 Route::get('/produits', [ ProduitController::class, 'index' ])
     ->name('produits');
 
-Route::get('/produits/{produit}', [ ProduitController::class, 'show' ])
+Route::get('/produits/{variantecouleurproduit?}', [ ProduitController::class, 'show' ])
     ->name('produit');
 
 // ROUTES ACCOUNT UPDATE
@@ -95,11 +95,7 @@ Route::post("/panier/delete", [ PanierController::class, 'delete' ])
 Route::post("/panier/update", [ PanierController::class, 'update' ])
     ->name('doPanierUpdate');
 
-// ROUTES SERVICES EXPEDITION
-Route::get('/service-expedition', [ ServiceExpeditionController::class, 'default' ])
-    ->middleware(['auth', 'role:service-expedition'])
-    ->name('service-expeditionDefault');
-
+// ROUTES SERVICES EXPEDITION;
 Route::get('/service-expedition/{typelivraison?}', [ ServiceExpeditionController::class, 'index' ])
     ->middleware(['auth', 'role:service-expedition'])
     ->name('service-expedition');
@@ -128,8 +124,6 @@ Route::prefix('/service-vente')->name('service-vente.')->group(function () {
         'categories' => ServiceVenteCategorierProduitController::class
     ]);
 });
-
-
 
 // ROUTES STRIPE
 Route::post("/commande/event", [ CommandeController::class, 'event' ]);

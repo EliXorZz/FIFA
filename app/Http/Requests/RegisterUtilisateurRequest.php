@@ -23,13 +23,13 @@ class RegisterUtilisateurRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'idlangue' => 'required',
-            'idpays' => 'required',
-            'idpaysfavori' => 'required',
+            'idlangue' => 'required|integer',
+            'idpays' => 'required|integer',
+            'idpaysfavori' => 'required|integer',
 
-            'prenomutilisateur' => 'required|max:100',
-            'surnomutilisateur' => 'required|unique:utilisateur|max:100',
-            'mailutilisateur' => 'required|unique:utilisateur|max:100|email:rfc,dns',
+            'prenomutilisateur' => 'required|string|max:100',
+            'surnomutilisateur' => 'required|string|unique:utilisateur|max:100',
+            'mailutilisateur' => 'required|unique:utilisateur|email:rfc,dns',
             'datenaissance' => 'required|before:today',
 
             'motpasse' => ['required', 'confirmed', Password::defaults()],

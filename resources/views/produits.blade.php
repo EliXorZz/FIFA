@@ -57,7 +57,7 @@
 
     <div class="flex flex-col gap-2 w-full">
         <div class="flex items-center justify-between">
-            <p class="text-sm font-light">{{ $produits->count() }} produit(s) trouvé(s)</p>
+            <p class="text-sm font-light">{{ $variantes->count() }} produit(s) trouvé(s)</p>
 
             <select id="order" class="w-72 border-gray-300 text-gray-700 focus:border-gray-300 focus:ring-0">
                 <option value="default" @selected(!request()->has('order'))>Tri par défaut</option>
@@ -67,14 +67,14 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            @foreach ($produits as $produit)
-                <a href="{{ route('produit', ['produit' => $produit->idproduit, 'selectCouleur' => $produit->idcouleur]) }}" class="shadow-lg divide-y divide-black group cursor-pointer select-none">
+            @foreach ($variantes as $variante)
+                <a href="{{ route('produit', ['variantecouleurproduit' => $variante->idvariantecouleurproduit]) }}" class="shadow-lg divide-y divide-black group cursor-pointer select-none">
                     <div class="h-72 transition ease-linear duration-300 delay-75 group-hover:scale-90">
-                        <img src="{{ asset($produit->images->first()->urlimageproduit) }}" class="h-full w-full object-contain"/>
+                        <img src="{{ asset($variante->images->first()->urlimageproduit) }}" class="h-full w-full object-contain"/>
                     </div>
                     <div class="px-7 pt-3 pb-4">
-                        <p class="font-medium">{{ $produit->titreproduit }}</p>
-                        <p class="font-bold">€{{ $produit->prix }}</p>
+                        <p class="font-medium">{{ $variante->titreproduit }}</p>
+                        <p class="font-bold">€{{ $variante->prix }}</p>
                     </div>
                 </a>
             @endforeach

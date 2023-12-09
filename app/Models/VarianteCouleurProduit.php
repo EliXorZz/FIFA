@@ -30,12 +30,12 @@ class VarianteCouleurProduit extends Model
      */
     public $timestamps = false;
 
-    public function produitsSimilaires() {
-        return $this->belongsToMany(Produit::class, 'associationproduit', 'idproduit', 'idautreproduit');
+    public function produit() {
+        return $this->hasOne(Produit::class, 'idproduit', 'idproduit');
     }
 
-    public function produit() {
-        return $this->hasOne(Produit::class, 'idproduit');
+    public function couleur() {
+        return $this->hasOne(Couleur::class, 'idcouleur', 'idcouleur');
     }
 
     public function images() {

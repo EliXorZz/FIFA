@@ -37,4 +37,8 @@ class Commande extends Model
     public function typeLivraison() {
         return $this->hasOne(TypeLivraison::class, 'idtypelivraison', 'idtypelivraison');
     }
+
+    public function lignes() {
+        return $this->hasMany(LigneCommande::class, $this->primaryKey, $this->primaryKey);
+    }
 }

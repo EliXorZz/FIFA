@@ -8,8 +8,6 @@
     <form action="{{ route('doPanierAddNotify') }}" method="post">
         @csrf
 
-        <input type="text" name="selectProduit" value="{{ $produit->idproduit }}" hidden/>
-
         <div class="flex flex-col gap-10 md:flex-row md:gap-6 justify-around">
             <div class="flex gap-5 w-full md:w-1/2">
                 <div id="images" class="flex flex-col gap-6">
@@ -27,7 +25,7 @@
             <div class="flex flex-col gap-4 border-l-2 border-black px-16 py-10 w-full md:w-1/2">
                 <div>
                     <h1 class="font-bold text-lg">{{ $produit->titreproduit }}</h1>
-                    <h2 class="font-semibold">€ {{ $selectCouleur->pivot->prix }}</h2>
+                    <h2 class="font-semibold">€ {{ $selectVariante->prix }}</h2>
                 </div>
 
                 <div class="flex flex-col gap-2">
@@ -51,33 +49,36 @@
                 <div class="flex flex-col gap-2">
                     <div class="flex gap-1.5">
                         <p class="font-bold">COULEUR :</p>
-                        <span class="font-light uppercase">{{ $selectCouleur->nomcouleur }}</span>
+                        <span class="font-light uppercase">{{ $selectVariante->couleur->nomcouleur }}</span>
                     </div>
                     <div class="flex gap-3">
                         @foreach ($variantes as $variante)
                             <style>
-                                #variante_{{ $variante->idcouleur }} {
+                                #couleur_{{ $variante->couleur->idcouleur }} {
                                     background: linear-gradient(
                                         -45deg,
-                                        #{{ $variante->hexacouleur }} 0%,
-                                        #{{ $variante->hexacouleur }}99 50%,
-                                        #{{ $variante->hexacouleur }} 100%
+                                        #{{ $variante->couleur->hexacouleur }} 0%,
+                                        #{{ $variante->couleur->hexacouleur }}99 50%,
+                                        #{{ $variante->couleur->hexacouleur }} 100%
                                     );
                                 }
                             </style>
 
-                            <label id="couleurSelector">
-                                <input type="radio" name="selectCouleur" class="peer hidden" value="{{ $variante->idcouleur }}" @checked($selectCouleur->idcouleur == $variante->idcouleur)/>
+                            <label id="varianteSelector">
+                                <a href="{{ route('produit', ['variantecouleurproduit' => $variante, 'selectTaille' => $selectTaille->idtailleproduit ]) }}">
+                                    <input type="radio" name="selectVariante" class="peer hidden" value="{{ $variante->idvariantecouleurproduit }}" @checked($selectVariante->idvariantecouleurproduit == $variante->idvariantecouleurproduit)/>
 
-                                <div class="cursor-pointer w-10 h-10 p-px transition ease-linear duration-100 delay-75 flex items-center justify-center peer-checked:border-2 border-black hover:scale-110">
-                                    <span id="variante_{{ $variante->idcouleur }}" class="select-none border-2 border-black w-full h-full"></span>
-                                </div>
+                                    <div class="cursor-pointer w-10 h-10 p-px transition ease-linear duration-100 delay-75 flex items-center justify-center peer-checked:border-2 border-black hover:scale-110">
+                                        <span id="couleur_{{ $variante->couleur->idcouleur }}" class="select-none border-2 border-black w-full h-full"></span>
+                                    </div>
+                                </a>
                             </label>
                         @endforeach
                     </div>
                 </div>
 
-                <button id="btnAjouterAuPanier" class="transition ease-linear duration-300 delay-75 my-5 font-bold text-white bg-black border-4 border-black py-4 hover:bg-transparent hover:text-black uppercase">Ajouter au panier</button>
+                <button type="submit" class="transition ease-linear duration-300 delay-75 my-5 font-bold text-white bg-black border-4 border-black py-4 hover:bg-transparent hover:text-black uppercase">Ajouter au panier</button>
+
                 <div>
                     <h3 class="text-lg font-bold">Description</h3>
                     <p>{{ $produit->descriptionproduit }}</p>
@@ -128,8 +129,8 @@
 
     updateImage(images[0])
 
-    const selectors = document.querySelectorAll('#tailleSelector, #couleurSelector');
-    selectors.forEach(selector => {
+    const taillesSelector = document.querySelectorAll('#tailleSelector')
+    taillesSelector.forEach(selector => {
         selector.addEventListener('click', (event) => {
             const target = event.target
             const location = new URL(window.location.href)

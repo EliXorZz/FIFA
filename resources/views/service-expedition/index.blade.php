@@ -1,6 +1,6 @@
 @extends('layouts.service-expedition')
 
-@section('title', "Service d'expedition ($typelivraison->nomlivraison)")
+@section('title', "Service d'expedition $title")
 
 @section('content')
 
@@ -105,7 +105,7 @@
             const value = event.target.value
             const location = new URL(window.location.href)
 
-            location.searchParams.set('search', value.split(' ').join(','))
+            location.searchParams.set('search', value)
 
             window.location.href = location
         }

@@ -29,4 +29,12 @@ class LigneCommande extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public function variante() {
+        return $this->hasOne(VarianteCouleurProduit::class, 'idvariantecouleurproduit', 'idvariantecouleurproduit');
+    }
+
+    public function taille() {
+        return $this->hasOne(TailleProduit::class, 'idtailleproduit', 'idtailleproduit');
+    }
 }

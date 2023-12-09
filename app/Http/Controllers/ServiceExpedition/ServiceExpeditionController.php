@@ -19,15 +19,17 @@ class ServiceExpeditionController extends Controller
         ]);
     }
 
-    function index(ServiceExpeditionRequest $request, TypeLivraison $typelivraison) {
+    function index(ServiceExpeditionRequest $request, TypeLivraison $typelivraison = null) {
         $validated = $request->validated();
 
-        $commandes = $typelivraison->commandes();
+        $hasTypeLivraison = $typelivraison != null;
+
+        $commandes = $hasTypeLivraison ? $typelivraison->commandes() : Commande::query();
 
         if (isset($validated['search'])) {
             $keywords = explode(',', $validated['search']);
 
-            $commandes = $commandes->where(function($query) use($keywords) {
+            $commandes->where(function($query) use($keywords) {
                 foreach ($keywords as $keyword) {
                     $query->where('commande.idcommande', '=', $keyword);
                 }
@@ -40,6 +42,8 @@ class ServiceExpeditionController extends Controller
             ->simplePaginate(10);
 
         return view('service-expedition.index', [
+            'title' => $hasTypeLivraison ? "($typelivraison->nomlivraison)" : "",
+
             'typelivraison' => $typelivraison,
             'commandes' => $commandes
         ]);
@@ -54,28 +58,24 @@ class ServiceExpeditionController extends Controller
 
         $this->sendSMS($acheteur->getSMSPhoneNumber(), "Votre commande n°$commande->idcommande a été expédié");
 
-        return back()->with('notification', "La commande n°$commande->idcommande vient d'être expédiée !");
+        return back()
+            ->with('notification', "La commande n°$commande->idcommande vient d'être expédiée !");
     }
 
     function commande(Commande $commande) {
-        $produits = $commande
-            ->select('produit.idproduit', 'variantecouleurproduit.idcouleur', 'lignecommande.idtailleproduit', 'titreproduit', 'nomcouleur', 'nomtailleproduit', 'quantitecommande', 'prixunitaire')
-            ->join('lignecommande', 'lignecommande.idcommande', 'commande.idcommande')
-            ->join('tailleproduit', 'tailleproduit.idtailleproduit', '=', 'lignecommande.idtailleproduit')
-            ->join('variantecouleurproduit', 'variantecouleurproduit.idvariantecouleurproduit', 'lignecommande.idvariantecouleurproduit')
-            ->join('couleur', 'variantecouleurproduit.idcouleur', '=', 'couleur.idcouleur')
-            ->join('produit', 'produit.idproduit', 'variantecouleurproduit.idproduit')
-            ->where('commande.idcommande', '=', $commande->idcommande)
-            ->get();
+        $commande
+            ->load(['lignes.variante.produit', 'lignes.variante.couleur', 'lignes.taille']);
+
+        $lignes = $commande->lignes;
 
         $quantite = 0;
-        foreach ($produits as $produit) {
-            $quantite += $produit->quantitecommande;
+        foreach ($lignes as $ligne) {
+            $quantite += $ligne->quantitecommande;
         }
 
         return view('service-expedition.commande', [
             'commande' => $commande,
-            'produits' => $produits,
+            'lignes' => $lignes,
 
             'quantite' => $quantite
         ]);

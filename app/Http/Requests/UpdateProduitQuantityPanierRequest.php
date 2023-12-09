@@ -25,19 +25,16 @@ class UpdateProduitQuantityPanierRequest extends FormRequest
         $idproduit = $this->idproduit;
 
         return [
-            'idproduit' => 'required|integer|exists:produit',
+            'idvariantecouleurproduit' => [
+                'required',
+                'integer',
+                Rule::exists('variantecouleurproduit', 'idvariantecouleurproduit')
+            ],
 
             'idtailleproduit' => [
                 'required',
                 'integer',
                 Rule::exists('produitcontienttaille', 'idtailleproduit')
-                    ->where('idproduit', $idproduit)
-            ],
-
-            'idcouleur' => [
-                'required',
-                'integer',
-                Rule::exists('variantecouleurproduit', 'idcouleur')
                     ->where('idproduit', $idproduit)
             ],
 
