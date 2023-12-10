@@ -11,11 +11,15 @@
         <div class="flex flex-col gap-10 md:flex-row md:gap-6 justify-around">
             <div class="flex gap-5 w-full md:w-1/2">
                 <div id="images" class="flex flex-col gap-6">
-                    @foreach ($images as $image)
+                    @forelse ($images as $image)
                         <div class="cursor-pointer transition ease-linear duration-100 delay-75 w-24 h-24 border border-black hover:scale-105">
                             <img src="{{ asset($image->urlimageproduit) }}" class="object-contain"/>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="cursor-pointer transition ease-linear duration-100 delay-75 w-24 h-24 border border-black hover:scale-105">
+                            <img src="{{ asset('assets/unknow_produit.png') }}" class="object-contain"/>
+                        </div>
+                    @endforelse
                 </div>
                 <div class="flex items-center border border-black">
                     <img id="image" class="object-contain object-center"/>
@@ -95,17 +99,19 @@
 
             <div class="flex gap-6 max-w-2xl">
                 @foreach ($produitsSimilaires as $produitSimilaire)
-                    <div class="border border-black divide-y divide-black group cursor-pointer">
-                        <a href="{{ route('produit', ['produit' => $produitSimilaire]) }}" class="select-none">
-                            <div class="h-72 transition ease-linear duration-300 delay-75 group-hover:scale-90">
-                                <img src="{{ asset($produitSimilaire->images->first()->urlimageproduit) }}" class="h-full w-full object-contain"/>
-                            </div>
-                            <div class="px-7 pt-3 pb-4">
-                                <p class="font-medium">{{ $produitSimilaire->titreproduit }}</p>
-                                <p class="font-bold">€{{ $produitSimilaire->prix }}</p>
-                            </div>
-                        </a>
-                    </div>
+                    @foreach ($produitSimilaire->variantes as $variante)
+                        <div class="border border-black divide-y divide-black group cursor-pointer">
+                            <a href="{{ route('produit', ['variantecouleurproduit' => $variante]) }}" class="select-none">
+                                <div class="h-72 transition ease-linear duration-300 delay-75 group-hover:scale-90">
+                                    <img src="{{ asset($variante->images->first() != null ? $variante->images->first()->urlimageproduit : 'assets/unknow_produit.png') }}" class="h-full w-full object-contain"/>
+                                </div>
+                                <div class="px-7 pt-3 pb-4">
+                                    <p class="font-medium">{{ $produitSimilaire->titreproduit }}</p>
+                                    <p class="font-bold">€{{ $variante->prix }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
                 @endforeach
             </div>
 

@@ -70,7 +70,7 @@
             @foreach ($variantes as $variante)
                 <a href="{{ route('produit', ['variantecouleurproduit' => $variante->idvariantecouleurproduit]) }}" class="shadow-lg divide-y divide-black group cursor-pointer select-none">
                     <div class="h-72 transition ease-linear duration-300 delay-75 group-hover:scale-90">
-                        <img src="{{ asset($variante->images->first()->urlimageproduit) }}" class="h-full w-full object-contain"/>
+                        <img src="{{ asset($variante->images->first() != null ? $variante->images->first()->urlimageproduit : 'assets/unknow_produit.png') }}" class="h-full w-full object-contain"/>
                     </div>
                     <div class="px-7 pt-3 pb-4">
                         <p class="font-medium">{{ $variante->titreproduit }}</p>

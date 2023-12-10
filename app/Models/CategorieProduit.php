@@ -30,7 +30,25 @@ class CategorieProduit extends Model
      */
     public $timestamps = false;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'nomcategorieproduit',
+        'parentcategorieproduit'
+    ];
+
+    function parents() {
+        return $this->belongsToMany(CategorieProduit::class, 'souscategorieproduit', 'idautrecategorieproduit', $this->primaryKey);
+    }
+
     function sousCategories() {
         return $this->belongsToMany(CategorieProduit::class, 'souscategorieproduit', $this->primaryKey, 'idautrecategorieproduit');
+    }
+
+    function produits() {
+        return $this->belongsToMany(Produit::class, 'categoriecontientproduit', $this->primaryKey, 'idproduit');
     }
 }

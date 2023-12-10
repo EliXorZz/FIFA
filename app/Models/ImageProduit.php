@@ -29,4 +29,8 @@ class ImageProduit extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    function variantes() {
+        return $this->belongsToMany(VarianteCouleurProduit::class, 'produitcontientimage', $this->primaryKey, 'idvariantecouleurproduit');
+    }
 }

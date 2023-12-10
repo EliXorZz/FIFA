@@ -17,6 +17,7 @@ class ProduitController extends Controller
             ->join('produit', 'produit.idproduit', '=', 'variantecouleurproduit.idproduit')
             ->join('categoriecontientproduit', 'categoriecontientproduit.idproduit', '=', 'produit.idproduit')
             ->join('produitcontienttaille', 'produitcontienttaille.idproduit', '=', 'produit.idproduit')
+            ->whereNotNull('prix')
             ->distinct();
 
         if (isset($validated['nation'])) {
@@ -83,8 +84,10 @@ class ProduitController extends Controller
     function show(ProduitRequest $request, VarianteCouleurProduit $variantecouleurproduit) {
         $validated = $request->validated();
 
+        abort_if($variantecouleurproduit->prix == null, 404);
+
         $selectVariante = $variantecouleurproduit
-            ->load(['produit.variantes.couleur' , 'produit.tailles', 'couleur']);
+            ->load(['produit.produitsSimilaires.variantes.images', 'produit.variantes.couleur' , 'produit.tailles', 'couleur']);
 
         $produit = $selectVariante->produit;
 
@@ -96,11 +99,7 @@ class ProduitController extends Controller
             ? TailleProduit::find($validated['selectTaille'])
             : $tailles->first();
 
-        $produitsSimilaires = $produit->produitsSimilaires()
-            ->with('images')
-            ->get();
-
-        $produitsSimilaires = collect();
+        $produitsSimilaires = $produit->produitsSimilaires;
 
         return view('produit', [
             'produit' => $produit,

@@ -6,6 +6,9 @@ use App\Http\Controllers\CommandesController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\ServiceExpedition\ServiceExpeditionController;
+use App\Http\Controllers\ServiceVente\ServiceVenteCategorieController;
+use App\Http\Controllers\ServiceVente\ServiceVenteProduitController;
+use App\Http\Controllers\ServiceVente\ServiceVenteVarianteController;
 use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
@@ -113,17 +116,28 @@ Route::post('/service-expedition/commande/{commande}/sms', [ ServiceExpeditionCo
     ->name('service-expeditionDoCommandeSMS');
 
 // ROUTE SERVICES VENTE
-Route::get('/service-vente', [ ServiceVenteController::class, 'index' ])
-    ->name('service-vente');
+Route::get('/service-vente', function() {
+    return redirect()->route('service-vente.produits.index');
+})->name('service-vente');
 
-Route::prefix('/service-vente')->name('service-vente.')->group(function () {
-    Route::resources([
-        'produits' => ServiceVenteProduitController::class,
-        'tailles' => ServiceVenteTailleProduitController::class,
-        'couleurs' => ServiceVenteCouleurProduitController::class,
-        'categories' => ServiceVenteCategorierProduitController::class
-    ]);
-});
+Route::prefix('/service-vente')
+    ->middleware(['auth', 'role:service-vente'])
+    ->name('service-vente.')
+    ->group(function () {
+        Route::resources([
+            'produits' => ServiceVenteProduitController::class,
+            'tailles' => ServiceVenteTailleProduitController::class,
+            'couleurs' => ServiceVenteCouleurProduitController::class,
+            'categories' => ServiceVenteCategorieController::class
+        ]);
+
+        Route::resource('produits.variantes', ServiceVenteVarianteController::class)
+            ->only(['store', 'update', 'destroy']);
+
+        Route::delete('imageproduits/{imageproduit}', [ ServiceVenteVarianteController::class, 'deleteImage' ])
+            ->name('imageproduits');
+    }
+);
 
 // ROUTES STRIPE
 Route::post("/commande/event", [ CommandeController::class, 'event' ]);

@@ -30,6 +30,17 @@ class VarianteCouleurProduit extends Model
      */
     public $timestamps = false;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'idproduit',
+        'idcouleur',
+        'prix'
+    ];
+
     public function produit() {
         return $this->hasOne(Produit::class, 'idproduit', 'idproduit');
     }

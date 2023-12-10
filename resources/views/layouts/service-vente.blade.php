@@ -15,8 +15,8 @@
                 @php
                     $list = [
                         [ 'name' => 'Liste des produits', 'route' => 'service-vente.produits.index' ],
-                        [ 'name' => 'Liste des tailles', 'route' => 'service-vente.tailles.index' ],
-                        [ 'name' => 'Liste des couleurs', 'route' => 'service-vente.couleurs.index' ],
+                        // [ 'name' => 'Liste des tailles', 'route' => 'service-vente.tailles.index' ],
+                        // [ 'name' => 'Liste des couleurs', 'route' => 'service-vente.couleurs.index' ],
                         [ 'name' => 'Liste des categories', 'route' => 'service-vente.categories.index' ],
                     ]
                 @endphp

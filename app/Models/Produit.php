@@ -30,6 +30,16 @@ class Produit extends Model
      */
     public $timestamps = false;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'titreproduit',
+        'descriptionproduit'
+    ];
+
     public function variantes() {
         return $this->hasMany(VarianteCouleurProduit::class, $this->primaryKey, $this->primaryKey);
     }
@@ -39,7 +49,7 @@ class Produit extends Model
     }
 
     public function categories() {
-        return $this->belongsToMany(Produit::class, 'categoriecontientproduit', $this->primaryKey, 'idcategorieproduit');
+        return $this->belongsToMany(CategorieProduit::class, 'categoriecontientproduit', $this->primaryKey, 'idcategorieproduit');
     }
 
     public function tailles() {
