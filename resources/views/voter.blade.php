@@ -38,14 +38,14 @@ input[type="checkbox"] {
     }
 </style>
 
-<div class="p-8">
+<div class="p-2  bg-gradient-to-br from-gray-900 to-gray-800 text-white">
 
     <form action=" {{ route('doVote') }} " method="post">
     @csrf
 
         <input type="hidden" name="idthemevote" value="{{$titre->idthemevote}}">
 
-        <p class="text-3xl font-bold uppercase">{{ $titre->titrethemevote }}</p>
+        <p class="p-8 bg-black text-3xl font-bold uppercase text-white bg-black rounded flex items-center justify-center">{{ $titre->titrethemevote }}</p>
         @if(count($voter) != 0)
             <span class="text-red-500 text-left">Déjà voté</span>
         @endif
@@ -56,14 +56,14 @@ input[type="checkbox"] {
         <div class="grid gap-8 grid-cols-5 m-8">
 
             @foreach($joueurs as $joueur)
-                <table class="border-2 text-center table-fixed">
+                <table class="border-2 text-center table-fixed bg-gradient-to-br from-gray-400 to-gray-800 text-white">
                     <tr class="justify-center" >
                         <td colspan="2" class="pb-2 p-5">
                             <img src=" {{ $joueur->photojoueur }} "/>
                         </td>
                     </tr>
                     <tr>
-                        <td class="w-1/2">
+                        <td class="w-1/2 text-xl">
                             {{$joueur->nomjoueur}}
 
                             {{$joueur->prenomjoueur}}

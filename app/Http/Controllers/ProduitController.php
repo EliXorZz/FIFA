@@ -6,6 +6,7 @@ use App\Http\Requests\ProduitRequest;
 use App\Http\Requests\ProduitsRequest;
 use App\Models\TailleProduit;
 use App\Models\VarianteCouleurProduit;
+use App\Panier;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
@@ -101,6 +102,12 @@ class ProduitController extends Controller
 
         $produitsSimilaires = $produit->produitsSimilaires;
 
+        $panier = new Panier();
+        $panier->addVarianteVisite($selectVariante->idvariantecouleurproduit);
+
+        $varianteVisites = $panier->getVarianteVisites()
+            ->get();
+
         return view('produit', [
             'produit' => $produit,
 
@@ -111,7 +118,9 @@ class ProduitController extends Controller
             'selectVariante' => $selectVariante,
             'selectTaille' => $selectTaille,
 
-            'produitsSimilaires' => $produitsSimilaires
+            'produitsSimilaires' => $produitsSimilaires,
+
+            'varianteVisites' => $varianteVisites
         ]);
     }
 }

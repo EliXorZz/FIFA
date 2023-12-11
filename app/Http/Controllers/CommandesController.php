@@ -22,6 +22,31 @@ class CommandesController extends Controller
         return view('commandes', [
             'commandes' => $commandes
         ]);
+
+    }
+
+    function commande(Commande $commande) {
+        $produits = $commande
+            ->select('produit.idproduit', 'variantecouleurproduit.idvariantecouleurproduit', 'variantecouleurproduit.idcouleur', 'lignecommande.idtailleproduit', 'titreproduit', 'nomcouleur', 'nomtailleproduit', 'quantitecommande', 'prixunitaire')
+            ->join('lignecommande', 'lignecommande.idcommande', 'commande.idcommande')
+            ->join('tailleproduit', 'tailleproduit.idtailleproduit', '=', 'lignecommande.idtailleproduit')
+            ->join('variantecouleurproduit', 'variantecouleurproduit.idvariantecouleurproduit', 'lignecommande.idvariantecouleurproduit')
+            ->join('couleur', 'variantecouleurproduit.idcouleur', '=', 'couleur.idcouleur')
+            ->join('produit', 'produit.idproduit', 'variantecouleurproduit.idproduit')
+            ->where('commande.idcommande', '=', $commande->idcommande)
+            ->get();
+
+        $quantite = 0;
+        foreach ($produits as $produit) {
+            $quantite += $produit->quantitecommande;
+        }
+
+        return view('detailscommande', [
+            'commande' => $commande,
+            'produits' => $produits,
+
+            'quantite' => $quantite
+        ]);
     }
 }
 

@@ -4,17 +4,17 @@
 
 @section('content')
 
-<div class="p-8">
-    <p class="text-3xl font-bold uppercase">Theme de Vote</p>
+<div class="p-8 bg-gradient-to-br from-black to-gray-600">
+    <p class="text-3xl font-bold uppercase text-white">Theme de Vote</p>
 
     @if(session('msg'))
-        <p class="text-red-500">{{ session('msg') }}</p>
+        <p class="text-red-500 text-white">{{ session('msg') }}</p>
     @endif
-</div>
+    </div>
 
-<ul class="mx-20">
+<ul class="p-8 mx-20 grid grid-cols-4 gap-4 ">
     @foreach($themevotes as $themevote)
-        <a href={{ route('selectedtheme', ['id' => $themevote->idthemevote]) }}><li class="border-2 border-black p-8">{{$themevote->titrethemevote}}
+        <a href={{ route('selectedtheme', ['id' => $themevote->idthemevote]) }}><li class="h-96 flex items-center text-xl justify-center font-bold border-2 border-black p-8 rounded-md bg-gradient-to-br from-gray-900 to-gray-800 text-white">{{$themevote->titrethemevote}}
         @foreach($alreayvote as $vote)
 
             @if($vote[0] == $themevote->idthemevote && $vote[1])
