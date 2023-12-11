@@ -754,10 +754,6 @@ select {
 .col-span-6 {
   grid-column: span 6 / span 6;
 }
-<<<<<<< HEAD
-.m-4 {
-  margin: 1rem;
-=======
 .m-0 {
   margin: 0px;
 }
@@ -766,10 +762,16 @@ select {
 }
 .m-20 {
   margin: 5rem;
->>>>>>> feature-publication
+}
+.m-4 {
+  margin: 1rem;
 }
 .m-8 {
   margin: 2rem;
+}
+.mx-20 {
+  margin-left: 5rem;
+  margin-right: 5rem;
 }
 .mx-auto {
   margin-left: auto;
@@ -888,6 +890,9 @@ select {
 .h-6 {
   height: 1.5rem;
 }
+.h-60 {
+  height: 15rem;
+}
 .h-72 {
   height: 18rem;
 }
@@ -902,12 +907,6 @@ select {
 }
 .h-screen {
   height: 100vh;
-}
-.h-20 {
-  height: 5rem;
-}
-.h-60 {
-  height: 15rem;
 }
 .w-1\/2 {
   width: 50%;
@@ -1173,16 +1172,14 @@ select {
 .overflow-y-auto {
   overflow-y: auto;
 }
-<<<<<<< HEAD
-.overflow-y-hidden {
-  overflow-y: hidden;
-=======
 .overflow-x-hidden {
   overflow-x: hidden;
 }
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
 .scroll-smooth {
   scroll-behavior: smooth;
->>>>>>> feature-publication
 }
 .whitespace-nowrap {
   white-space: nowrap;
@@ -1401,10 +1398,6 @@ select {
 .px-2\.5 {
   padding-left: 0.625rem;
   padding-right: 0.625rem;
-}
-.px-20 {
-  padding-left: 5rem;
-  padding-right: 5rem;
 }
 .px-3 {
   padding-left: 0.75rem;
