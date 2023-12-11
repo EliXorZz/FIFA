@@ -5,6 +5,7 @@ use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CommandesController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
+use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\ServiceExpeditionController;
 use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\VoteController;
@@ -142,3 +143,20 @@ Route::get("/themevote/{id}", [ VoteController::class , 'selectedtheme' ])
 Route::post('/themevote/vote', [ VoteController::class , 'doVote'])
     ->middleware('auth')
     ->name('doVote');
+
+Route::prefix('publication/')->group(function() {
+
+    Route::get('', [ PublicationController::class, 'index' ]);
+
+    Route::get('{joueur}', [ PublicationController::class, 'show' ])->name('showPublication');
+
+    Route::get('album/{album}', [ PublicationController::class, 'showAlbum'])->name('showAlbum');
+
+    Route::get('document/{document}', [ PublicationController::class, 'showDocument'])->name('showDocument');
+
+    Route::get('blog/{blog}', [ PublicationController::class, 'showBlog'])->name('showBlog');
+
+    Route::get('article/{article}', [ PublicationController::class, 'showArticle'])->name('showArticle');
+
+})->name('publication.');
+

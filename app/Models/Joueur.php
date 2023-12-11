@@ -12,4 +12,10 @@ class Joueur extends Model
     protected $table = "joueur";
     protected $primaryKey = "idjoueur";
     public $timestamps = false;
+
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class, "articleassociejoueur", "idjoueur", "idpublication");
+    }
 }
+

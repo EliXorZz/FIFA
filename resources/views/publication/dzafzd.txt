@@ -1,0 +1,179 @@
+<div class="carouselle">
+            <div class="slider">
+
+            </div>
+
+            <div class="slider__indicators">
+
+            </div>
+
+            <img src="/assets/chevron-left.svg" class="navigation-btn w-20" id='precedantbtn-bt'>
+            <img src="/assets/chevron-right.svg" class="navigation-btn w-20" id='suivantbtn-bt'>
+        </div>
+
+<script>
+    // Les images
+    const listImage = [];
+    document.querySelectorAll('.mesimg').forEach(element => {
+        listImage.push(element.value)
+    });
+    console.log(listImage)
+
+    // Element HTML
+    const slider = document.querySelector('.slider')
+    const indicateurs = document.querySelector('.slider__indicators')
+    const precedantbtn = document.getElementById('precedantbtn-bt')
+    const suivantbtn = document.getElementById('suivantbtn-bt')
+
+    //
+    listImage.map((imageSrc, index) => {
+
+        const imageElement = document.createElement('img');
+
+        imageElement.src = imageSrc;
+        imageElement.id = index;
+        imageElement.classList.add("slide");
+        slider.appendChild(imageElement);
+
+        const indicateurElement = document.createElement("a");
+        indicateurElement.href = `#${index}`;
+        indicateurElement.classList.add('indicateur');
+        indicateurs.appendChild(indicateurElement);
+
+
+    })
+
+    const imageWidth = 500;
+
+    slider.scrollTo(0, 0);
+    let currentIndex = 0;
+    document.querySelector(`a[href='#${currentIndex}']`).classList.add('active');
+
+    // gestion de la navigation
+    let currentScrollLevel = slider.scrollLeft;
+    slider.addEventListener('scroll', () => {
+        // Changement de l'index en cours
+
+        currentScrollLevel = slider.scrollLeft;
+        console.log(currentScrollLevel);
+        currentIndex = Math.floor(currentScrollLevel / imageWidth);
+
+        // Affichage de la navigation
+        // currentIndex === 0 ? precedantbtn.style.display = "none" : precedantbtn.style.display = "block";
+        // currentIndex === listImage.length - 1 ? suivantbtn.style.display = "none" : suivantbtn.style.display = "block";
+
+
+        // style indicator dynamique
+        const allIndicators = [...document.getElementsByClassName('indicateur')];
+        allIndicators.map(indicateur => indicateur.classList.remove('active'));
+
+        document.querySelector(`a[href='#${currentIndex}']`).classList.add('active');
+    })
+
+    // Navigation
+    precedantbtn.addEventListener('click', () => {
+        slider.scrollBy(-imageWidth, 0);
+    })
+
+    suivantbtn.addEventListener('click', () => {
+        slider.scrollBy(imageWidth, 0);
+    })
+
+
+</script>
+<style>
+    .carouselle,.slider,.slider__indicators {
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+    }
+
+    .carouselle
+    {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        width: 500px
+    }
+
+    .slider
+    {
+        display: flex;
+        justify-content: start;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+
+        box-shadow: 0 3px 10px #000000;
+    }
+
+    .slider
+    {
+        width: 100%;
+        scroll-snap-align: start;
+
+    }
+
+    .slider__indicators
+    {
+        display: flex;
+        justify-content: center;
+        padding: 5px 0;
+    }
+
+    .indicateur
+    {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+
+        background-color: #80808080;
+
+        margin: 4px;
+        cursor: pointer;
+    }
+
+    .indicateur:hover
+    {
+        background-color: #808080cc;
+    }
+
+    .indicateur:active
+    {
+        background-color: #808080ff;
+    }
+
+    .navigation-btn
+    {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 60px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .navigation-btn:hover
+    {
+        top:48%;
+    }
+
+    #suivantbtn-bt
+    {
+        left: 100%;
+    }
+
+    #precedantbtn-bt
+    {
+        right: 100%;
+    }
+
+    .slider::-webkit-scrollbar
+    {
+        width: 0!important;
+        height: 0!important;
+    }
+</style>
+{{-- https://youtu.be/whJJYCVbDX0?feature=shared --}}
