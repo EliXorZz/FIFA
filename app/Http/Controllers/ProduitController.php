@@ -6,6 +6,7 @@ use App\Http\Requests\ProduitRequest;
 use App\Http\Requests\ProduitsRequest;
 use App\Models\Produit;
 use App\Models\VarianteCouleurProduit;
+use App\Panier;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
@@ -107,6 +108,12 @@ class ProduitController extends Controller
             ->with('images')
             ->get();
 
+
+        $panier = new Panier();
+        $panier->addProduitVisite($produit->idproduit);
+        $produitsVisites = $panier->getProduitsVisites();
+            
+
         return view('produit', [
             'produit' => $produit,
 
@@ -117,7 +124,9 @@ class ProduitController extends Controller
             'selectTaille' => $selectTaille,
             'selectCouleur' => $selectCouleur,
 
-            'produitsSimilaires' => $produitsSimilaires
+            'produitsSimilaires' => $produitsSimilaires,
+
+            'produitsVisites' => $produitsVisites
         ]);
     }
 }

@@ -35,10 +35,8 @@
 
             <tbody class="divide-y divide-gray-200">
                 @foreach($produits as $produit)
-                    <tr>
-                        <td>
-                        
-                        </td>
+                    <tr data-href="{{ route('produit', ['produit' => $produit->idproduit, 'selectTaille' => $produit->idtailleproduit, 'selectCouleur' => $produit->idcouleur]) }}" class="hover:cursor-pointer hover:bg-gray-50">
+                        <td></td>
                         <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 bg-gray-50">
                             {{ $produit->titreproduit }}
                         </td>
@@ -67,16 +65,16 @@
                     $total = $subtotal + $tva;
                 @endphp
 
-                <tr class="text-xs border-t border-gray-200 ">
+                <tr class="text-xs border-t">
                     <td colspan="4" class="whitespace-nowrap px-4 py-2 text-gray-900 bg-gray-50">
-                        Prix Total :
+                        Sous Total :
                     </td>
                     <td></td>
                     <td class="whitespace-nowrap px-4 py-2 text-gray-700">
                         {{ Illuminate\Support\Number::currency($subtotal, 'EUR') }}
                     </td> 
                  </tr>
-                 <tr class="text-xs border-t border-gray-200 ">
+                 <tr class="text-xs">
                     <td colspan="4" class="whitespace-nowrap px-4 py-2 text-gray-900 bg-gray-50">
                         TVA :
                     </td>
@@ -85,7 +83,7 @@
                         {{ Illuminate\Support\Number::currency($tva, 'EUR') }}
                     </td> 
                  </tr>
-                 <tr class="text-mborder-t border-gray-200 ">
+                 <tr class="text-mborder-t">
                     <td colspan="4" class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 bg-gray-50">
                         TOTAL :
                     </td>
@@ -110,9 +108,9 @@
                     <td class="font-bold whitespace-nowrap px-4 py-2 text-gray-700">Status Commande :</td>
                     <td class="whitespace-nowrap px-4 py-2 text-gray-700">
                         @if ($commande->expeditioncmd)
-                            <span class="badge bg-green-100 text-green-700">Expediée</span>
+                            <span class="whitespace-nowrap rounded-full bg-green-100 px-2.5 py-0.5 text-sm text-green-700">Expediée</span>
                         @else
-                            <span class="badge bg-yellow-100 text-yellow-700">En préparation</span>
+                            <span class="whitespace-nowrap rounded-full bg-yellow-100 px-2.5 py-0.5 text-sm text-yellow-700">En préparation</span>
                         @endif
                     </td>
                 </tr>

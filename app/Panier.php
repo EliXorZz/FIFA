@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Produit;
 use App\Models\VarianteCouleurProduit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -149,6 +150,32 @@ class Panier {
         Cookie::queue(
             Cookie::forget('panier')
         );
+    }
+
+    function addProduitVisite(int $idProduit) {
+        $cookie = Cookie::get('produits_visites');
+        $cookie = $cookie ? unserialize($cookie) : [];
+
+        if (!in_array($idProduit, $cookie)) {
+            $cookie[] = $idProduit;
+            Cookie::queue('produits_visites', serialize($cookie));
+        }
+    }
+
+    function getProduitsVisites() {
+        $cookie = Cookie::get('produits_visites');
+        $cookie = $cookie ? unserialize($cookie) : [];
+    
+        $resultat = collect();
+    
+        foreach ($cookie as $idProduit) {
+            $produit = Produit::find($idProduit);
+            if ($produit) {
+                $resultat->push($produit);
+            }
+        }
+
+        return $resultat;
     }
 }
 

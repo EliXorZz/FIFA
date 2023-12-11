@@ -14,6 +14,20 @@
 
 <body class="@yield('bodyClass')">
     @yield('body')
+
+    <script>
+        const rows = document.querySelectorAll('tr[data-href]')
+        rows.forEach(row => {
+            row.addEventListener('click', (event) => {
+                const target = event.target
+
+                if (target.tagName == 'BUTTON')
+                    return
+
+                window.location.href = row.dataset.href
+            })
+        })
+    </script>
 </body>
 
 </html>

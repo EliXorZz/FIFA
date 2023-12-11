@@ -88,29 +88,53 @@
 
     <span class="bg-gray-300 h-px"></span>
 
-    <div class="flex flex-col gap-3">
+    <div class="flex flex-col gap-3 overflow-x-auto overflow-y-hidden">
         @if ($produitsSimilaires->isNotEmpty())
             <h2 class="text-lg font-bold">Produit(s) similaires</h2>
 
-            <div class="flex gap-6 max-w-2xl">
+            <div class="flex gap-4 max-w-full">
                 @foreach ($produitsSimilaires as $produitSimilaire)
-                    <div class="border border-black divide-y divide-black group cursor-pointer">
+                    <div class="border border-black group cursor-pointer w-96 h-96 flex-shrink-0">
                         <a href="{{ route('produit', ['produit' => $produitSimilaire]) }}" class="select-none">
-                            <div class="h-72 transition ease-linear duration-300 delay-75 group-hover:scale-90">
+                            <div class="h-full transition ease-linear duration-300 delay-75 group-hover:scale-90 relative">
                                 <img src="{{ asset($produitSimilaire->images->first()->urlimageproduit) }}" class="h-full w-full object-contain"/>
-                            </div>
-                            <div class="px-7 pt-3 pb-4">
-                                <p class="font-medium">{{ $produitSimilaire->titreproduit }}</p>
-                                <p class="font-bold">€{{ $produitSimilaire->prix }}</p>
+                                <div class="absolute bottom-0 left-0 right-0 px-5 py-2 bg-white bg-opacity-80">
+                                    <p class="font-medium text-sm">{{ $produitSimilaire->titreproduit }}</p>
+                                    <p class="font-bold text-sm">€{{ $produitSimilaire->prix }}</p>
+                                </div>
                             </div>
                         </a>
                     </div>
                 @endforeach
             </div>
-
         @endif
     </div>
-</div>
+
+    
+
+
+
+    <div class="flex flex-col gap-3 overflow-x-auto overflow-y-hidden">
+        @if ($produitsVisites->isNotEmpty())
+            <h2 class="text-lg font-bold">Produits visités</h2>
+
+            <div class="flex gap-4 max-w-full">
+                @foreach ($produitsVisites->reverse() as $produitVisite)
+                    <div class="border border-black group cursor-pointer w-96 h-96 flex-shrink-0">
+                        <a href="{{ route('produit', ['produit' => $produitVisite]) }}" class="select-none">
+                            <div class="h-full transition ease-linear duration-300 delay-75 group-hover:scale-90 relative">
+                                <img src="{{ asset($produitVisite->images->first()->urlimageproduit) }}" class="h-full w-full object-contain"/>
+                                <div class="absolute bottom-0 left-0 right-0 px-5 py-2 bg-white bg-opacity-80">
+                                    <p class="font-medium">{{ $produitVisite->titreproduit }}</p>
+                                    <p class="font-bold">€{{ $produitVisite->prix }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </div>
 
 <script>
     const currentImage = document.querySelector('#image')
