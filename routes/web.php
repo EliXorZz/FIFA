@@ -5,10 +5,15 @@ use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CommandesController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
+<<<<<<< HEAD
 use App\Http\Controllers\ServiceExpedition\ServiceExpeditionController;
 use App\Http\Controllers\ServiceVente\ServiceVenteCategorieController;
 use App\Http\Controllers\ServiceVente\ServiceVenteProduitController;
 use App\Http\Controllers\ServiceVente\ServiceVenteVarianteController;
+=======
+use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\ServiceExpeditionController;
+>>>>>>> feature-publication
 use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
@@ -167,6 +172,22 @@ Route::post('/themevote/vote', [ VoteController::class , 'doVote'])
     ->middleware('auth')
     ->name('doVote');
 
-
 Route::get('/commande/{commande}', [ CommandesController::class, 'commande' ])
     ->name('detailsCommande');
+
+Route::prefix('publication/')->group(function() {
+
+    Route::get('', [ PublicationController::class, 'index' ]);
+
+    Route::get('{joueur}', [ PublicationController::class, 'show' ])->name('showPublication');
+
+    Route::get('album/{album}', [ PublicationController::class, 'showAlbum'])->name('showAlbum');
+
+    Route::get('document/{document}', [ PublicationController::class, 'showDocument'])->name('showDocument');
+
+    Route::get('blog/{blog}', [ PublicationController::class, 'showBlog'])->name('showBlog');
+
+    Route::get('article/{article}', [ PublicationController::class, 'showArticle'])->name('showArticle');
+
+})->name('publication.');
+

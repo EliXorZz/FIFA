@@ -56,10 +56,14 @@ input[type="checkbox"] {
         <div class="grid gap-8 grid-cols-5 m-8">
 
             @foreach($joueurs as $joueur)
+                <a href=" {{ route('showPublication', ['joueur' => $joueur->idjoueur]) }} ">
                 <table class="border-2 text-center table-fixed bg-gradient-to-br from-gray-400 to-gray-800 text-white">
                     <tr class="justify-center" >
                         <td colspan="2" class="pb-2 p-5">
-                            <img src=" {{ $joueur->photojoueur }} "/>
+                            <div class="bg-black h-60 w-full ">
+                                <img class="object-center object-cover w-full h-full" src=" {{ $joueur->photojoueur }} "/>
+                            </div>
+
                         </td>
                     </tr>
                     <tr>
@@ -67,7 +71,7 @@ input[type="checkbox"] {
                             {{$joueur->nomjoueur}}
 
                             {{$joueur->prenomjoueur}}
-                        </td>
+                        </td></a>
                     </tr>
                     <tr>
                         <td colspan="3" class="pb-5">

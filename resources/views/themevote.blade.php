@@ -17,12 +17,13 @@
         <a href={{ route('selectedtheme', ['id' => $themevote->idthemevote]) }}><li class="h-96 flex items-center text-xl justify-center font-bold border-2 border-black p-8 rounded-md bg-gradient-to-br from-gray-900 to-gray-800 text-white">{{$themevote->titrethemevote}}
         @foreach($alreayvote as $vote)
 
-            @if($vote[0] == $themevote->idthemevote && $vote[1])
-                <span class="text-red-500 text-left">Déjà voté</span>
-            @endif
+                    @if($vote[0] == $themevote->idthemevote && $vote[1])
+                        <span class="text-red-500 text-left">Déjà voté</span>
+                    @endif
 
-        @endforeach
-        </li></a>
+                @endforeach
+            </li>
+        </a>
     @endforeach
 </ul>
 
