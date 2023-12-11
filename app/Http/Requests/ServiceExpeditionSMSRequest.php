@@ -23,7 +23,7 @@ class ServiceExpeditionSMSRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'message' => 'required|integer|min:10|max:160'
+            'message' => 'required|string|min:10|max:160'
         ];
     }
 }
