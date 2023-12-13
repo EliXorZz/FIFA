@@ -117,23 +117,21 @@ Route::post('/service-expedition/commande/{commande}/sms', [ ServiceExpeditionCo
     ->name('service-expeditionDoCommandeSMS');
 
 // ROUTE SERVICES VENTE
-Route::get('/service-vente', function() {
-    return redirect()->route('service-vente.produits.index');
-})->name('service-vente');
-
 Route::prefix('/service-vente')
-    ->middleware(['auth', 'role:service-vente'])
+    ->middleware(['auth', 'role:service-vente,directeur-service-vente'])
     ->name('service-vente.')
     ->group(function () {
         Route::resources([
             'produits' => ServiceVenteProduitController::class,
-            'tailles' => ServiceVenteTailleProduitController::class,
-            'couleurs' => ServiceVenteCouleurProduitController::class,
             'categories' => ServiceVenteCategorieController::class
         ]);
 
         Route::resource('produits.variantes', ServiceVenteVarianteController::class)
             ->only(['store', 'update', 'destroy']);
+
+        Route::get('/', function() {
+            return redirect()->route('service-vente.produits.index');
+        })->name('service-vente');
 
         Route::delete('imageproduits/{imageproduit}', [ ServiceVenteVarianteController::class, 'deleteImage' ])
             ->name('imageproduits');
@@ -171,8 +169,9 @@ Route::post('/themevote/vote', [ VoteController::class , 'doVote'])
 Route::get('/commande/{commande}', [ CommandesController::class, 'commande' ])
     ->name('detailsCommande');
 
+// ROUTES PUBLICATIONS
 Route::prefix('publication/')->group(function() {
-    Route::get('', [ PublicationController::class, 'index' ]);
+    Route::get('/', [ PublicationController::class, 'index' ]);
 
     Route::get('{joueur}', [ PublicationController::class, 'show' ])->name('showPublication');
 
