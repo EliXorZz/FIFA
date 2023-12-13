@@ -116,8 +116,14 @@ Route::post('/service-expedition/commande/{commande}/sms', [ ServiceExpeditionCo
     ->name('service-expeditionDoCommandeSMS');
 
 // ROUTE SERVICES VENTE
+Route::get('/directeur-service-vente', function() {
+    return redirect()
+        ->route('service-vente');
+})->name('directeur-service-vente');
+
 Route::get('/service-vente', function() {
-    return redirect()->route('service-vente.produits.index');
+    return redirect()
+        ->route('service-vente.produits.index');
 })->name('service-vente');
 
 Route::prefix('/service-vente')
