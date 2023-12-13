@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommandeController;
-use App\Http\Controllers\CommandesController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\PublicationController;
@@ -117,6 +116,10 @@ Route::post('/service-expedition/commande/{commande}/sms', [ ServiceExpeditionCo
     ->name('service-expeditionDoCommandeSMS');
 
 // ROUTE SERVICES VENTE
+Route::get('/service-vente', function() {
+    return redirect()->route('service-vente.produits.index');
+})->name('service-vente');
+
 Route::prefix('/service-vente')
     ->middleware(['auth', 'role:service-vente,directeur-service-vente'])
     ->name('service-vente.')
@@ -128,10 +131,6 @@ Route::prefix('/service-vente')
 
         Route::resource('produits.variantes', ServiceVenteVarianteController::class)
             ->only(['store', 'update', 'destroy']);
-
-        Route::get('/', function() {
-            return redirect()->route('service-vente.produits.index');
-        })->name('service-vente');
 
         Route::delete('imageproduits/{imageproduit}', [ ServiceVenteVarianteController::class, 'deleteImage' ])
             ->name('imageproduits');
@@ -151,8 +150,14 @@ Route::get("/commander/clear", [ CommandeController::class, 'clear' ])
 Route::get("/commander/success", [ CommandeController::class, 'success' ])
     ->name('commandeSuccess');
 
-Route::get('/commandes', [CommandesController::class, 'index'])
+Route::get('/commandes', [ CommandeController::class, 'commandes'])
+    ->middleware('auth')
     ->name('commandes');
+
+Route::get('/commande/{commande}', [ CommandeController::class, 'commande' ])
+    ->middleware('auth')
+    ->name('commande');
+
 
 // ROUTES THEMES
 Route::get("/themevote", [ VoteController::class , 'themevote'])
@@ -165,9 +170,6 @@ Route::get("/themevote/{id}", [ VoteController::class , 'selectedtheme' ])
 Route::post('/themevote/vote', [ VoteController::class , 'doVote'])
     ->middleware('auth')
     ->name('doVote');
-
-Route::get('/commande/{commande}', [ CommandesController::class, 'commande' ])
-    ->name('detailsCommande');
 
 // ROUTES PUBLICATIONS
 Route::prefix('publication/')->group(function() {

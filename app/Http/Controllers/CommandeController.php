@@ -9,6 +9,7 @@ use App\Models\TypeLivraison;
 use App\Models\Utilisateur;
 use App\Panier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Stripe\Checkout\Session;
 use Stripe\Webhook;
 
@@ -120,6 +121,34 @@ class CommandeController extends Controller
         $utilisateur->save();
 
         return redirect($url);
+    }
+
+    function commandes() {
+        $utilisateur = Auth::user();
+        $commandes = $utilisateur->commandes;
+
+        return view('commandes', [
+            'commandes' => $commandes
+        ]);
+    }
+
+    function commande(Commande $commande) {
+        $commande
+            ->load(['lignes.variante.produit', 'lignes.variante.couleur', 'lignes.taille']);
+
+        $lignes = $commande->lignes;
+
+        $quantite = 0;
+        foreach ($lignes  as $ligne) {
+            $quantite += $ligne->quantitecommande;
+        }
+
+        return view('commande', [
+            'commande' => $commande,
+            'lignes' => $lignes,
+
+            'quantite' => $quantite
+        ]);
     }
 
     function clear(StripeRequest $request, Panier $panier) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Historique;
 use App\Http\Requests\ProduitRequest;
 use App\Http\Requests\ProduitsRequest;
 use App\Models\TailleProduit;
@@ -82,7 +83,7 @@ class ProduitController extends Controller
         ]);
     }
 
-    function show(ProduitRequest $request, VarianteCouleurProduit $variantecouleurproduit) {
+    function show(ProduitRequest $request, VarianteCouleurProduit $variantecouleurproduit, Historique $historique) {
         $validated = $request->validated();
 
         abort_if($variantecouleurproduit->prix == null, 404);
@@ -102,10 +103,9 @@ class ProduitController extends Controller
 
         $produitsSimilaires = $produit->produitsSimilaires;
 
-        $panier = new Panier();
-        $panier->addVarianteVisite($selectVariante->idvariantecouleurproduit);
 
-        $varianteVisites = $panier->getVarianteVisites()
+        $historique->addVarianteVisite($selectVariante->idvariantecouleurproduit);
+        $varianteVisites = $historique->getVarianteVisites()
             ->get();
 
         return view('produit', [
