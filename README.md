@@ -1,6 +1,7 @@
 # Introduction
 
 FIFA est un projet universitaire réalisé en équipe de 4.
+
 L'objectif était de concevoir un site marchant grâce au cahier des charges fournis.
 
  1. Analyse du besoin avec des diagrammes **UML**.
