@@ -1,20 +1,59 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Introduction
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+FIFA est un projet universitaire réalisé en équipe de 4.
+L'objectif était de concevoir un site marchant grâce au cahier des charges fournis.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+ 1. Analyse du besoin avec des diagrammes **UML**.
+ 2. Modélisation de la base de données avec **PowerAMC**.
+ 3. Réalisation d'un jeu de tests sous **Excel** exporté ensuite dans la base de données.
+ 4. Développement du site avec le framework **Laravel**.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Nous avons réaliser 50 histoires utilisateur.
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+### [Démonstration](fifa.dylanbattig.fr)
+
+## Comptes utilisateur :
+  - DinoFrost admin (Compte client)
+  - Service admin (Compte avec le role service-expedition)
+  - Vente admin (Compte avec le role service-vente)
+
+#### Carte de crédit pour paiement : 4242 4242 4242 4242
+
+# Technologies
+
+ - HTML - CSS - JS
+ - PHP
+ - Laravel
+ - PostgreSQL
+
+# API
+
+### Stripe ([stripe.com](stripe.come))
+
+ - Permet de payer des articles en choisissant son adresse de livraison, de facturation et son mode de livraison.
+
+### Twilio ([twilio.com](twilio.com))
+
+ - Permet d'envoyer des SMS au client lorsque le service expédition valide l'envoie de la commande.
+ - Permet de gérer l'authentification à double facteurs.
+ 
+# Images
+
+## Utilisateur
+![](https://github.com/elixorzz/fifa/blob/main/images/All/0.png?raw=true)
+![](https://github.com/elixorzz/fifa/blob/main/images/All/1.png?raw=true)
+![](https://github.com/elixorzz/fifa/blob/main/images/All/2.png?raw=true)
+![](https://github.com/elixorzz/fifa/blob/main/images/All/3.png?raw=true)
+![](https://github.com/elixorzz/fifa/blob/main/images/All/4.png?raw=true)
+![](https://github.com/elixorzz/fifa/blob/main/images/All/5.png?raw=true)
+![](https://github.com/elixorzz/fifa/blob/main/images/All/6.png?raw=true)
+
+## ServiceExpedition
+![](https://github.com/elixorzz/fifa/blob/main/images/ServiceExpedition/0.png?raw=true)
+![](https://github.com/elixorzz/fifa/blob/main/images/ServiceExpedition/1.png?raw=true)
+![](https://github.com/elixorzz/fifa/blob/main/images/ServiceExpedition/2.png?raw=true)
+
+## ServiceVente
+![](https://github.com/elixorzz/fifa/blob/main/images/ServiceVente/0.png?raw=true)
+![](https://github.com/elixorzz/fifa/blob/main/images/ServiceVente/1.png?raw=true)
+![](https://github.com/elixorzz/fifa/blob/main/images/ServiceVente/2.png?raw=true)
