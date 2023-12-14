@@ -11,7 +11,7 @@ L'objectif était de concevoir un site marchant grâce au cahier des charges fou
 
 Nous avons réaliser 50 histoires utilisateur.
 
-### [Démonstration](fifa.dylanbattig.fr)
+### [Démonstration](https://fifa.dylanbattig.fr)
 
 ## Comptes utilisateur :
   - DinoFrost admin (Compte client)
@@ -29,11 +29,11 @@ Nous avons réaliser 50 histoires utilisateur.
 
 # API
 
-### Stripe ([stripe.com](stripe.come))
+### Stripe ([stripe.com](https://stripe.com))
 
  - Permet de payer des articles en choisissant son adresse de livraison, de facturation et son mode de livraison.
 
-### Twilio ([twilio.com](twilio.com))
+### Twilio ([twilio.com](https://twilio.com))
 
  - Permet d'envoyer des SMS au client lorsque le service expédition valide l'envoie de la commande.
  - Permet de gérer l'authentification à double facteurs.
