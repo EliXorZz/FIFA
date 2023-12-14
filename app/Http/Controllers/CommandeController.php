@@ -164,7 +164,7 @@ class CommandeController extends Controller
     }
 
     function event(Request $request) {
-        $secret = env('STRIPE_WEBHOOK_SECRET');
+        $secret = config('stripe.webhook_secret');
 
         $signature = $request->header('stripe-signature');
         $body = $request->getContent();

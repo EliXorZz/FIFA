@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $stripeSecret = env('STRIPE_SECRET');
+        $stripeSecret = config('stripe.secret');
 
         Stripe::setApiKey($stripeSecret);
         Stripe::setApiVersion('2023-10-16');
