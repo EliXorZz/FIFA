@@ -14,9 +14,9 @@ Nous avons réaliser 50 histoires utilisateur.
 ### [Démonstration](https://fifa.dylanbattig.fr)
 
 ## Comptes utilisateur :
-  - DinoFrost admin (Compte client)
-  - Service admin (Compte avec le role service-expedition)
-  - Vente admin (Compte avec le role service-vente)
+  - DinoFrost:admin (Compte client)
+  - Service:admin (Compte avec le role service-expedition)
+  - Vente:admin (Compte avec le role service-vente)
 
 #### Carte de crédit pour paiement : 4242 4242 4242 4242
 
