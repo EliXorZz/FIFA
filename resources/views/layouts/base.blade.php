@@ -10,9 +10,13 @@
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     <title>@yield('title')</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-corner/dist/fork-corner.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fork-corner/dist/fork-corner.min.js" defer></script>
 </head>
 
 <body class="@yield('bodyClass')">
+    <a href="https://github.com/elixorzz/fifa" target="_blank" id="fork-corner" class="fork-corner fc-pos-bl fc-size-medium fc-animate fc-theme-github"></a>
     @yield('body')
 
     <script>

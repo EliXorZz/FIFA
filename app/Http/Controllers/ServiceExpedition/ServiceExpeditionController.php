@@ -93,6 +93,10 @@ class ServiceExpeditionController extends Controller
     }
 
     function sendSMS($phone, $message) {
+        if (app()->environment('demo')) {
+            return;
+        }
+
         $account_sid = config("twilio.account");
         $auth_token = config("twilio.token");
         $twilio_from = config("twilio.number");
