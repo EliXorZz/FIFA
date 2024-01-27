@@ -30,7 +30,7 @@ class RegisterUtilisateurRequest extends FormRequest
             'prenomutilisateur' => 'required|string|max:100',
             'surnomutilisateur' => 'required|string|unique:utilisateur|max:100',
             'mailutilisateur' => 'required|unique:utilisateur|email:rfc,dns',
-            'datenaissance' => 'required|before:today',
+            'datenaissance' => 'required|before:-13 years',
 
             'motpasse' => ['required', 'confirmed', Password::defaults()],
         ];

@@ -72,7 +72,14 @@ class ServiceVenteCategorieController extends Controller
     function destroy(Request $request, int $category) {
         $categorie = CategorieProduit::find($category);
 
-        $categorie->sousCategories()->detach();
+        if ($categorie->sousCategories()->exists()) {
+            return redirect()
+                ->route('service-vente.categories.index')
+                ->withErrors([
+                    'message' => 'Supression impossible, cette catégorie comporte des sous-categories !'
+                ]);
+        }
+
         $categorie->parents()->detach();
         $categorie->produits()->detach();
 

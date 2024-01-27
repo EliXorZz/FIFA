@@ -18,10 +18,16 @@ class Role
         redirect()
             ->setIntendedUrl(url()->current());
 
-        if (auth()->check() && !empty($guard) && auth()->user()->roleutilisateur != $guard[0]) {
-            return redirect('login');
+        if (auth()->check() && !empty($guard)) {
+            $role = auth()->user()->roleutilisateur;
+
+            foreach ($guard as $value) {
+                if ($role == $value) {
+                    return $next($request);
+                }
+            }
         }
 
-        return $next($request);
+        return redirect('login');
     }
 }

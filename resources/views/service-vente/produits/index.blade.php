@@ -50,7 +50,7 @@
                     ->where('prix', null)
                     ->count();
 
-                $success = $count == 0 && $variantes->isNotEmpty();
+                $success = auth()->user()->roleutilisateur != 'directeur-service-vente' || ($count == 0 && $variantes->isNotEmpty());
             @endphp
 
             <tr data-href="{{ route('service-vente.produits.show', ['produit' => $produit]) }}" class="hover:cursor-pointer hover:bg-gray-50">
