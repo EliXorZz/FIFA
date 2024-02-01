@@ -11,7 +11,7 @@ L'objectif était de concevoir un site marchant grâce au cahier des charges fou
 
 Nous avons réaliser 50 histoires utilisateur.
 
-### [Démonstration](https://fifa.dylanbattig.fr)
+### [Voir le site de démonstration](https://fifa.dylanbattig.fr)
 
 ## Comptes utilisateur :
   - DinoFrost:admin (Compte client)
