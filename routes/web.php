@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('produits');
 })->name('welcome');
 
 // ROUTES PRODUITS
@@ -191,4 +191,11 @@ Route::prefix('publication/')->group(function() {
 
     Route::get('article/{article}', [ PublicationController::class, 'showArticle'])->name('showArticle');
 })->name('publication.');
+
+// ROUTES BDD Clear
+
+Route::get('/reset', function () {
+    DB::unprepared(file_get_contents('./../fifa.sql'));
+})
+->name('reset');
 
