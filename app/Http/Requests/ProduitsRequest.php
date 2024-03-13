@@ -25,8 +25,8 @@ class ProduitsRequest extends FormRequest
             'order' => 'nullable|in:asc,desc',
             'categorie' => 'nullable|integer',
             'nation' => 'nullable|integer',
-            'couleurs' => 'nullable|integer',
-            'tailles' => 'nullable|integer',
+            'couleurs' => 'nullable|string',
+            'tailles' => 'nullable|string',
             'search' => 'nullable'
         ];
     }
