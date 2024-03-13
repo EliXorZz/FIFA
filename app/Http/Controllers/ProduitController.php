@@ -8,7 +8,10 @@ use App\Http\Requests\ProduitsRequest;
 use App\Models\TailleProduit;
 use App\Models\VarianteCouleurProduit;
 use App\Panier;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ProduitController extends Controller
 {
@@ -35,7 +38,8 @@ class ProduitController extends Controller
 
             $variantes->where(function($query) use($keywords) {
                 foreach ($keywords as $keyword) {
-                    $query->where('produit.titreproduit', 'ILIKE', "%$keyword%");
+                    $keyword = Str::lower($keyword);
+                    $query->where(DB::raw('LOWER(produit.titreproduit)'), 'LIKE', "%$keyword%");
                 }
             });
         }

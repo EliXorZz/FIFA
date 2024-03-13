@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceVenteCategorieRequest;
 use App\Http\Requests\ServiceVenteCategoriesRequest;
 use App\Models\CategorieProduit;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ServiceVenteCategorieController extends Controller
 {
@@ -21,7 +24,8 @@ class ServiceVenteCategorieController extends Controller
 
             $categories->where(function($query) use($keywords) {
                 foreach ($keywords as $keyword) {
-                    $query->where('categorieproduit.nomcategorieproduit', 'ILIKE', "%$keyword%");
+                    $keyword = Str::lower($keyword);
+                    $query->where(DB::raw('LOWER(categorieproduit.nomcategorieproduit)'), 'LIKE', "%$keyword%");
                 }
             });
         }
